@@ -36,6 +36,7 @@ func main() {
 	wFilePtr := flag.String("wfile", "", "File that contains W data set.")
 	aFilePtr := flag.String("afile", "", "File that contains A data set.")
 	sFilePtr := flag.String("sfile", "", "File that contains S data set.")
+	dFilePtr := flag.String("dfile", "", "File (yaml) that contains all min, max values for W, S, A (optional)")
 	flag.Parse()
 
 	if *helpPtr == true {
@@ -58,6 +59,7 @@ func main() {
 	p.AddWFile(*wFilePtr)
 	p.AddSFile(*sFilePtr)
 	p.AddAFile(*aFilePtr)
+	p.AddDFile(*dFilePtr)
 
 	if *verbosePtr == true {
 		fmt.Println(p)

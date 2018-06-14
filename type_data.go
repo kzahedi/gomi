@@ -83,8 +83,10 @@ func (d *Data) Read(p Paramters) {
 	}
 }
 
-func discretiseData(data [][]float64, globalBins int) [][]int {
-	min, max := dh.GetMinMax(data)
+func discretiseData(data [][]float64, globalBins int, min, max []float64) [][]int {
+	if len(min) == 0 {
+		min, max = dh.GetMinMax(data)
+	}
 	bins := make([]int, len(min), len(min))
 	for i := 0; i < len(min); i++ {
 		bins[i] = globalBins
@@ -94,9 +96,9 @@ func discretiseData(data [][]float64, globalBins int) [][]int {
 
 func (d *Data) Discretise(p Paramters) {
 	if p.GlobalBins > 0 {
-		d.Discretised.W = discretiseData(d.W, p.GlobalBins)
-		d.Discretised.S = discretiseData(d.S, p.GlobalBins)
-		d.Discretised.A = discretiseData(d.A, p.GlobalBins)
+		d.Discretised.W = discretiseData(d.W, p.GlobalBins, p.WMin, p.WMax)
+		d.Discretised.S = discretiseData(d.S, p.GlobalBins, p.SMin, p.SMax)
+		d.Discretised.A = discretiseData(d.A, p.GlobalBins, p.AMin, p.AMax)
 		return
 	}
 }

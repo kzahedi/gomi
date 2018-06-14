@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io/ioutil"
+
+	yaml "gopkg.in/yaml.v1"
+)
 
 type Paramters struct {
 	MeasureName       string
@@ -17,6 +22,13 @@ type Paramters struct {
 	WFile             string
 	SFile             string
 	AFile             string
+	DFile             string
+	WMin              []float64
+	SMin              []float64
+	AMin              []float64
+	WMax              []float64
+	SMax              []float64
+	AMax              []float64
 }
 
 func (p Paramters) String() string {
@@ -35,6 +47,9 @@ func (p Paramters) String() string {
 	s = fmt.Sprintf("%s\nW data set:          %s", s, p.WFile)
 	s = fmt.Sprintf("%s\nS data set:          %s", s, p.SFile)
 	s = fmt.Sprintf("%s\nA data set:          %s", s, p.AFile)
+	s = fmt.Sprintf("%s\nW domains:           %v %v", s, p.WMin, p.WMax)
+	s = fmt.Sprintf("%s\nS domains:           %v %v", s, p.SMin, p.SMax)
+	s = fmt.Sprintf("%s\nA domains:           %v %v", s, p.AMin, p.AMax)
 	return s
 }
 
@@ -46,10 +61,16 @@ func CreateParamtersContainer() Paramters {
 		WBins:             []int{},
 		SBins:             []int{},
 		ABins:             []int{},
-		GlobalFile:        "",
 		WIndices:          []int{},
 		SIndices:          []int{},
 		AIndices:          []int{},
+		WMin:              []float64{},
+		WMax:              []float64{},
+		SMin:              []float64{},
+		SMax:              []float64{},
+		AMin:              []float64{},
+		AMax:              []float64{},
+		GlobalFile:        "",
 		WFile:             "",
 		SFile:             "",
 		AFile:             ""}
@@ -109,4 +130,56 @@ func (p *Paramters) AddSFile(file string) {
 
 func (p *Paramters) AddAFile(file string) {
 	p.AFile = file
+}
+
+type T struct {
+	Wmin []float64 `yaml:"W min"`
+	Wmax []float64 `yaml:"W max"`
+	Smin []float64 `yaml:"S min"`
+	Smax []float64 `yaml:"S max"`
+	Amin []float64 `yaml:"A min"`
+	Amax []float64 `yaml:"A max"`
+}
+
+func (p *Paramters) AddDFile(file string) {
+	p.DFile = file
+	if p.DFile == "" {
+		return
+	}
+
+	t := T{}
+
+	data, err := ioutil.ReadFile(p.DFile)
+	if err != nil {
+		panic(err)
+	}
+
+	err = yaml.Unmarshal([]byte(data), &t)
+	if err != nil {
+		panic(err)
+	}
+
+	p.WMin = t.Wmin
+	p.WMax = t.Wmax
+
+	p.SMin = t.Smin
+	p.SMax = t.Smax
+
+	p.AMin = t.Amin
+	p.AMax = t.Amax
+}
+
+func (p *Paramters) AddWMinMax(min []float64, max []float64) {
+	p.WMin = min
+	p.WMax = max
+}
+
+func (p *Paramters) AddSMinMax(min []float64, max []float64) {
+	p.SMin = min
+	p.SMax = max
+}
+
+func (p *Paramters) AddAMinMax(min []float64, max []float64) {
+	p.AMin = min
+	p.AMax = max
 }
