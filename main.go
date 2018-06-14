@@ -62,4 +62,26 @@ func main() {
 	if *verbosePtr == true {
 		fmt.Println(p)
 	}
+
+	var data Data
+
+	data.Read(p)
+
+	if p.UseContinuous == false {
+		data.Discretise(p)
+	}
+
+	if p.UseContinuous {
+		continuousCalculations(p, data)
+	} else {
+		discreteCalculations(p, data)
+	}
+}
+
+func continuousCalculations(p Paramters, d Data) {
+	fmt.Println("Continuous")
+}
+
+func discreteCalculations(p Paramters, d Data) {
+	fmt.Println("Discrete")
 }
