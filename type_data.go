@@ -46,7 +46,7 @@ func (d Data) String() string {
 	return s
 }
 
-func (d *Data) Read(p Paramters) {
+func (d *Data) Read(p Parameters) {
 	if p.GlobalFile != "" {
 		data, _ := utils.ReadFloatCsv(p.GlobalFile)
 		var wdata [][]float64
@@ -94,11 +94,17 @@ func discretiseData(data [][]float64, globalBins int, min, max []float64) [][]in
 	return dh.Discretise(data, bins, min, max)
 }
 
-func (d *Data) Discretise(p Paramters) {
+func (d *Data) Discretise(p Parameters) {
 	if p.GlobalBins > 0 {
-		d.Discretised.W = discretiseData(d.W, p.GlobalBins, p.WMin, p.WMax)
-		d.Discretised.S = discretiseData(d.S, p.GlobalBins, p.SMin, p.SMax)
-		d.Discretised.A = discretiseData(d.A, p.GlobalBins, p.AMin, p.AMax)
+		if len(d.W) > 0 {
+			d.Discretised.W = discretiseData(d.W, p.GlobalBins, p.WMin, p.WMax)
+		}
+		if len(d.S) > 0 {
+			d.Discretised.S = discretiseData(d.S, p.GlobalBins, p.SMin, p.SMax)
+		}
+		if len(d.A) > 0 {
+			d.Discretised.A = discretiseData(d.A, p.GlobalBins, p.AMin, p.AMax)
+		}
 		return
 	}
 }

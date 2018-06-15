@@ -7,10 +7,13 @@ import (
 	yaml "gopkg.in/yaml.v1"
 )
 
-type Paramters struct {
+type Parameters struct {
 	MeasureName       string
+	Output            string
 	UseContinuous     bool
 	UseStateDependent bool
+	Verbose           bool
+	K                 int
 	GlobalBins        int
 	WBins             []int
 	SBins             []int
@@ -31,11 +34,14 @@ type Paramters struct {
 	AMax              []float64
 }
 
-func (p Paramters) String() string {
+func (p Parameters) String() string {
 	s := ""
 	s = fmt.Sprintf("%s\nMeasure:             %s", s, p.MeasureName)
+	s = fmt.Sprintf("%s\nOutput:              %s", s, p.Output)
 	s = fmt.Sprintf("%s\nUse state-dependent: %t", s, p.UseStateDependent)
 	s = fmt.Sprintf("%s\nUse continuous:      %t", s, p.UseContinuous)
+	s = fmt.Sprintf("%s\nVerbose:             %t", s, p.Verbose)
+	s = fmt.Sprintf("%s\nk:                   %d", s, p.K)
 	s = fmt.Sprintf("%s\nBins:                %d", s, p.GlobalBins)
 	s = fmt.Sprintf("%s\nW bins:              %v", s, p.WBins)
 	s = fmt.Sprintf("%s\nS bins:              %v", s, p.SBins)
@@ -53,10 +59,12 @@ func (p Paramters) String() string {
 	return s
 }
 
-func CreateParamtersContainer() Paramters {
-	return Paramters{MeasureName: "",
+func CreateParametersContainer() Parameters {
+	return Parameters{MeasureName: "",
 		UseContinuous:     false,
 		UseStateDependent: false,
+		Verbose:           false,
+		K:                 0,
 		GlobalBins:        0,
 		WBins:             []int{},
 		SBins:             []int{},
@@ -70,65 +78,66 @@ func CreateParamtersContainer() Paramters {
 		SMax:              []float64{},
 		AMin:              []float64{},
 		AMax:              []float64{},
+		Output:            "",
 		GlobalFile:        "",
 		WFile:             "",
 		SFile:             "",
 		AFile:             ""}
 }
 
-func (p *Paramters) AddMeasureName(name string) {
+func (p *Parameters) AddMeasureName(name string) {
 	p.MeasureName = name
 }
 
-func (p *Paramters) SetUseStateDependent(b bool) {
+func (p *Parameters) SetUseStateDependent(b bool) {
 	p.UseStateDependent = b
 }
 
-func (p *Paramters) SetUseContinuous(b bool) {
+func (p *Parameters) SetUseContinuous(b bool) {
 	p.UseContinuous = b
 }
 
-func (p *Paramters) AddWBins(wBins string) {
+func (p *Parameters) AddWBins(wBins string) {
 	p.WBins = parseIntString(wBins)
 }
 
-func (p *Paramters) AddSBins(wBins string) {
+func (p *Parameters) AddSBins(wBins string) {
 	p.SBins = parseIntString(wBins)
 }
 
-func (p *Paramters) AddABins(wBins string) {
+func (p *Parameters) AddABins(wBins string) {
 	p.ABins = parseIntString(wBins)
 }
 
-func (p *Paramters) AddWIndices(wIndices string) {
+func (p *Parameters) AddWIndices(wIndices string) {
 	p.WIndices = parseIntString(wIndices)
 }
 
-func (p *Paramters) AddSIndices(wIndices string) {
+func (p *Parameters) AddSIndices(wIndices string) {
 	p.SIndices = parseIntString(wIndices)
 }
 
-func (p *Paramters) AddAIndices(wIndices string) {
+func (p *Parameters) AddAIndices(wIndices string) {
 	p.AIndices = parseIntString(wIndices)
 }
 
-func (p *Paramters) AddGlobalBins(bins int) {
+func (p *Parameters) AddGlobalBins(bins int) {
 	p.GlobalBins = bins
 }
 
-func (p *Paramters) AddGlobalFile(file string) {
+func (p *Parameters) AddGlobalFile(file string) {
 	p.GlobalFile = file
 }
 
-func (p *Paramters) AddWFile(file string) {
+func (p *Parameters) AddWFile(file string) {
 	p.WFile = file
 }
 
-func (p *Paramters) AddSFile(file string) {
+func (p *Parameters) AddSFile(file string) {
 	p.SFile = file
 }
 
-func (p *Paramters) AddAFile(file string) {
+func (p *Parameters) AddAFile(file string) {
 	p.AFile = file
 }
 
@@ -141,7 +150,7 @@ type T struct {
 	Amax []float64 `yaml:"A max"`
 }
 
-func (p *Paramters) AddDFile(file string) {
+func (p *Parameters) AddDFile(file string) {
 	p.DFile = file
 	if p.DFile == "" {
 		return
@@ -169,17 +178,29 @@ func (p *Paramters) AddDFile(file string) {
 	p.AMax = t.Amax
 }
 
-func (p *Paramters) AddWMinMax(min []float64, max []float64) {
+func (p *Parameters) AddWMinMax(min []float64, max []float64) {
 	p.WMin = min
 	p.WMax = max
 }
 
-func (p *Paramters) AddSMinMax(min []float64, max []float64) {
+func (p *Parameters) AddSMinMax(min []float64, max []float64) {
 	p.SMin = min
 	p.SMax = max
 }
 
-func (p *Paramters) AddAMinMax(min []float64, max []float64) {
+func (p *Parameters) AddAMinMax(min []float64, max []float64) {
 	p.AMin = min
 	p.AMax = max
+}
+
+func (p *Parameters) AddK(k int) {
+	p.K = k
+}
+
+func (p *Parameters) AddOutput(output string) {
+	p.Output = output
+}
+
+func (p *Parameters) AddVerbose(verbose bool) {
+	p.Verbose = verbose
 }
