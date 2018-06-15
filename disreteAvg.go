@@ -1,12 +1,8 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"log"
-	"os"
 
-	entropy "github.com/kzahedi/goent/discrete"
 	"github.com/kzahedi/gomi/discrete"
 )
 
@@ -47,28 +43,11 @@ func discreteAvgCalculations(p Parameters, d Data) {
 
 func miwDiscreteAvg(p Parameters, data Data) {
 	fmt.Println("MI_W Discrete Avg")
-	data.Discretise(p)
 
-	w2w1a1 := makeW2W1A1(data, p)
-	pw2w1a1 := entropy.Emperical3D(w2w1a1)
-	miw := discrete.MorphologicalComputationW(pw2w1a1)
+	pw2w1a1 := makePW2W1A1(data, p)
+	result := discrete.MorphologicalComputationW(pw2w1a1)
 
-	str := fmt.Sprintf("MI_W: %f", miw)
-
-	if p.Verbose {
-		fmt.Println(str)
-	}
-
-	file, err := os.Create(p.Output)
-	defer file.Close()
-	if err != nil {
-		log.Fatal(err)
-	}
-	w := bufio.NewWriter(file)
-	defer w.Flush()
-
-	w.WriteString(str)
-
+	writeOutput(p, result, "MI_W")
 }
 
 func miaDiscreteAvg(p Parameters, data Data) {
