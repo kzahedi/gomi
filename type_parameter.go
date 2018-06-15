@@ -34,29 +34,32 @@ type Parameters struct {
 	AMax              []float64
 }
 
-func (p Parameters) String() string {
-	s := ""
-	s = fmt.Sprintf("%s\nMeasure:             %s", s, p.MeasureName)
-	s = fmt.Sprintf("%s\nOutput:              %s", s, p.Output)
-	s = fmt.Sprintf("%s\nUse state-dependent: %t", s, p.UseStateDependent)
-	s = fmt.Sprintf("%s\nUse continuous:      %t", s, p.UseContinuous)
-	s = fmt.Sprintf("%s\nVerbose:             %t", s, p.Verbose)
-	s = fmt.Sprintf("%s\nk:                   %d", s, p.K)
-	s = fmt.Sprintf("%s\nBins:                %d", s, p.GlobalBins)
-	s = fmt.Sprintf("%s\nW bins:              %v", s, p.WBins)
-	s = fmt.Sprintf("%s\nS bins:              %v", s, p.SBins)
-	s = fmt.Sprintf("%s\nA bins:              %v", s, p.ABins)
-	s = fmt.Sprintf("%s\nFull data set:       %s", s, p.GlobalFile)
-	s = fmt.Sprintf("%s\nW indices:           %v", s, p.WIndices)
-	s = fmt.Sprintf("%s\nS indices:           %v", s, p.SIndices)
-	s = fmt.Sprintf("%s\nA indices:           %v", s, p.AIndices)
-	s = fmt.Sprintf("%s\nW data set:          %s", s, p.WFile)
-	s = fmt.Sprintf("%s\nS data set:          %s", s, p.SFile)
-	s = fmt.Sprintf("%s\nA data set:          %s", s, p.AFile)
-	s = fmt.Sprintf("%s\nW domains:           %v %v", s, p.WMin, p.WMax)
-	s = fmt.Sprintf("%s\nS domains:           %v %v", s, p.SMin, p.SMax)
-	s = fmt.Sprintf("%s\nA domains:           %v %v", s, p.AMin, p.AMax)
+func (p Parameters) GenerateString(prefix string) string {
+	s := fmt.Sprintf("%sMeasure:             %s", prefix, p.MeasureName)
+	s = fmt.Sprintf("%s\n%sOutput:              %s", s, prefix, p.Output)
+	s = fmt.Sprintf("%s\n%sUse state-dependent: %t", s, prefix, p.UseStateDependent)
+	s = fmt.Sprintf("%s\n%sUse continuous:      %t", s, prefix, p.UseContinuous)
+	s = fmt.Sprintf("%s\n%sVerbose:             %t", s, prefix, p.Verbose)
+	s = fmt.Sprintf("%s\n%sk:                   %d", s, prefix, p.K)
+	s = fmt.Sprintf("%s\n%sBins:                %d", s, prefix, p.GlobalBins)
+	s = fmt.Sprintf("%s\n%sW bins:              %v", s, prefix, p.WBins)
+	s = fmt.Sprintf("%s\n%sS bins:              %v", s, prefix, p.SBins)
+	s = fmt.Sprintf("%s\n%sA bins:              %v", s, prefix, p.ABins)
+	s = fmt.Sprintf("%s\n%sFull data set:       %s", s, prefix, p.GlobalFile)
+	s = fmt.Sprintf("%s\n%sW indices:           %v", s, prefix, p.WIndices)
+	s = fmt.Sprintf("%s\n%sS indices:           %v", s, prefix, p.SIndices)
+	s = fmt.Sprintf("%s\n%sA indices:           %v", s, prefix, p.AIndices)
+	s = fmt.Sprintf("%s\n%sW data set:          %s", s, prefix, p.WFile)
+	s = fmt.Sprintf("%s\n%sS data set:          %s", s, prefix, p.SFile)
+	s = fmt.Sprintf("%s\n%sA data set:          %s", s, prefix, p.AFile)
+	s = fmt.Sprintf("%s\n%sW domains:           %v %v", s, prefix, p.WMin, p.WMax)
+	s = fmt.Sprintf("%s\n%sS domains:           %v %v", s, prefix, p.SMin, p.SMax)
+	s = fmt.Sprintf("%s\n%sA domains:           %v %v", s, prefix, p.AMin, p.AMax)
 	return s
+}
+
+func (p Parameters) String() string {
+	return p.GenerateString("")
 }
 
 func CreateParametersContainer() Parameters {

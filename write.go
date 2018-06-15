@@ -8,10 +8,10 @@ import (
 )
 
 func writeOutputAvg(p Parameters, result float64, label string) {
-	str := fmt.Sprintf("%s: %f", label, result)
+	str := fmt.Sprintf("%s\n%f", p.GenerateString("# "), result)
 
 	if p.Verbose {
-		fmt.Println(str)
+		fmt.Println(fmt.Sprintf("Result of %s is %f", label, result))
 	}
 
 	file, err := os.Create(p.Output)
@@ -41,7 +41,8 @@ func writeOutputSD(p Parameters, result []float64, label string) {
 	w := bufio.NewWriter(file)
 	defer w.Flush()
 
-	w.WriteString(fmt.Sprintf("# %s\n", label))
+	w.WriteString(p.GenerateString("# "))
+	w.WriteString("\n")
 	for _, v := range result {
 		w.WriteString(fmt.Sprintf("%f\n", v))
 	}

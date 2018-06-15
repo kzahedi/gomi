@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"math"
+	"os"
 
 	"github.com/kzahedi/gomi/discrete"
 )
@@ -42,7 +44,19 @@ func discreteAvgCalculations(p Parameters, d Data) {
 }
 
 func miwDiscreteAvg(p Parameters, data Data) {
-	fmt.Println("MI_W Discrete Avg")
+	if p.Verbose {
+		fmt.Println("MI_W Discrete Avg")
+	}
+
+	if len(data.W) == 0 {
+		fmt.Print("W is empty")
+		os.Exit(0)
+	}
+
+	if len(data.A) == 0 {
+		fmt.Print("A is empty")
+		os.Exit(0)
+	}
 
 	pw2w1a1 := makePW2W1A1(data, p)
 	result := discrete.MorphologicalComputationW(pw2w1a1)
@@ -51,18 +65,78 @@ func miwDiscreteAvg(p Parameters, data Data) {
 }
 
 func miaDiscreteAvg(p Parameters, data Data) {
-	fmt.Println("MI_A Discrete Avg")
-	data.Discretise(p)
+	if p.Verbose {
+		fmt.Println("MI_A Discrete Avg")
+	}
+
+	if len(data.W) == 0 {
+		fmt.Print("W is empty")
+		os.Exit(0)
+	}
+
+	if len(data.A) == 0 {
+		fmt.Print("A is empty")
+		os.Exit(0)
+	}
+
+	pw2a1w1 := makePW2A1W1(data, p)
+	result := discrete.MorphologicalComputationA(pw2a1w1)
+
+	writeOutputAvg(p, result, "MI_A")
 }
 
 func miaPrimeDiscreteAvg(p Parameters, data Data) {
-	fmt.Println("MI_A Prime Discrete Avg")
-	data.Discretise(p)
+	if p.Verbose {
+		fmt.Println("MI_A Prime Discrete Avg")
+	}
+
+	if len(data.W) == 0 {
+		fmt.Print("W is empty")
+		os.Exit(0)
+	}
+
+	if len(data.A) == 0 {
+		fmt.Print("A is empty")
+		os.Exit(0)
+	}
+
+	wbins := 1
+	if len(p.WBins) > 0 {
+		for _, v := range p.WBins {
+			wbins *= v
+		}
+	} else {
+		for i := 0; i < len(data.W[0]); i++ {
+			wbins *= p.GlobalBins
+		}
+	}
+
+	pw2a1w1 := makePW2A1W1(data, p)
+	result := 1.0 - discrete.MorphologicalComputationA(pw2a1w1)/math.Log2(float64(wbins))
+
+	writeOutputAvg(p, result, "MI_A")
+
 }
 
 func mimiDiscreteAvg(p Parameters, data Data) {
 	fmt.Println("MI_MI Prime Discrete Avg")
-	data.Discretise(p)
+
+	if len(data.S) == 0 {
+		fmt.Print("S is empty")
+		os.Exit(0)
+	}
+
+	if len(data.A) == 0 {
+		fmt.Print("A is empty")
+		os.Exit(0)
+	}
+
+	pw2w1 := makePW2W1(data, p)
+	pa1s1 := makePA1S1(data, p)
+
+	result := discrete.MorphologicalComputationMI(pw2w1, pa1s1)
+	writeOutputAvg(p, result, "MI_MI")
+	// TODO: results look wrong
 }
 
 func misyDiscreteAvg(p Parameters, data Data) {
