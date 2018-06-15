@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/kzahedi/gomi/discrete/state"
 )
 
 func discreteSDCalculations(p Parameters, d Data) {
@@ -41,7 +43,10 @@ func discreteSDCalculations(p Parameters, d Data) {
 
 func miwDiscreteSD(p Parameters, data Data) {
 	fmt.Println("MI_W Discrete SD")
-	data.Discretise(p)
+
+	w2w1a1 := makeW2W1A1Discrete(data, p)
+	result := state.MorphologicalComputationW(w2w1a1)
+	writeOutputSD(p, result, "MI_W")
 
 }
 

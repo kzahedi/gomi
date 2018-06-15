@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/kzahedi/gomi/continuous"
+)
 
 func continuousAvgCalculations(p Parameters, d Data) {
 	switch p.MeasureName {
@@ -39,7 +43,11 @@ func continuousAvgCalculations(p Parameters, d Data) {
 
 func miwContinuousAvg(p Parameters, data Data) {
 	fmt.Println("MI_W Continuous Avg")
-	data.Discretise(p)
+
+	w2w1a1, w2indices, w1indices, a1indices := makeW2W1A1(data, p)
+	result := continuous.MorphologicalComputationW(w2w1a1, w2indices, w1indices, a1indices, p.K, p.Verbose)
+	writeOutputAvg(p, result, "MI_W")
+
 }
 
 func miaContinuousAvg(p Parameters, data Data) {

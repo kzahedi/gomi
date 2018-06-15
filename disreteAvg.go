@@ -47,7 +47,7 @@ func miwDiscreteAvg(p Parameters, data Data) {
 	pw2w1a1 := makePW2W1A1(data, p)
 	result := discrete.MorphologicalComputationW(pw2w1a1)
 
-	writeOutput(p, result, "MI_W")
+	writeOutputAvg(p, result, "MI_W")
 }
 
 func miaDiscreteAvg(p Parameters, data Data) {
