@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/kzahedi/gomi/discrete/state"
 )
@@ -40,7 +41,9 @@ func discreteSDCalculations(p Parameters, d Data) {
 }
 
 func miwDiscreteSD(p Parameters, data Data) {
-	fmt.Println("MI_W Discrete SD")
+	if p.Verbose {
+		fmt.Println("MI_W Discrete SD")
+	}
 
 	w2w1a1 := makeW2W1A1Discrete(data, p)
 	result := state.MorphologicalComputationW(w2w1a1)
@@ -49,13 +52,52 @@ func miwDiscreteSD(p Parameters, data Data) {
 }
 
 func miaDiscreteSD(p Parameters, data Data) {
-	fmt.Println("MI_A Discrete SD")
-	data.Discretise(p)
+	if p.Verbose {
+		fmt.Println("MI_A Discrete SD")
+	}
+	w2a1w1 := makeW2A1W1Discrete(data, p)
+	result := state.MorphologicalComputationA(w2a1w1)
+	writeOutputSD(p, result, "MI_A")
 }
 
 func miaPrimeDiscreteSD(p Parameters, data Data) {
-	fmt.Println("MI_A Prime Discrete SD")
-	data.Discretise(p)
+
+	if p.Verbose {
+		fmt.Println("MI_A Prime Discrete Avg")
+	}
+
+	if len(data.W) == 0 {
+		fmt.Print("W is empty")
+		os.Exit(0)
+	}
+
+	if len(data.A) == 0 {
+		fmt.Print("A is empty")
+		os.Exit(0)
+	}
+
+	wbins := 1
+	if len(p.WBins) > 0 {
+		for _, v := range p.WBins {
+			wbins *= v
+		}
+	} else {
+		for i := 0; i < len(data.W[0]); i++ {
+			wbins *= p.GlobalBins
+		}
+	}
+
+	w2a1w1 := makeW2A1W1Discrete(data, p)
+	result := state.MorphologicalComputationA(w2a1w1)
+
+	// f := 1.0 / float64(len(result))
+	// n := float64(wbins) / float64(len(result))
+
+	for i, v := range result {
+		result[i] = 1.0 - v
+	}
+
+	writeOutputSD(p, result, "MI_A_Prime")
 }
 
 func mimiDiscreteSD(p Parameters, data Data) {

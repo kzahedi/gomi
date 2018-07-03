@@ -114,8 +114,7 @@ func miaPrimeDiscreteAvg(p Parameters, data Data) {
 	pw2a1w1 := makePW2A1W1(data, p)
 	result := 1.0 - discrete.MorphologicalComputationA(pw2a1w1)/math.Log2(float64(wbins))
 
-	writeOutputAvg(p, result, "MI_A")
-
+	writeOutputAvg(p, result, "MI_A_Prime")
 }
 
 func mimiDiscreteAvg(p Parameters, data Data) {
