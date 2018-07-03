@@ -10,8 +10,8 @@ func MorphologicalComputationW(w2w1a1 [][]float64, w2Indices, w1Indices, a1Indic
 }
 
 // MorphologicalComputationA [...]
-func MorphologicalComputationA(w2a1w1 [][]float64, w2Indices, a1Indices, w1Indices []int, k int, eta bool) float64 {
-	return continuous.FrenzelPompe(w2a1w1, w2Indices, a1Indices, w1Indices, k, eta)
+func MorphologicalComputationA(w2w1a1 [][]float64, w2Indices, a1Indices, w1Indices []int, k int, eta bool) float64 {
+	return continuous.FrenzelPompe(w2w1a1, w2Indices, a1Indices, w1Indices, k, eta)
 }
 
 // MorphologicalComputationCW1 [...]

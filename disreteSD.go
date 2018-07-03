@@ -47,7 +47,7 @@ func miwDiscreteSD(p Parameters, data Data) {
 
 	w2w1a1 := makeW2W1A1Discrete(data, p)
 	result := state.MorphologicalComputationW(w2w1a1)
-	writeOutputSD(p, result, "MI_W")
+	writeOutputSD(p, result, "MI_W discrete")
 
 }
 
@@ -57,7 +57,7 @@ func miaDiscreteSD(p Parameters, data Data) {
 	}
 	w2a1w1 := makeW2A1W1Discrete(data, p)
 	result := state.MorphologicalComputationA(w2a1w1)
-	writeOutputSD(p, result, "MI_A")
+	writeOutputSD(p, result, "MI_A discrete")
 }
 
 func miaPrimeDiscreteSD(p Parameters, data Data) {
@@ -76,17 +76,23 @@ func miaPrimeDiscreteSD(p Parameters, data Data) {
 		result[i] = 1.0 - v/z
 	}
 
-	writeOutputSD(p, result, "MI_A_Prime")
+	writeOutputSD(p, result, "MI_A_Prime discrete")
 }
 
 func mimiDiscreteSD(p Parameters, data Data) {
-	fmt.Println("MI_MI Prime Discrete SD")
-	data.Discretise(p)
+	if p.Verbose {
+		fmt.Println("MI_MI Prime Discrete SD")
+	}
+
+	w2w1 := makeW2W1Discrete(data, p)
+	a1s1 := makeA1S1Discrete(data, p)
+
+	result := state.MorphologicalComputationMI(w2w1, a1s1)
+	writeOutputSD(p, result, "MI_MI discrete")
 }
 
 func misyDiscreteSD(p Parameters, data Data) {
-	fmt.Println("MI_SY Prime Discrete SD")
-	data.Discretise(p)
+	fmt.Println("MI_SY Prime Discrete SD is not implemented yet.")
 }
 
 func micaDiscreteSD(p Parameters, data Data) {
@@ -110,21 +116,31 @@ func miwpDiscreteSD(p Parameters, data Data) {
 }
 
 func caDiscreteSD(p Parameters, data Data) {
-	fmt.Println("CA Prime Discrete SD")
-	data.Discretise(p)
-}
+	if p.Verbose {
+		fmt.Println("CA Prime Discrete SD")
+	}
+	w2w1 := makeW2W1Discrete(data, p)
+	w2a1 := makeW2A1Discrete(data, p)
 
-func uiDiscreteSD(p Parameters, data Data) {
-	fmt.Println("UI Prime Discrete SD")
-	data.Discretise(p)
-}
-
-func ciDiscreteSD(p Parameters, data Data) {
-	fmt.Println("CI Prime Discrete SD")
-	data.Discretise(p)
+	result := state.MorphologicalComputationCA(w2w1, w2a1)
+	writeOutputSD(p, result, "MI_CA discrete")
 }
 
 func miinDiscreteSD(p Parameters, data Data) {
-	fmt.Println("MI_IN Prime Discrete SD")
-	data.Discretise(p)
+	if p.Verbose {
+		fmt.Println("MI_IN Prime Discrete SD")
+	}
+	abins := calculateABins(p, data)
+
+	a1s1 := makeA1S1Discrete(data, p)
+	result := state.MorphologicalComputationIN(a1s1, abins)
+	writeOutputSD(p, result, "MI_IN discrete")
+}
+
+func uiDiscreteSD(p Parameters, data Data) {
+	fmt.Println("UI Prime Discrete SD not implemented yet.")
+}
+
+func ciDiscreteSD(p Parameters, data Data) {
+	fmt.Println("CI Prime Discrete SD not implemented yet.")
 }

@@ -50,7 +50,7 @@ func miwDiscreteAvg(p Parameters, data Data) {
 	pw2w1a1 := makePW2W1A1(data, p)
 	result := discrete.MorphologicalComputationW(pw2w1a1)
 
-	writeOutputAvg(p, result, "MI_W")
+	writeOutputAvg(p, result, "MI_W discrete")
 }
 
 func miaDiscreteAvg(p Parameters, data Data) {
@@ -61,7 +61,7 @@ func miaDiscreteAvg(p Parameters, data Data) {
 	pw2a1w1 := makePW2A1W1(data, p)
 	result := discrete.MorphologicalComputationA(pw2a1w1)
 
-	writeOutputAvg(p, result, "MI_A")
+	writeOutputAvg(p, result, "MI_A discrete")
 }
 
 func miaPrimeDiscreteAvg(p Parameters, data Data) {
@@ -74,7 +74,7 @@ func miaPrimeDiscreteAvg(p Parameters, data Data) {
 	pw2a1w1 := makePW2A1W1(data, p)
 	result := 1.0 - discrete.MorphologicalComputationA(pw2a1w1)/math.Log2(float64(wbins))
 
-	writeOutputAvg(p, result, "MI_A_Prime")
+	writeOutputAvg(p, result, "MI_A_Prime discrete")
 }
 
 func mimiDiscreteAvg(p Parameters, data Data) {
@@ -86,7 +86,7 @@ func mimiDiscreteAvg(p Parameters, data Data) {
 	pa1s1 := makePA1S1(data, p)
 
 	result := discrete.MorphologicalComputationMI(pw2w1, pa1s1)
-	writeOutputAvg(p, result, "MI_MI")
+	writeOutputAvg(p, result, "MI_MI discrete")
 	// TODO: results look wrong
 }
 
@@ -98,7 +98,7 @@ func misyDiscreteAvg(p Parameters, data Data) {
 	pw2a1w1 := makePW2A1W1(data, p)
 	result := discrete.MorphologicalComputationSY(pw2a1w1, p.Iterations, p.Verbose)
 
-	writeOutputAvg(p, result, "MI_SY")
+	writeOutputAvg(p, result, "MI_SY discrete")
 }
 
 func misynidDiscreteAvg(p Parameters, data Data) {
@@ -109,7 +109,7 @@ func misynidDiscreteAvg(p Parameters, data Data) {
 	pw2a1w1 := makePW2A1W1(data, p)
 	result := discrete.MorphologicalComputationSyNid(pw2a1w1, p.Iterations, p.Verbose)
 
-	writeOutputAvg(p, result, "MI_SY_NID")
+	writeOutputAvg(p, result, "MI_SY_NID discrete")
 }
 
 func miwaDiscreteAvg(p Parameters, data Data) {
@@ -120,7 +120,7 @@ func miwaDiscreteAvg(p Parameters, data Data) {
 	pw2w1a1 := makePW2W1A1(data, p)
 	result := discrete.MorphologicalComputationWA(pw2w1a1)
 
-	writeOutputAvg(p, result, "MI_WA")
+	writeOutputAvg(p, result, "MI_WA discrete")
 }
 
 func miwsDiscreteAvg(p Parameters, data Data) {
@@ -131,7 +131,7 @@ func miwsDiscreteAvg(p Parameters, data Data) {
 	pw2w1s1 := makePW2W1S1(data, p)
 	result := discrete.MorphologicalComputationWS(pw2w1s1)
 
-	writeOutputAvg(p, result, "MI_WS")
+	writeOutputAvg(p, result, "MI_WS discrete")
 }
 
 func miwpDiscreteAvg(p Parameters, data Data) {
@@ -142,7 +142,7 @@ func miwpDiscreteAvg(p Parameters, data Data) {
 	pw2a1w1 := makePW2A1W1(data, p)
 	result := discrete.MorphologicalComputationWp(pw2a1w1, p.Iterations, p.Verbose)
 
-	writeOutputAvg(p, result, "MI_Wp")
+	writeOutputAvg(p, result, "MI_Wp discrete")
 }
 
 func caDiscreteAvg(p Parameters, data Data) {
@@ -155,15 +155,7 @@ func caDiscreteAvg(p Parameters, data Data) {
 	sbins := calculateSBins(p, data)
 
 	result := discrete.MorphologicalComputationIntrinsicCA(ps2s1a1, sbins)
-	writeOutputAvg(p, result, "CA")
-}
-
-func uiDiscreteAvg(p Parameters, data Data) {
-	fmt.Println("UI Discrete Avg is not implemented for discrete data yet.")
-}
-
-func ciDiscreteAvg(p Parameters, data Data) {
-	fmt.Println("CI Discrete Avg is not implemented for discrete data yet.")
+	writeOutputAvg(p, result, "CA discrete")
 }
 
 func miinDiscreteAvg(p Parameters, data Data) {
@@ -175,8 +167,7 @@ func miinDiscreteAvg(p Parameters, data Data) {
 
 	pa1s1 := makePA1S1(data, p)
 	result := discrete.MorphologicalComputationIN(pa1s1, abins)
-	writeOutputAvg(p, result, "MI_IN")
-
+	writeOutputAvg(p, result, "MI_IN discrete")
 }
 
 func micaDiscreteAvg(p Parameters, data Data) {
@@ -188,5 +179,13 @@ func micaDiscreteAvg(p Parameters, data Data) {
 	pw2a1 := makePW2A1(data, p)
 
 	result := discrete.MorphologicalComputationCA(pw2w1, pw2a1)
-	writeOutputAvg(p, result, "MI_CA")
+	writeOutputAvg(p, result, "MI_CA discrete")
+}
+
+func uiDiscreteAvg(p Parameters, data Data) {
+	fmt.Println("UI Discrete Avg is not implemented for discrete data yet.")
+}
+
+func ciDiscreteAvg(p Parameters, data Data) {
+	fmt.Println("CI Discrete Avg is not implemented for discrete data yet.")
 }

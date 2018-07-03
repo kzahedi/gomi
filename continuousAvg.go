@@ -40,70 +40,66 @@ func continuousAvgCalculations(p Parameters, d Data) {
 }
 
 func miwContinuousAvg(p Parameters, data Data) {
-	fmt.Println("MI_W Continuous Avg")
+	if p.Verbose {
+		fmt.Println("MI_W Continuous Avg")
+	}
 
 	w2w1a1, w2indices, w1indices, a1indices := makeW2W1A1(data, p)
 	result := continuous.MorphologicalComputationW(w2w1a1, w2indices, w1indices, a1indices, p.K, p.Verbose)
-	writeOutputAvg(p, result, "MI_W")
+	writeOutputAvg(p, result, "MI_W continuous")
 
 }
 
 func miaContinuousAvg(p Parameters, data Data) {
-	fmt.Println("MI_A Continuous Avg")
-	data.Discretise(p)
+	if p.Verbose {
+		fmt.Println("MI_A Continuous Avg")
+	}
+
+	w2w1a1, w2indices, w1indices, a1indices := makeW2W1A1(data, p)
+	result := continuous.MorphologicalComputationA(w2w1a1, w2indices, w1indices, a1indices, p.K, p.Verbose)
+	writeOutputAvg(p, result, "MI_W continuous")
 }
 
 func miaPrimeContinuousAvg(p Parameters, data Data) {
-	fmt.Println("MI_A Prime Continuous Avg")
-	data.Discretise(p)
+	fmt.Println("MI_A Prime Continuous Avg is not implemented yet.")
 }
 
 func mimiContinuousAvg(p Parameters, data Data) {
 	fmt.Println("MI_MI Prime Continuous Avg")
-	data.Discretise(p)
 }
 
 func misyContinuousAvg(p Parameters, data Data) {
 	fmt.Println("MI_SY Prime Continuous Avg")
-	data.Discretise(p)
 }
 
 func micaContinuousAvg(p Parameters, data Data) {
 	fmt.Println("MI_CA Prime Continuous Avg")
-	data.Discretise(p)
 }
 
 func miwaContinuousAvg(p Parameters, data Data) {
 	fmt.Println("MI_WA Prime Continuous Avg")
-	data.Discretise(p)
 }
 
 func miwsContinuousAvg(p Parameters, data Data) {
 	fmt.Println("MI_WS Prime Continuous Avg")
-	data.Discretise(p)
 }
 
 func miwpContinuousAvg(p Parameters, data Data) {
 	fmt.Println("MI_Wp Prime Continuous Avg")
-	data.Discretise(p)
 }
 
 func caContinuousAvg(p Parameters, data Data) {
 	fmt.Println("CA Prime Continuous Avg")
-	data.Discretise(p)
 }
 
 func uiContinuousAvg(p Parameters, data Data) {
 	fmt.Println("UI Prime Continuous Avg")
-	data.Discretise(p)
 }
 
 func ciContinuousAvg(p Parameters, data Data) {
 	fmt.Println("CI Prime Continuous Avg")
-	data.Discretise(p)
 }
 
 func miinContinuousAvg(p Parameters, data Data) {
 	fmt.Println("MI_IN Prime Continuous Avg")
-	data.Discretise(p)
 }

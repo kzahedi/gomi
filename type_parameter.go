@@ -13,6 +13,7 @@ type Parameters struct {
 	UseContinuous     bool
 	UseStateDependent bool
 	Verbose           bool
+	ContinuousMode    int
 	K                 int
 	GlobalBins        int
 	Iterations        int
@@ -41,6 +42,7 @@ func (p Parameters) GenerateString(prefix string) string {
 	s = fmt.Sprintf("%s\n%sUse state-dependent: %t", s, prefix, p.UseStateDependent)
 	s = fmt.Sprintf("%s\n%sUse continuous:      %t", s, prefix, p.UseContinuous)
 	s = fmt.Sprintf("%s\n%sVerbose:             %t", s, prefix, p.Verbose)
+	s = fmt.Sprintf("%s\n%sContinuous Mode:     %d", s, prefix, p.ContinuousMode)
 	s = fmt.Sprintf("%s\n%sk:                   %d", s, prefix, p.K)
 	s = fmt.Sprintf("%s\n%sBins:                %d", s, prefix, p.GlobalBins)
 	s = fmt.Sprintf("%s\n%sIterations:          %d", s, prefix, p.Iterations)
@@ -72,6 +74,7 @@ func CreateParametersContainer() Parameters {
 		K:                 0,
 		GlobalBins:        0,
 		Iterations:        0,
+		ContinuousMode:    0,
 		WBins:             []int{},
 		SBins:             []int{},
 		ABins:             []int{},
@@ -213,4 +216,8 @@ func (p *Parameters) AddOutput(output string) {
 
 func (p *Parameters) AddVerbose(verbose bool) {
 	p.Verbose = verbose
+}
+
+func (p *Parameters) SetContinuousMode(cm int) {
+	p.ContinuousMode = cm
 }
