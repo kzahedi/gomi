@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/kzahedi/gomi/continuous/state"
+)
 
 func continuousSDCalculations(p Parameters, d Data) {
 	switch p.MeasureName {
@@ -36,66 +40,127 @@ func continuousSDCalculations(p Parameters, d Data) {
 }
 
 func miwContinuousSD(p Parameters, data Data) {
-	fmt.Println("MI_W Continuous SD")
-	data.Discretise(p)
+	if p.Verbose {
+		fmt.Println("MI_W Continuous SD")
+	}
+
+	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+	result := state.MorphologicalComputationW(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
+	writeOutputSD(p, result, "MI_W continuous")
 }
 
 func miaContinuousSD(p Parameters, data Data) {
-	fmt.Println("MI_A Continuous SD")
-	data.Discretise(p)
+	if p.Verbose {
+		fmt.Println("MI_A Continuous SD")
+	}
+
+	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+	result := state.MorphologicalComputationA(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
+	writeOutputSD(p, result, "MI_A continuous")
+}
+
+func mimiContinuousSD(p Parameters, data Data) {
+	if p.Verbose {
+		fmt.Println("MI_MI Prime Continuous SD")
+	}
+
+	w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices := makeW2W1S1A1(data, p)
+
+	switch p.ContinuousMode {
+	case 1:
+		result := state.MorphologicalComputationMI1(w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices, p.K, p.Verbose)
+		writeOutputSD(p, result, "MI_MI continuous (KSG 1 Estimator)")
+	case 2:
+		result := state.MorphologicalComputationMI2(w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices, p.K, p.Verbose)
+		writeOutputSD(p, result, "MI_MI continuous (KSG 2 Estimator)")
+	default:
+		fmt.Println(fmt.Sprintf("Unknown Continuous Mode %d", p.ContinuousMode))
+	}
+
+}
+
+func micaContinuousSD(p Parameters, data Data) {
+	if p.Verbose {
+		fmt.Println("MI_WA Continuous SD")
+	}
+
+	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+
+	switch p.ContinuousMode {
+	case 1:
+		result := state.MorphologicalComputationCA1(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
+		writeOutputSD(p, result, "MI_CA continuous (KSG 1 Estimator)")
+	case 2:
+		result := state.MorphologicalComputationCA2(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
+		writeOutputSD(p, result, "MI_CA continuous (KSG 2 Estimator)")
+	default:
+		fmt.Println(fmt.Sprintf("Unknown Continuous Mode %d", p.ContinuousMode))
+	}
+}
+
+func miwaContinuousSD(p Parameters, data Data) {
+	if p.Verbose {
+		fmt.Println("MI_WA Continuous SD")
+	}
+
+	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+
+	switch p.ContinuousMode {
+	case 1:
+		result := state.MorphologicalComputationWA1(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
+		writeOutputSD(p, result, "MI_WA continuous (KSG 1 Estimator)")
+	case 2:
+		result := state.MorphologicalComputationWA2(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
+		writeOutputSD(p, result, "MI_WA continuous (KSG 2 Estimator)")
+	default:
+		fmt.Println(fmt.Sprintf("Unknown Continuous Mode %d", p.ContinuousMode))
+	}
+
+}
+
+func miwsContinuousSD(p Parameters, data Data) {
+	if p.Verbose {
+		fmt.Println("MI_WS Continuous SD")
+	}
+
+	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+
+	switch p.ContinuousMode {
+	case 1:
+		result := state.MorphologicalComputationWS1(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
+		writeOutputSD(p, result, "MI_WS continuous (KSG 1 Estimator)")
+	case 2:
+		result := state.MorphologicalComputationWS2(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
+		writeOutputSD(p, result, "MI_WS continuous (KSG 2 Estimator)")
+	default:
+		fmt.Println(fmt.Sprintf("Unknown Continuous Mode %d", p.ContinuousMode))
+	}
+}
+
+func misyContinuousSD(p Parameters, data Data) {
+	fmt.Println("MI_SY Continuous SD")
+}
+
+func miwpContinuousSD(p Parameters, data Data) {
+	fmt.Println("MI_Wp Continuous SD")
+}
+
+func caContinuousSD(p Parameters, data Data) {
+	fmt.Println("CA Continuous SD")
+}
+
+func uiContinuousSD(p Parameters, data Data) {
+	fmt.Println("UI Continuous SD")
+}
+
+func ciContinuousSD(p Parameters, data Data) {
+	fmt.Println("CI Continuous SD")
+}
+
+func miinContinuousSD(p Parameters, data Data) {
+	fmt.Println("MI_IN Continuous SD")
 }
 
 func miaPrimeContinuousSD(p Parameters, data Data) {
 	fmt.Println("MI_A Prime Continuous SD")
-	data.Discretise(p)
-}
-
-func mimiContinuousSD(p Parameters, data Data) {
-	fmt.Println("MI_MI Prime Continuous SD")
-	data.Discretise(p)
-}
-
-func misyContinuousSD(p Parameters, data Data) {
-	fmt.Println("MI_SY Prime Continuous SD")
-	data.Discretise(p)
-}
-
-func micaContinuousSD(p Parameters, data Data) {
-	fmt.Println("MI_CA Prime Continuous SD")
-	data.Discretise(p)
-}
-
-func miwaContinuousSD(p Parameters, data Data) {
-	fmt.Println("MI_WA Prime Continuous SD")
-	data.Discretise(p)
-}
-
-func miwsContinuousSD(p Parameters, data Data) {
-	fmt.Println("MI_WS Prime Continuous SD")
-	data.Discretise(p)
-}
-
-func miwpContinuousSD(p Parameters, data Data) {
-	fmt.Println("MI_Wp Prime Continuous SD")
-	data.Discretise(p)
-}
-
-func caContinuousSD(p Parameters, data Data) {
-	fmt.Println("CA Prime Continuous SD")
-	data.Discretise(p)
-}
-
-func uiContinuousSD(p Parameters, data Data) {
-	fmt.Println("UI Prime Continuous SD")
-	data.Discretise(p)
-}
-
-func ciContinuousSD(p Parameters, data Data) {
-	fmt.Println("CI Prime Continuous SD")
-	data.Discretise(p)
-}
-
-func miinContinuousSD(p Parameters, data Data) {
-	fmt.Println("MI_IN Prime Continuous SD")
-	data.Discretise(p)
 }

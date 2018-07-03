@@ -57,7 +57,7 @@ func miaContinuousAvg(p Parameters, data Data) {
 
 	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
 	result := continuous.MorphologicalComputationA(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
-	writeOutputAvg(p, result, "MI_W continuous")
+	writeOutputAvg(p, result, "MI_A continuous")
 }
 
 func mimiContinuousAvg(p Parameters, data Data) {
