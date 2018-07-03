@@ -10,6 +10,10 @@ import (
 ////////////////////////////////////////////////////////////////////////////////
 
 func makeW2W1A1Discrete(d Data, p Parameters) [][]int {
+
+	checkW(d)
+	checkA(d)
+
 	var wbins []int
 	var abins []int
 
@@ -53,6 +57,9 @@ func makePW2W1A1(d Data, p Parameters) [][][]float64 {
 }
 
 func makeW2W1A1(d Data, p Parameters) ([][]float64, []int, []int, []int) {
+	checkW(d)
+	checkA(d)
+
 	wDim := len(d.W)
 	aDim := len(d.A)
 	n := len(d.W[0]) - 1
@@ -97,6 +104,9 @@ func makeW2W1A1(d Data, p Parameters) ([][]float64, []int, []int, []int) {
 ////////////////////////////////////////////////////////////////////////////////
 
 func makeW2A1W1Discrete(d Data, p Parameters) [][]int {
+	checkW(d)
+	checkA(d)
+
 	var wbins []int
 	var abins []int
 
@@ -144,6 +154,8 @@ func makePW2A1W1(d Data, p Parameters) [][][]float64 {
 ////////////////////////////////////////////////////////////////////////////////
 
 func makeW2W1Discrete(d Data, p Parameters) [][]int {
+	checkW(d)
+
 	var wbins []int
 
 	d.Discretise(p)
@@ -180,6 +192,9 @@ func makePW2W1(d Data, p Parameters) [][]float64 {
 ////////////////////////////////////////////////////////////////////////////////
 
 func makeA1S1Discrete(d Data, p Parameters) [][]int {
+	checkA(d)
+	checkS(d)
+
 	var sbins []int
 	var abins []int
 
@@ -226,6 +241,9 @@ func makePA1S1(d Data, p Parameters) [][]float64 {
 ////////////////////////////////////////////////////////////////////////////////
 
 func makeS2S1A1Discrete(d Data, p Parameters) [][]int {
+	checkS(d)
+	checkA(d)
+
 	var sbins []int
 	var abins []int
 
@@ -273,6 +291,9 @@ func makePS2S1A1(d Data, p Parameters) [][][]float64 {
 ////////////////////////////////////////////////////////////////////////////////
 
 func makeW2W1S1Discrete(d Data, p Parameters) [][]int {
+	checkW(d)
+	checkS(d)
+
 	var wbins []int
 	var sbins []int
 
@@ -320,6 +341,9 @@ func makePW2W1S1(d Data, p Parameters) [][][]float64 {
 ////////////////////////////////////////////////////////////////////////////////
 
 func makeW2A1Discrete(d Data, p Parameters) [][]int {
+	checkW(d)
+	checkA(d)
+
 	var wbins []int
 	var abins []int
 

@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math"
-	"os"
 
 	"github.com/kzahedi/gomi/discrete"
 )
@@ -48,16 +47,6 @@ func miwDiscreteAvg(p Parameters, data Data) {
 		fmt.Println("MI_W Discrete Avg")
 	}
 
-	if len(data.W) == 0 {
-		fmt.Print("W is empty")
-		os.Exit(0)
-	}
-
-	if len(data.A) == 0 {
-		fmt.Print("A is empty")
-		os.Exit(0)
-	}
-
 	pw2w1a1 := makePW2W1A1(data, p)
 	result := discrete.MorphologicalComputationW(pw2w1a1)
 
@@ -67,16 +56,6 @@ func miwDiscreteAvg(p Parameters, data Data) {
 func miaDiscreteAvg(p Parameters, data Data) {
 	if p.Verbose {
 		fmt.Println("MI_A Discrete Avg")
-	}
-
-	if len(data.W) == 0 {
-		fmt.Print("W is empty")
-		os.Exit(0)
-	}
-
-	if len(data.A) == 0 {
-		fmt.Print("A is empty")
-		os.Exit(0)
 	}
 
 	pw2a1w1 := makePW2A1W1(data, p)
@@ -90,26 +69,7 @@ func miaPrimeDiscreteAvg(p Parameters, data Data) {
 		fmt.Println("MI_A Prime Discrete Avg")
 	}
 
-	if len(data.W) == 0 {
-		fmt.Print("W is empty")
-		os.Exit(0)
-	}
-
-	if len(data.A) == 0 {
-		fmt.Print("A is empty")
-		os.Exit(0)
-	}
-
-	wbins := 1
-	if len(p.WBins) > 0 {
-		for _, v := range p.WBins {
-			wbins *= v
-		}
-	} else {
-		for i := 0; i < len(data.W[0]); i++ {
-			wbins *= p.GlobalBins
-		}
-	}
+	wbins := calculateWBins(p, data)
 
 	pw2a1w1 := makePW2A1W1(data, p)
 	result := 1.0 - discrete.MorphologicalComputationA(pw2a1w1)/math.Log2(float64(wbins))
@@ -120,21 +80,6 @@ func miaPrimeDiscreteAvg(p Parameters, data Data) {
 func mimiDiscreteAvg(p Parameters, data Data) {
 	if p.Verbose {
 		fmt.Println("MI_MI Discrete Avg")
-	}
-
-	if len(data.W) == 0 {
-		fmt.Print("W is empty")
-		os.Exit(0)
-	}
-
-	if len(data.S) == 0 {
-		fmt.Print("S is empty")
-		os.Exit(0)
-	}
-
-	if len(data.A) == 0 {
-		fmt.Print("A is empty")
-		os.Exit(0)
 	}
 
 	pw2w1 := makePW2W1(data, p)
@@ -150,16 +95,6 @@ func misyDiscreteAvg(p Parameters, data Data) {
 		fmt.Println("MI_SY Discrete Avg")
 	}
 
-	if len(data.W) == 0 {
-		fmt.Print("W is empty")
-		os.Exit(0)
-	}
-
-	if len(data.A) == 0 {
-		fmt.Print("A is empty")
-		os.Exit(0)
-	}
-
 	pw2a1w1 := makePW2A1W1(data, p)
 	result := discrete.MorphologicalComputationSY(pw2a1w1, p.Iterations, p.Verbose)
 
@@ -171,18 +106,7 @@ func misynidDiscreteAvg(p Parameters, data Data) {
 		fmt.Println("MI_SY_NID Discrete Avg")
 	}
 
-	if len(data.W) == 0 {
-		fmt.Print("W is empty")
-		os.Exit(0)
-	}
-
-	if len(data.A) == 0 {
-		fmt.Print("A is empty")
-		os.Exit(0)
-	}
-
 	pw2a1w1 := makePW2A1W1(data, p)
-	fmt.Println(fmt.Sprintf("%t", p.Verbose))
 	result := discrete.MorphologicalComputationSyNid(pw2a1w1, p.Iterations, p.Verbose)
 
 	writeOutputAvg(p, result, "MI_SY_NID")
@@ -191,16 +115,6 @@ func misynidDiscreteAvg(p Parameters, data Data) {
 func miwaDiscreteAvg(p Parameters, data Data) {
 	if p.Verbose {
 		fmt.Println("MI_WA Discrete Avg")
-	}
-
-	if len(data.W) == 0 {
-		fmt.Print("W is empty")
-		os.Exit(0)
-	}
-
-	if len(data.A) == 0 {
-		fmt.Print("A is empty")
-		os.Exit(0)
 	}
 
 	pw2w1a1 := makePW2W1A1(data, p)
@@ -214,16 +128,6 @@ func miwsDiscreteAvg(p Parameters, data Data) {
 		fmt.Println("MI_WS Discrete Avg")
 	}
 
-	if len(data.W) == 0 {
-		fmt.Print("W is empty")
-		os.Exit(0)
-	}
-
-	if len(data.S) == 0 {
-		fmt.Print("S is empty")
-		os.Exit(0)
-	}
-
 	pw2w1s1 := makePW2W1S1(data, p)
 	result := discrete.MorphologicalComputationWS(pw2w1s1)
 
@@ -235,21 +139,10 @@ func miwpDiscreteAvg(p Parameters, data Data) {
 		fmt.Println("MI_Wp Discrete Avg")
 	}
 
-	if len(data.W) == 0 {
-		fmt.Print("W is empty")
-		os.Exit(0)
-	}
-
-	if len(data.A) == 0 {
-		fmt.Print("A is empty")
-		os.Exit(0)
-	}
-
 	pw2a1w1 := makePW2A1W1(data, p)
 	result := discrete.MorphologicalComputationWp(pw2a1w1, p.Iterations, p.Verbose)
 
 	writeOutputAvg(p, result, "MI_Wp")
-
 }
 
 func caDiscreteAvg(p Parameters, data Data) {
@@ -257,25 +150,9 @@ func caDiscreteAvg(p Parameters, data Data) {
 		fmt.Println("CA Discrete Avg")
 	}
 
-	if len(data.S) == 0 {
-		fmt.Print("S is empty")
-		os.Exit(0)
-	}
-
-	if len(data.A) == 0 {
-		fmt.Print("A is empty")
-		os.Exit(0)
-	}
-
 	ps2s1a1 := makePS2S1A1(data, p)
 
-	sbins := p.GlobalBins
-	if len(p.SBins) > 0 {
-		sbins = 1
-		for _, v := range p.SBins {
-			sbins = sbins * v
-		}
-	}
+	sbins := calculateSBins(p, data)
 
 	result := discrete.MorphologicalComputationIntrinsicCA(ps2s1a1, sbins)
 	writeOutputAvg(p, result, "CA")
@@ -294,26 +171,9 @@ func miinDiscreteAvg(p Parameters, data Data) {
 		fmt.Println("MI_IN Discrete Avg")
 	}
 
-	if len(data.S) == 0 {
-		fmt.Print("S is empty")
-		os.Exit(0)
-	}
-
-	if len(data.A) == 0 {
-		fmt.Print("A is empty")
-		os.Exit(0)
-	}
+	abins := calculateABins(p, data)
 
 	pa1s1 := makePA1S1(data, p)
-
-	abins := p.GlobalBins
-	if len(p.ABins) > 0 {
-		abins = 1
-		for _, v := range p.ABins {
-			abins = abins * v
-		}
-	}
-
 	result := discrete.MorphologicalComputationIN(pa1s1, abins)
 	writeOutputAvg(p, result, "MI_IN")
 
@@ -322,16 +182,6 @@ func miinDiscreteAvg(p Parameters, data Data) {
 func micaDiscreteAvg(p Parameters, data Data) {
 	if p.Verbose {
 		fmt.Println("MI_CA Discrete Avg")
-	}
-
-	if len(data.W) == 0 {
-		fmt.Print("W is empty")
-		os.Exit(0)
-	}
-
-	if len(data.A) == 0 {
-		fmt.Print("A is empty")
-		os.Exit(0)
 	}
 
 	pw2w1 := makePW2W1(data, p)

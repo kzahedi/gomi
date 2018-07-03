@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"os"
+	"math"
 
 	"github.com/kzahedi/gomi/discrete/state"
 )
@@ -66,35 +66,14 @@ func miaPrimeDiscreteSD(p Parameters, data Data) {
 		fmt.Println("MI_A Prime Discrete Avg")
 	}
 
-	if len(data.W) == 0 {
-		fmt.Print("W is empty")
-		os.Exit(0)
-	}
-
-	if len(data.A) == 0 {
-		fmt.Print("A is empty")
-		os.Exit(0)
-	}
-
-	wbins := 1
-	if len(p.WBins) > 0 {
-		for _, v := range p.WBins {
-			wbins *= v
-		}
-	} else {
-		for i := 0; i < len(data.W[0]); i++ {
-			wbins *= p.GlobalBins
-		}
-	}
+	wbins := calculateWBins(p, data)
+	z := math.Log2(float64(wbins))
 
 	w2a1w1 := makeW2A1W1Discrete(data, p)
 	result := state.MorphologicalComputationA(w2a1w1)
 
-	// f := 1.0 / float64(len(result))
-	// n := float64(wbins) / float64(len(result))
-
 	for i, v := range result {
-		result[i] = 1.0 - v
+		result[i] = 1.0 - v/z
 	}
 
 	writeOutputSD(p, result, "MI_A_Prime")
