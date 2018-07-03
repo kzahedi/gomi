@@ -15,6 +15,7 @@ type Parameters struct {
 	Verbose           bool
 	K                 int
 	GlobalBins        int
+	Iterations        int
 	WBins             []int
 	SBins             []int
 	ABins             []int
@@ -42,6 +43,7 @@ func (p Parameters) GenerateString(prefix string) string {
 	s = fmt.Sprintf("%s\n%sVerbose:             %t", s, prefix, p.Verbose)
 	s = fmt.Sprintf("%s\n%sk:                   %d", s, prefix, p.K)
 	s = fmt.Sprintf("%s\n%sBins:                %d", s, prefix, p.GlobalBins)
+	s = fmt.Sprintf("%s\n%sIterations:          %d", s, prefix, p.Iterations)
 	s = fmt.Sprintf("%s\n%sW bins:              %v", s, prefix, p.WBins)
 	s = fmt.Sprintf("%s\n%sS bins:              %v", s, prefix, p.SBins)
 	s = fmt.Sprintf("%s\n%sA bins:              %v", s, prefix, p.ABins)
@@ -69,6 +71,7 @@ func CreateParametersContainer() Parameters {
 		Verbose:           false,
 		K:                 0,
 		GlobalBins:        0,
+		Iterations:        0,
 		WBins:             []int{},
 		SBins:             []int{},
 		ABins:             []int{},
@@ -142,6 +145,10 @@ func (p *Parameters) AddSFile(file string) {
 
 func (p *Parameters) AddAFile(file string) {
 	p.AFile = file
+}
+
+func (p *Parameters) AddIterations(iterations int) {
+	p.Iterations = iterations
 }
 
 type T struct {

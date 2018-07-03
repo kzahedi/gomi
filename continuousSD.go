@@ -14,8 +14,6 @@ func continuousSDCalculations(p Parameters, d Data) {
 		mimiContinuousSD(p, d)
 	case "MI_SY":
 		misyContinuousSD(p, d)
-	case "MI_SY_NID":
-		misynidContinuousSD(p, d)
 	case "MI_CA":
 		micaContinuousSD(p, d)
 	case "MI_WA":
@@ -59,11 +57,6 @@ func mimiContinuousSD(p Parameters, data Data) {
 
 func misyContinuousSD(p Parameters, data Data) {
 	fmt.Println("MI_SY Prime Continuous SD")
-	data.Discretise(p)
-}
-
-func misynidContinuousSD(p Parameters, data Data) {
-	fmt.Println("MI_SY_NID Prime Continuous SD")
 	data.Discretise(p)
 }
 

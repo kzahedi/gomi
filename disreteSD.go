@@ -18,8 +18,6 @@ func discreteSDCalculations(p Parameters, d Data) {
 		mimiDiscreteSD(p, d)
 	case "MI_SY":
 		misyDiscreteSD(p, d)
-	case "MI_SY_NID":
-		misynidDiscreteSD(p, d)
 	case "MI_CA":
 		micaDiscreteSD(p, d)
 	case "MI_WA":
@@ -67,11 +65,6 @@ func mimiDiscreteSD(p Parameters, data Data) {
 
 func misyDiscreteSD(p Parameters, data Data) {
 	fmt.Println("MI_SY Prime Discrete SD")
-	data.Discretise(p)
-}
-
-func misynidDiscreteSD(p Parameters, data Data) {
-	fmt.Println("MI_SY_NID Prime Discrete SD")
 	data.Discretise(p)
 }
 

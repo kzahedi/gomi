@@ -14,6 +14,7 @@ func main() {
 	continuousPtr := flag.Bool("c", false, "Use continuous measure.")
 	stateDependentPtr := flag.Bool("s", false, "Use state-dependent measure.")
 	binsPtr := flag.Int("bins", 0, "Optional. Only used for discrete measures. Input is single value that is used for all random variables.")
+	iterationsPtr := flag.Int("i", 100, "Optional. Iterations, e.g. for Iterative Scaling used for MI_SY.")
 	outputPtr := flag.String("o", "out.txt", "Output file.")
 	wBinsPtr := flag.String("wbins", "", "Only used for discrete measures. Input is single value that is used for all random variables that make up W. Input can also be a list of values. In this case there must a value for each variable in W.")
 	aBinsPtr := flag.String("abins", "", "Only used for discrete measures. Input is single value that is used for all random variables that make up A. Input can also be a list of values. In this case there must a value for each variable in A.")
@@ -53,6 +54,7 @@ func main() {
 	p.AddSFile(*sFilePtr)
 	p.AddAFile(*aFilePtr)
 	p.AddDFile(*dFilePtr)
+	p.AddIterations(*iterationsPtr)
 
 	if *verbosePtr == true {
 		fmt.Println(p)

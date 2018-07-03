@@ -18,8 +18,6 @@ func continuousAvgCalculations(p Parameters, d Data) {
 		mimiContinuousAvg(p, d)
 	case "MI_SY":
 		misyContinuousAvg(p, d)
-	case "MI_SY_NID":
-		misynidContinuousAvg(p, d)
 	case "MI_CA":
 		micaContinuousAvg(p, d)
 	case "MI_WA":
@@ -67,11 +65,6 @@ func mimiContinuousAvg(p Parameters, data Data) {
 
 func misyContinuousAvg(p Parameters, data Data) {
 	fmt.Println("MI_SY Prime Continuous Avg")
-	data.Discretise(p)
-}
-
-func misynidContinuousAvg(p Parameters, data Data) {
-	fmt.Println("MI_SY_NID Prime Continuous Avg")
 	data.Discretise(p)
 }
 
