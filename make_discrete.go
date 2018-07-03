@@ -56,49 +56,6 @@ func makePW2W1A1(d Data, p Parameters) [][][]float64 {
 	return pw2w1a1
 }
 
-func makeW2W1A1(d Data, p Parameters) ([][]float64, []int, []int, []int) {
-	checkW(d)
-	checkA(d)
-
-	wDim := len(d.W)
-	aDim := len(d.A)
-	n := len(d.W[0]) - 1
-	w2w1a1 := make([][]float64, n, n)
-
-	for i := 0; i < n; i++ {
-		w2w1a1[i] = make([]float64, wDim+wDim+aDim, wDim+wDim+aDim)
-		for wi := 0; wi < wDim; wi++ {
-			w2w1a1[i][wi] = d.W[i+1][wi]
-		}
-		for wi := 0; wi < wDim; wi++ {
-			w2w1a1[i][wDim+wi] = d.W[i][wi]
-		}
-		for ai := 0; ai < aDim; ai++ {
-			w2w1a1[i][wDim+wDim+ai] = d.A[i][ai]
-		}
-	}
-
-	var w2indices []int
-	var w1indices []int
-	var a1indices []int
-
-	index := 0
-	for wi := 0; wi < wDim; wi++ {
-		w2indices = append(w2indices, index)
-		index++
-	}
-	for wi := 0; wi < wDim; wi++ {
-		w1indices = append(w1indices, index)
-		index++
-	}
-	for ai := 0; ai < aDim; ai++ {
-		a1indices = append(a1indices, index)
-		index++
-	}
-
-	return w2w1a1, w2indices, w1indices, a1indices
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 // W2, A1, W1
 ////////////////////////////////////////////////////////////////////////////////

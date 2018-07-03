@@ -31,7 +31,7 @@ func MorphologicalComputationA(pw2a1w1 [][][]float64) float64 {
 
 // MorphologicalComputationCA quantifies morphological computation as the causal information flow from
 // W to W' that does pass through A
-// MorphologicalComputationCW = CIF(W -> W') - CIF(A -> W') = I(W';W) - I(W'|A)
+// MorphologicalComputationCA = CIF(W -> W') - CIF(A -> W') = I(W';W) - I(W'|A)
 func MorphologicalComputationCA(pw2w1, pw2a1 [][]float64) float64 {
 	return discrete.MutualInformationBase2(pw2w1) - discrete.MutualInformationBase2(pw2a1)
 }

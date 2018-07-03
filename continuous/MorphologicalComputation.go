@@ -53,3 +53,17 @@ func MorphologicalComputationMI1(w2w1s1a1 [][]float64, w2Indices, w1Indices, s1I
 func MorphologicalComputationMI2(w2w1s1a1 [][]float64, w2Indices, w1Indices, s1Indices, a1Indices []int, k int, eta bool) float64 {
 	return continuous.KraskovStoegbauerGrassberger2(w2w1s1a1, w2Indices, w1Indices, k, false) - continuous.KraskovStoegbauerGrassberger2(w2w1s1a1, a1Indices, s1Indices, k, eta)
 }
+
+// MorphologicalComputationCA1 quantifies morphological computation as the causal information flow from
+// W to W' that does pass through A
+// MorphologicalComputationCA = CIF(W -> W') - CIF(A -> W') = I(W';W) - I(W'|A)
+func MorphologicalComputationCA1(w2w1a1 [][]float64, w2Indices, w1Indices, a1Indices []int, k int, eta bool) float64 {
+	return continuous.KraskovStoegbauerGrassberger1(w2w1a1, w2Indices, w1Indices, k, eta) - continuous.KraskovStoegbauerGrassberger1(w2w1a1, w2Indices, w1Indices, k, eta)
+}
+
+// MorphologicalComputationCA2 quantifies morphological computation as the causal information flow from
+// W to W' that does pass through A
+// MorphologicalComputationCA = CIF(W -> W') - CIF(A -> W') = I(W';W) - I(W'|A)
+func MorphologicalComputationCA2(w2w1a1 [][]float64, w2Indices, w1Indices, a1Indices []int, k int, eta bool) float64 {
+	return continuous.KraskovStoegbauerGrassberger2(w2w1a1, w2Indices, w1Indices, k, eta) - continuous.KraskovStoegbauerGrassberger2(w2w1a1, w2Indices, w1Indices, k, eta)
+}

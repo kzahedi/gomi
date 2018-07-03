@@ -44,8 +44,8 @@ func miwContinuousAvg(p Parameters, data Data) {
 		fmt.Println("MI_W Continuous Avg")
 	}
 
-	w2w1a1, w2indices, w1indices, a1indices := makeW2W1A1(data, p)
-	result := continuous.MorphologicalComputationW(w2w1a1, w2indices, w1indices, a1indices, p.K, p.Verbose)
+	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+	result := continuous.MorphologicalComputationW(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
 	writeOutputAvg(p, result, "MI_W continuous")
 
 }
@@ -55,29 +55,66 @@ func miaContinuousAvg(p Parameters, data Data) {
 		fmt.Println("MI_A Continuous Avg")
 	}
 
-	w2w1a1, w2indices, w1indices, a1indices := makeW2W1A1(data, p)
-	result := continuous.MorphologicalComputationA(w2w1a1, w2indices, w1indices, a1indices, p.K, p.Verbose)
+	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+	result := continuous.MorphologicalComputationA(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
 	writeOutputAvg(p, result, "MI_W continuous")
 }
 
-func miaPrimeContinuousAvg(p Parameters, data Data) {
-	fmt.Println("MI_A Prime Continuous Avg is not implemented yet.")
-}
-
 func mimiContinuousAvg(p Parameters, data Data) {
-	fmt.Println("MI_MI Prime Continuous Avg")
-}
+	if p.Verbose {
+		fmt.Println("MI_MI Prime Continuous Avg")
+	}
 
-func misyContinuousAvg(p Parameters, data Data) {
-	fmt.Println("MI_SY Prime Continuous Avg")
+	w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices := makeW2W1S1A1(data, p)
+
+	switch p.ContinuousMode {
+	case 1:
+		result := continuous.MorphologicalComputationMI1(w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices, p.K, p.Verbose)
+		writeOutputAvg(p, result, "MI_MI continuous (KSG 1 Estimator)")
+	case 2:
+		result := continuous.MorphologicalComputationMI2(w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices, p.K, p.Verbose)
+		writeOutputAvg(p, result, "MI_MI continuous (KSG 2 Estimator)")
+	default:
+		fmt.Println(fmt.Sprintf("Unknown Continuous Mode %d", p.ContinuousMode))
+	}
 }
 
 func micaContinuousAvg(p Parameters, data Data) {
-	fmt.Println("MI_CA Prime Continuous Avg")
+	if p.Verbose {
+		fmt.Println("MI_CA Continuous Avg")
+	}
+
+	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+
+	switch p.ContinuousMode {
+	case 1:
+		result := continuous.MorphologicalComputationCA1(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
+		writeOutputAvg(p, result, "MI_CA continuous (KSG 1 Estimator)")
+	case 2:
+		result := continuous.MorphologicalComputationCA2(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
+		writeOutputAvg(p, result, "MI_CA continuous (KSG 2 Estimator)")
+	default:
+		fmt.Println(fmt.Sprintf("Unknown Continuous Mode %d", p.ContinuousMode))
+	}
 }
 
 func miwaContinuousAvg(p Parameters, data Data) {
-	fmt.Println("MI_WA Prime Continuous Avg")
+	if p.Verbose {
+		fmt.Println("MI_WA Continuous Avg")
+	}
+
+	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+
+	switch p.ContinuousMode {
+	case 1:
+		result := continuous.MorphologicalComputationWA1(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
+		writeOutputAvg(p, result, "MI_WA continuous (KSG 1 Estimator)")
+	case 2:
+		result := continuous.MorphologicalComputationWA2(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
+		writeOutputAvg(p, result, "MI_WA continuous (KSG 2 Estimator)")
+	default:
+		fmt.Println(fmt.Sprintf("Unknown Continuous Mode %d", p.ContinuousMode))
+	}
 }
 
 func miwsContinuousAvg(p Parameters, data Data) {
@@ -102,4 +139,12 @@ func ciContinuousAvg(p Parameters, data Data) {
 
 func miinContinuousAvg(p Parameters, data Data) {
 	fmt.Println("MI_IN Prime Continuous Avg")
+}
+
+func misyContinuousAvg(p Parameters, data Data) {
+	fmt.Println("MI_SY Prime Continuous Avg not implemented yet.")
+}
+
+func miaPrimeContinuousAvg(p Parameters, data Data) {
+	fmt.Println("MI_A Prime Continuous Avg is not implemented yet.")
 }

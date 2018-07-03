@@ -28,7 +28,7 @@ func main() {
 	aFilePtr := flag.String("afile", "", "File that contains A data set.")
 	sFilePtr := flag.String("sfile", "", "File that contains S data set.")
 	dFilePtr := flag.String("dfile", "", "File (yaml) that contains all min, max values for W, S, A (optional)")
-	kPtr := flag.Int("k", 0, "k used for KSG and FP estimators")
+	kPtr := flag.Int("k", 30, "k used for KSG and FP estimators")
 	flag.Parse()
 
 	if *helpPtr == true {
