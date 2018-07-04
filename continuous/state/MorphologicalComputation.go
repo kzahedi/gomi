@@ -18,7 +18,7 @@ func MorphologicalComputationW(w2w1a1 [][]float64, w2Indices, w1Indices, a1Indic
 }
 
 // MorphologicalComputationA [...]
-func MorphologicalComputationA(w2w1a1 [][]float64, w2Indices, a1Indices, w1Indices []int, k int, eta bool) []float64 {
+func MorphologicalComputationA(w2w1a1 [][]float64, w2Indices, w1Indices, a1Indices []int, k int, eta bool) []float64 {
 	return state.FrenzelPompe(w2w1a1, w2Indices, a1Indices, w1Indices, k, eta)
 }
 
@@ -56,28 +56,76 @@ func MorphologicalComputationCA2(w2w1a1 [][]float64, w2Indices, w1Indices, a1Ind
 
 // MorphologicalComputationWA1 = I(W;{W,A}) - I(W';A)
 func MorphologicalComputationWA1(w2w1a1 [][]float64, w2Indices, w1Indices, a1Indices []int, k int, eta bool) []float64 {
-	r1 := state.FrenzelPompe(w2w1a1, w2Indices, w1Indices, a1Indices, k, eta)
+	n := len(w1Indices) + len(a1Indices)
+	w1a1Indices := make([]int, n, n)
+	index := 0
+	for _, v := range w1Indices {
+		w1a1Indices[index] = v
+		index++
+	}
+	for _, v := range a1Indices {
+		w1a1Indices[index] = v
+		index++
+	}
+
+	r1 := state.KraskovStoegbauerGrassberger1(w2w1a1, w2Indices, w1a1Indices, k, eta)
 	r2 := state.KraskovStoegbauerGrassberger1(w2w1a1, w2Indices, a1Indices, k, eta)
 	return diff(r1, r2)
 }
 
 // MorphologicalComputationWA2 = I(W;{W,A}) - I(W';A)
 func MorphologicalComputationWA2(w2w1a1 [][]float64, w2Indices, w1Indices, a1Indices []int, k int, eta bool) []float64 {
-	r1 := state.FrenzelPompe(w2w1a1, w2Indices, w1Indices, a1Indices, k, eta)
+	n := len(w1Indices) + len(a1Indices)
+	w1a1Indices := make([]int, n, n)
+	index := 0
+	for _, v := range w1Indices {
+		w1a1Indices[index] = v
+		index++
+	}
+	for _, v := range a1Indices {
+		w1a1Indices[index] = v
+		index++
+	}
+
+	r1 := state.KraskovStoegbauerGrassberger2(w2w1a1, w2Indices, w1a1Indices, k, eta)
 	r2 := state.KraskovStoegbauerGrassberger2(w2w1a1, w2Indices, a1Indices, k, eta)
 	return diff(r1, r2)
 }
 
 // MorphologicalComputationWS1 = I(W;{W,S}) - I(W';S)
 func MorphologicalComputationWS1(w2w1s1 [][]float64, w2Indices, w1Indices, s1Indices []int, k int, eta bool) []float64 {
-	r1 := state.FrenzelPompe(w2w1s1, w2Indices, w1Indices, s1Indices, k, eta)
+	n := len(w1Indices) + len(s1Indices)
+	w1s1Indices := make([]int, n, n)
+	index := 0
+	for _, v := range w1Indices {
+		w1s1Indices[index] = v
+		index++
+	}
+	for _, v := range s1Indices {
+		w1s1Indices[index] = v
+		index++
+	}
+
+	r1 := state.KraskovStoegbauerGrassberger1(w2w1s1, w2Indices, w1s1Indices, k, eta)
 	r2 := state.KraskovStoegbauerGrassberger1(w2w1s1, w2Indices, s1Indices, k, eta)
 	return diff(r1, r2)
 }
 
 // MorphologicalComputationWS2 = I(W;{W,S}) - I(W';S)
 func MorphologicalComputationWS2(w2w1s1 [][]float64, w2Indices, w1Indices, s1Indices []int, k int, eta bool) []float64 {
-	r1 := state.FrenzelPompe(w2w1s1, w2Indices, w1Indices, s1Indices, k, eta)
+	n := len(w1Indices) + len(s1Indices)
+	w1s1Indices := make([]int, n, n)
+	index := 0
+	for _, v := range w1Indices {
+		w1s1Indices[index] = v
+		index++
+	}
+	for _, v := range s1Indices {
+		w1s1Indices[index] = v
+		index++
+	}
+
+	r1 := state.KraskovStoegbauerGrassberger2(w2w1s1, w2Indices, w1s1Indices, k, eta)
 	r2 := state.KraskovStoegbauerGrassberger2(w2w1s1, w2Indices, s1Indices, k, eta)
 	return diff(r1, r2)
 

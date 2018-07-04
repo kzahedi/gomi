@@ -76,8 +76,6 @@ func makeW2W1A1(d Data, p Parameters) ([][]float64, []int, []int, []int) {
 		w2w1a1[i] = make([]float64, m, m)
 		for wi := 0; wi < wDim; wi++ {
 			w2w1a1[i][wi] = d.W[i+1][wi]
-		}
-		for wi := 0; wi < wDim; wi++ {
 			w2w1a1[i][wDim+wi] = d.W[i][wi]
 		}
 		for ai := 0; ai < aDim; ai++ {
