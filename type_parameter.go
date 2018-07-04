@@ -10,6 +10,7 @@ import (
 type Parameters struct {
 	MeasureName       string
 	Output            string
+	ConfigFile        string
 	UseContinuous     bool
 	UseStateDependent bool
 	Verbose           bool
@@ -39,6 +40,7 @@ type Parameters struct {
 func (p Parameters) GenerateString(prefix string) string {
 	s := fmt.Sprintf("%sMeasure:             %s", prefix, p.MeasureName)
 	s = fmt.Sprintf("%s\n%sOutput:              %s", s, prefix, p.Output)
+	s = fmt.Sprintf("%s\n%sConfig file:         %s", s, prefix, p.ConfigFile)
 	s = fmt.Sprintf("%s\n%sUse state-dependent: %t", s, prefix, p.UseStateDependent)
 	s = fmt.Sprintf("%s\n%sUse continuous:      %t", s, prefix, p.UseContinuous)
 	s = fmt.Sprintf("%s\n%sVerbose:             %t", s, prefix, p.Verbose)
@@ -88,13 +90,14 @@ func CreateParametersContainer() Parameters {
 		AMin:              []float64{},
 		AMax:              []float64{},
 		Output:            "",
+		ConfigFile:        "",
 		GlobalFile:        "",
 		WFile:             "",
 		SFile:             "",
 		AFile:             ""}
 }
 
-func (p *Parameters) AddMeasureName(name string) {
+func (p *Parameters) SetMeasureName(name string) {
 	p.MeasureName = name
 }
 
@@ -106,51 +109,51 @@ func (p *Parameters) SetUseContinuous(b bool) {
 	p.UseContinuous = b
 }
 
-func (p *Parameters) AddWBins(wBins string) {
+func (p *Parameters) SetWBins(wBins string) {
 	p.WBins = parseIntString(wBins)
 }
 
-func (p *Parameters) AddSBins(wBins string) {
+func (p *Parameters) SetSBins(wBins string) {
 	p.SBins = parseIntString(wBins)
 }
 
-func (p *Parameters) AddABins(wBins string) {
+func (p *Parameters) SetABins(wBins string) {
 	p.ABins = parseIntString(wBins)
 }
 
-func (p *Parameters) AddWIndices(wIndices string) {
+func (p *Parameters) SetWIndices(wIndices string) {
 	p.WIndices = parseIntString(wIndices)
 }
 
-func (p *Parameters) AddSIndices(wIndices string) {
+func (p *Parameters) SetSIndices(wIndices string) {
 	p.SIndices = parseIntString(wIndices)
 }
 
-func (p *Parameters) AddAIndices(wIndices string) {
+func (p *Parameters) SetAIndices(wIndices string) {
 	p.AIndices = parseIntString(wIndices)
 }
 
-func (p *Parameters) AddGlobalBins(bins int) {
+func (p *Parameters) SetGlobalBins(bins int) {
 	p.GlobalBins = bins
 }
 
-func (p *Parameters) AddGlobalFile(file string) {
+func (p *Parameters) SetGlobalFile(file string) {
 	p.GlobalFile = file
 }
 
-func (p *Parameters) AddWFile(file string) {
+func (p *Parameters) SetWFile(file string) {
 	p.WFile = file
 }
 
-func (p *Parameters) AddSFile(file string) {
+func (p *Parameters) SetSFile(file string) {
 	p.SFile = file
 }
 
-func (p *Parameters) AddAFile(file string) {
+func (p *Parameters) SetAFile(file string) {
 	p.AFile = file
 }
 
-func (p *Parameters) AddIterations(iterations int) {
+func (p *Parameters) SetIterations(iterations int) {
 	p.Iterations = iterations
 }
 
@@ -163,7 +166,7 @@ type T struct {
 	Amax []float64 `yaml:"A max"`
 }
 
-func (p *Parameters) AddDFile(file string) {
+func (p *Parameters) SetDFile(file string) {
 	p.DFile = file
 	if p.DFile == "" {
 		return
@@ -191,33 +194,98 @@ func (p *Parameters) AddDFile(file string) {
 	p.AMax = t.Amax
 }
 
-func (p *Parameters) AddWMinMax(min []float64, max []float64) {
+func (p *Parameters) SetWMinMax(min []float64, max []float64) {
 	p.WMin = min
 	p.WMax = max
 }
 
-func (p *Parameters) AddSMinMax(min []float64, max []float64) {
+func (p *Parameters) SetSMinMax(min []float64, max []float64) {
 	p.SMin = min
 	p.SMax = max
 }
 
-func (p *Parameters) AddAMinMax(min []float64, max []float64) {
+func (p *Parameters) SetAMinMax(min []float64, max []float64) {
 	p.AMin = min
 	p.AMax = max
 }
 
-func (p *Parameters) AddK(k int) {
+func (p *Parameters) SetK(k int) {
 	p.K = k
 }
 
-func (p *Parameters) AddOutput(output string) {
+func (p *Parameters) SetOutput(output string) {
 	p.Output = output
 }
 
-func (p *Parameters) AddVerbose(verbose bool) {
+func (p *Parameters) SetVerbose(verbose bool) {
 	p.Verbose = verbose
 }
 
 func (p *Parameters) SetContinuousMode(cm int) {
 	p.ContinuousMode = cm
+}
+
+type CfgT struct {
+	Measure        string `yaml:"Measure"`
+	Continuous     bool   `yaml:"Continuous"`
+	ContinuousMode int    `yaml:"Continuous mode"`
+	UseState       bool   `yaml:"State-dependent"`
+	Verbose        bool   `yaml:"Verbose"`
+	Bins           int    `yaml:"Bins"`
+	Iterations     int    `yaml:"Iterations"`
+	K              int    `yaml:"k"`
+	Output         string `yaml:"Output file"`
+	WBins          string `yaml:"W Bins"`
+	ABins          string `yaml:"A Bins"`
+	SBins          string `yaml:"S Bins"`
+	WIndices       string `yaml:"W Indices"`
+	AIndices       string `yaml:"A Indices"`
+	SIndices       string `yaml:"S Indices"`
+	File           string `yaml:"Full data file"`
+	WFile          string `yaml:"W data file"`
+	AFile          string `yaml:"A data file"`
+	SFile          string `yaml:"S data file"`
+	DFile          string `yaml:"Domain file"`
+}
+
+func (p *Parameters) SetConfigFile(file string) {
+	p.ConfigFile = file
+	if p.ConfigFile == "" {
+		return
+	}
+
+	t := CfgT{}
+
+	data, err := ioutil.ReadFile(p.ConfigFile)
+	if err != nil {
+		panic(err)
+	}
+
+	err = yaml.Unmarshal([]byte(data), &t)
+	if err != nil {
+		panic(err)
+	}
+
+	p.SetMeasureName(t.Measure)
+	p.SetUseContinuous(t.Continuous)
+	p.SetContinuousMode(t.ContinuousMode)
+	p.SetUseStateDependent(t.UseState)
+	p.SetGlobalBins(t.Bins)
+	p.SetWBins(t.WBins)
+	p.SetSBins(t.SBins)
+	p.SetABins(t.ABins)
+	p.SetK(t.K)
+	p.SetOutput(t.Output)
+	p.SetVerbose(t.Verbose)
+	p.SetGlobalFile(t.File)
+	p.SetWIndices(t.WIndices)
+	p.SetSIndices(t.SIndices)
+	p.SetAIndices(t.AIndices)
+	p.SetWFile(t.WFile)
+	p.SetSFile(t.SFile)
+	p.SetAFile(t.AFile)
+	p.SetDFile(t.DFile)
+	p.SetIterations(t.Iterations)
+
+	p.Verbose = true
 }

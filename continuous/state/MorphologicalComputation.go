@@ -128,5 +128,4 @@ func MorphologicalComputationWS2(w2w1s1 [][]float64, w2Indices, w1Indices, s1Ind
 	r1 := state.KraskovStoegbauerGrassberger2(w2w1s1, w2Indices, w1s1Indices, k, eta)
 	r2 := state.KraskovStoegbauerGrassberger2(w2w1s1, w2Indices, s1Indices, k, eta)
 	return diff(r1, r2)
-
 }

@@ -1,0 +1,20 @@
+Measure: MI_W
+Continuous: true
+Continuous mode: 1
+State-dependent: true
+Verbose: true
+Bins: 300
+Iterations: 1000
+k: 100
+Output file: out.csv
+W Bins:
+A Bins:
+S Bins:
+W Indices: 1,2,3
+A Indices: 9
+S Indices: 4
+Full data file: /Users/zahedi/projects/entropy/experiments/hopping/data/musfib.csv
+W data file:
+A data file:
+S data file:
+Domain file:

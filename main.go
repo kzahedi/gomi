@@ -10,6 +10,7 @@ func main() {
 
 	helpPtr := flag.Bool("h", false, "help")
 	verbosePtr := flag.Bool("v", false, "verbose")
+	cfgPtr := flag.String("cfg", "", "Config file. If present, other command line parameters will be ignored.")
 	measurePtr := flag.String("mi", "MI_W", "available quantifications are: MI_W, MI_A, MI_A_Prime, MI_MI, MI_SY, MI_SY_NID, MI_CA, MI_WA, MI_WS, MI_Wp, CA, UI, CI, MI_IN")
 	continuousPtr := flag.Bool("c", false, "Use continuous measure.")
 	continuousModePtr := flag.Int("cm", 1, "Only required if KSG Estimator is involved. 1 = First KSG MI Estimator, 2 = Second KSG MI Estimator.")
@@ -37,28 +38,32 @@ func main() {
 	}
 
 	p := CreateParametersContainer()
-	p.AddMeasureName(*measurePtr)
-	p.SetUseContinuous(*continuousPtr)
-	p.SetContinuousMode(*continuousModePtr)
-	p.SetUseStateDependent(*stateDependentPtr)
-	p.AddGlobalBins(*binsPtr)
-	p.AddWBins(*wBinsPtr)
-	p.AddSBins(*sBinsPtr)
-	p.AddABins(*aBinsPtr)
-	p.AddK(*kPtr)
-	p.AddOutput(*outputPtr)
-	p.AddVerbose(*verbosePtr)
-	p.AddGlobalFile(*filePtr)
-	p.AddWIndices(*wIndicesPtr)
-	p.AddSIndices(*sIndicesPtr)
-	p.AddAIndices(*aIndicesPtr)
-	p.AddWFile(*wFilePtr)
-	p.AddSFile(*sFilePtr)
-	p.AddAFile(*aFilePtr)
-	p.AddDFile(*dFilePtr)
-	p.AddIterations(*iterationsPtr)
+	if *cfgPtr != "" {
+		p.SetConfigFile(*cfgPtr)
+	} else {
+		p.SetMeasureName(*measurePtr)
+		p.SetUseContinuous(*continuousPtr)
+		p.SetContinuousMode(*continuousModePtr)
+		p.SetUseStateDependent(*stateDependentPtr)
+		p.SetGlobalBins(*binsPtr)
+		p.SetWBins(*wBinsPtr)
+		p.SetSBins(*sBinsPtr)
+		p.SetABins(*aBinsPtr)
+		p.SetK(*kPtr)
+		p.SetOutput(*outputPtr)
+		p.SetVerbose(*verbosePtr)
+		p.SetGlobalFile(*filePtr)
+		p.SetWIndices(*wIndicesPtr)
+		p.SetSIndices(*sIndicesPtr)
+		p.SetAIndices(*aIndicesPtr)
+		p.SetWFile(*wFilePtr)
+		p.SetSFile(*sFilePtr)
+		p.SetAFile(*aFilePtr)
+		p.SetDFile(*dFilePtr)
+		p.SetIterations(*iterationsPtr)
+	}
 
-	if *verbosePtr == true {
+	if p.Verbose == true {
 		fmt.Println(p)
 	}
 
