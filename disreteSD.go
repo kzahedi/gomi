@@ -91,28 +91,37 @@ func mimiDiscreteSD(p Parameters, data Data) {
 	writeOutputSD(p, result, "MI_MI discrete")
 }
 
-func misyDiscreteSD(p Parameters, data Data) {
-	fmt.Println("MI_SY Prime Discrete SD is not implemented yet.")
-}
-
 func micaDiscreteSD(p Parameters, data Data) {
-	fmt.Println("MI_CA Prime Discrete SD")
-	data.Discretise(p)
+	if p.Verbose {
+		fmt.Println("MI_CA Discrete SD")
+	}
+
+	w2w1 := makeW2W1Discrete(data, p)
+	w2a1 := makeW2A1Discrete(data, p)
+
+	result := state.MorphologicalComputationCA(w2w1, w2a1)
+	writeOutputSD(p, result, "MI_CA discrete")
 }
 
 func miwaDiscreteSD(p Parameters, data Data) {
-	fmt.Println("MI_WA Prime Discrete SD")
-	data.Discretise(p)
+	if p.Verbose {
+		fmt.Println("MI_WA Discrete SD")
+	}
+
+	w2w1a1 := makeW2W1A1Discrete(data, p)
+	result := state.MorphologicalComputationWA(w2w1a1)
+	writeOutputSD(p, result, "MI_WA discrete")
+
 }
 
 func miwsDiscreteSD(p Parameters, data Data) {
-	fmt.Println("MI_WS Prime Discrete SD")
-	data.Discretise(p)
-}
+	if p.Verbose {
+		fmt.Println("MI_WS Discrete SD")
+	}
 
-func miwpDiscreteSD(p Parameters, data Data) {
-	fmt.Println("MI_Wp Prime Discrete SD")
-	data.Discretise(p)
+	w2w1s1 := makeW2W1S1Discrete(data, p)
+	result := state.MorphologicalComputationWS(w2w1s1)
+	writeOutputSD(p, result, "MI_WS discrete")
 }
 
 func caDiscreteSD(p Parameters, data Data) {
@@ -143,4 +152,11 @@ func uiDiscreteSD(p Parameters, data Data) {
 
 func ciDiscreteSD(p Parameters, data Data) {
 	fmt.Println("CI Prime Discrete SD not implemented yet.")
+}
+func misyDiscreteSD(p Parameters, data Data) {
+	fmt.Println("MI_SY Prime Discrete SD is not implemented yet.")
+}
+
+func miwpDiscreteSD(p Parameters, data Data) {
+	fmt.Println("MI_Wp Prime Discrete SD")
 }

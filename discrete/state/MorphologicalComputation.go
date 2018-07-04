@@ -102,6 +102,8 @@ func MorphologicalComputationWS(w2w1s1 [][]int) []float64 {
 func MorphologicalComputationMI(w2w1 [][]int, a1s1 [][]int) []float64 {
 	r1 := state.MutualInformationBase2(w2w1)
 	r2 := state.MutualInformationBase2(a1s1)
+	// fmt.Println(r1)
+	// fmt.Println(r2)
 	r := make([]float64, len(r1), len(r1))
 	for i := 0; i < len(r1); i++ {
 		r[i] = r1[i] - r2[i]

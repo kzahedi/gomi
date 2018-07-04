@@ -1,2 +1,5 @@
 
-out.txt
+*.txt
+*.sh
+gomi
+*.csv

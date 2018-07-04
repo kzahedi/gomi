@@ -130,9 +130,9 @@ func makeW2W1Discrete(d Data, p Parameters) [][]int {
 	w2w1 := make([][]int, len(w)-1, len(w)-1)
 
 	for i := 0; i < len(w)-1; i++ {
-		w2w1[i] = make([]int, 3, 3)
+		w2w1[i] = make([]int, 2, 2)
 		w2w1[i][0] = w[i+1]
-		w2w1[i][2] = w[i]
+		w2w1[i][1] = w[i]
 	}
 
 	return w2w1
@@ -179,9 +179,9 @@ func makeA1S1Discrete(d Data, p Parameters) [][]int {
 	a1s1 := make([][]int, len(a), len(a))
 
 	for i := 0; i < len(a); i++ {
-		a1s1[i] = make([]int, 3, 3)
+		a1s1[i] = make([]int, 2, 2)
 		a1s1[i][0] = a[i]
-		a1s1[i][2] = s[i]
+		a1s1[i][1] = s[i]
 	}
 
 	return a1s1
