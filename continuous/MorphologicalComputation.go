@@ -64,11 +64,11 @@ func MorphologicalComputationWS1(w2w1s1 [][]float64, w2Indices, w1Indices, s1Ind
 	w1s1Indices := make([]int, n, n)
 	index := 0
 	for _, v := range w1Indices {
-		w1a1Indices[index] = v
+		w1s1Indices[index] = v
 		index++
 	}
 	for _, v := range s1Indices {
-		w1a1Indices[index] = v
+		w1s1Indices[index] = v
 		index++
 	}
 
@@ -81,11 +81,11 @@ func MorphologicalComputationWS2(w2w1s1 [][]float64, w2Indices, w1Indices, s1Ind
 	w1s1Indices := make([]int, n, n)
 	index := 0
 	for _, v := range w1Indices {
-		w1a1Indices[index] = v
+		w1s1Indices[index] = v
 		index++
 	}
 	for _, v := range s1Indices {
-		w1a1Indices[index] = v
+		w1s1Indices[index] = v
 		index++
 	}
 
@@ -106,12 +106,12 @@ func MorphologicalComputationMI2(w2w1s1a1 [][]float64, w2Indices, w1Indices, s1I
 // W to W' that does pass through A
 // MorphologicalComputationCA = CIF(W -> W') - CIF(A -> W') = I(W';W) - I(W'|A)
 func MorphologicalComputationCA1(w2w1a1 [][]float64, w2Indices, w1Indices, a1Indices []int, k int, eta bool) float64 {
-	return continuous.KraskovStoegbauerGrassberger1(w2w1a1, w2Indices, w1Indices, k, eta) - continuous.KraskovStoegbauerGrassberger1(w2w1a1, w2Indices, w1Indices, k, eta)
+	return continuous.KraskovStoegbauerGrassberger1(w2w1a1, w2Indices, w1Indices, k, eta) - continuous.KraskovStoegbauerGrassberger1(w2w1a1, w2Indices, a1Indices, k, eta)
 }
 
 // MorphologicalComputationCA2 quantifies morphological computation as the causal information flow from
 // W to W' that does pass through A
 // MorphologicalComputationCA = CIF(W -> W') - CIF(A -> W') = I(W';W) - I(W'|A)
 func MorphologicalComputationCA2(w2w1a1 [][]float64, w2Indices, w1Indices, a1Indices []int, k int, eta bool) float64 {
-	return continuous.KraskovStoegbauerGrassberger2(w2w1a1, w2Indices, w1Indices, k, eta) - continuous.KraskovStoegbauerGrassberger2(w2w1a1, w2Indices, w1Indices, k, eta)
+	return continuous.KraskovStoegbauerGrassberger2(w2w1a1, w2Indices, w1Indices, k, eta) - continuous.KraskovStoegbauerGrassberger2(w2w1a1, w2Indices, a1Indices, k, eta)
 }

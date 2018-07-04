@@ -41,7 +41,7 @@ func MorphologicalComputationMI2(w2w1s1a1 [][]float64, w2Indices, w1Indices, s1I
 // MorphologicalComputationCA = CIF(W -> W') - CIF(A -> W') = I(W';W) - I(W'|A)
 func MorphologicalComputationCA1(w2w1a1 [][]float64, w2Indices, w1Indices, a1Indices []int, k int, eta bool) []float64 {
 	r1 := state.KraskovStoegbauerGrassberger1(w2w1a1, w2Indices, w1Indices, k, eta)
-	r2 := state.KraskovStoegbauerGrassberger1(w2w1a1, w2Indices, w1Indices, k, eta)
+	r2 := state.KraskovStoegbauerGrassberger1(w2w1a1, w2Indices, a1Indices, k, eta)
 	return diff(r1, r2)
 }
 
@@ -50,7 +50,7 @@ func MorphologicalComputationCA1(w2w1a1 [][]float64, w2Indices, w1Indices, a1Ind
 // MorphologicalComputationCA = CIF(W -> W') - CIF(A -> W') = I(W';W) - I(W'|A)
 func MorphologicalComputationCA2(w2w1a1 [][]float64, w2Indices, w1Indices, a1Indices []int, k int, eta bool) []float64 {
 	r1 := state.KraskovStoegbauerGrassberger2(w2w1a1, w2Indices, w1Indices, k, eta)
-	r2 := state.KraskovStoegbauerGrassberger2(w2w1a1, w2Indices, w1Indices, k, eta)
+	r2 := state.KraskovStoegbauerGrassberger2(w2w1a1, w2Indices, a1Indices, k, eta)
 	return diff(r1, r2)
 }
 
