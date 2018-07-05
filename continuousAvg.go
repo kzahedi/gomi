@@ -122,14 +122,14 @@ func miwsContinuousAvg(p Parameters, data Data) {
 		fmt.Println("MI_WS Prime Continuous Avg")
 	}
 
-	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+	w2w1a1, w2Indices, w1Indices, s1Indices := makeW2W1S1(data, p)
 
 	switch p.ContinuousMode {
 	case 1:
-		result := continuous.MorphologicalComputationWS1(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
+		result := continuous.MorphologicalComputationWS1(w2w1a1, w2Indices, w1Indices, s1Indices, p.K, p.Verbose)
 		writeOutputAvg(p, result, "MI_WS continuous (KSG 1 Estimator)")
 	case 2:
-		result := continuous.MorphologicalComputationWS2(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
+		result := continuous.MorphologicalComputationWS2(w2w1a1, w2Indices, w1Indices, s1Indices, p.K, p.Verbose)
 		writeOutputAvg(p, result, "MI_WS continuous (KSG 2 Estimator)")
 	default:
 		fmt.Println(fmt.Sprintf("Unknown Continuous Mode %d", p.ContinuousMode))
