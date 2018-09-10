@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	yaml "gopkg.in/yaml.v1"
+	yaml "gopkg.in/yaml.v2"
 )
 
 type Parameters struct {
@@ -291,24 +291,44 @@ func (p *Parameters) SetConfigFile(file string) {
 	p.Verbose = true
 }
 
+func checkFile(filename string) bool {
+	if filename == "" {
+		return true
+	}
+	if _, err := os.Stat(filename); os.IsNotExist(err) {
+		return false
+	}
+	return true
+}
+
+// CheckParameters checks for the sanity of the command line parameters
 func (p *Parameters) CheckParameters() {
 	errorMsg := ""
 	hasError := false
-	if _, err := os.Stat(p.File); os.IsNotExist(err) {
-		hasError = true
-		errorMsg = fmt.Sprintf("File %f not found\n", p.File)
+	var err bool
+
+	err = checkFile(p.GlobalFile)
+	hasError = err || hasError
+	if err == true {
+		errorMsg = fmt.Sprintf("Global file %s not found\n", p.GlobalFile)
 	}
-	if _, err := os.Stat(p.WFile); os.IsNotExist(err) {
-		hasError = true
-		errorMsg = fmt.Sprintf("%sW File %f not found\n", p.WFile)
+
+	err = checkFile(p.WFile)
+	hasError = err || hasError
+	if err == true {
+		errorMsg = fmt.Sprintf("%sWorld file %s not found\n", errorMsg, p.WFile)
 	}
-	if _, err := os.Stat(p.SFile); os.IsNotExist(err) {
-		hasError = true
-		errorMsg = fmt.Sprintf("%sS File %f not found\n", p.SFile)
+
+	err = checkFile(p.SFile)
+	hasError = err || hasError
+	if err == true {
+		errorMsg = fmt.Sprintf("%sSensor file %s not found\n", errorMsg, p.SFile)
 	}
-	if _, err := os.Stat(p.AFile); os.IsNotExist(err) {
-		hasError = true
-		errorMsg = fmt.Sprintf("%sA File %f not found\n", p.AFile)
+
+	err = checkFile(p.AFile)
+	hasError = err || hasError
+	if err == true {
+		errorMsg = fmt.Sprintf("%sActuator file %s not found\n", errorMsg, p.AFile)
 	}
 
 	if hasError == true {

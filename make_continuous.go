@@ -4,6 +4,8 @@ package main
 // W2, W1, S1, A1 continuous
 ////////////////////////////////////////////////////////////////////////////////
 
+// MakeW2W1S1A1 returns a slice with (w',w,s,a) and list of indices, which
+// indicate which columns contain which information
 func MakeW2W1S1A1(d Data, p Parameters) ([][]float64, []int, []int, []int, []int) {
 	checkW(d)
 	checkA(d)
@@ -62,6 +64,8 @@ func MakeW2W1S1A1(d Data, p Parameters) ([][]float64, []int, []int, []int, []int
 // W2, W1, A1 continuous
 ////////////////////////////////////////////////////////////////////////////////
 
+// MakeW2W1A1 returns a slice with (w',w,a) and list of indices, which
+// indicate which columns contain which information
 func MakeW2W1A1(d Data, p Parameters) ([][]float64, []int, []int, []int) {
 	checkW(d)
 	checkA(d)
@@ -108,6 +112,8 @@ func MakeW2W1A1(d Data, p Parameters) ([][]float64, []int, []int, []int) {
 // W2, W1, S1 continuous
 ////////////////////////////////////////////////////////////////////////////////
 
+// MakeW2W1S1 returns a slice with (w',w,s) and list of indices, which
+// indicate which columns contain which information
 func MakeW2W1S1(d Data, p Parameters) ([][]float64, []int, []int, []int) {
 	checkW(d)
 	checkS(d)
