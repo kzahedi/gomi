@@ -63,6 +63,8 @@ func main() {
 		p.SetIterations(*iterationsPtr)
 	}
 
+	CheckParameters()
+
 	if p.Verbose == true {
 		fmt.Println(p)
 	}

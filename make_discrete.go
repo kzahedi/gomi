@@ -51,7 +51,7 @@ func MakeW2W1A1Discrete(d Data, p Parameters) [][]int {
 }
 
 func MakePW2W1A1(d Data, p Parameters) [][][]float64 {
-	w2w1a1 := makeW2W1A1Discrete(d, p)
+	w2w1a1 := MakeW2W1A1Discrete(d, p)
 	pw2w1a1 := entropy.Emperical3D(w2w1a1)
 	return pw2w1a1
 }
@@ -101,7 +101,7 @@ func MakeW2A1W1Discrete(d Data, p Parameters) [][]int {
 }
 
 func MakePW2A1W1(d Data, p Parameters) [][][]float64 {
-	w2a1w1 := makeW2A1W1Discrete(d, p)
+	w2a1w1 := MakeW2A1W1Discrete(d, p)
 	pw2a1w1 := entropy.Emperical3D(w2a1w1)
 	return pw2a1w1
 }
@@ -139,7 +139,7 @@ func MakeW2W1Discrete(d Data, p Parameters) [][]int {
 }
 
 func MakePW2W1(d Data, p Parameters) [][]float64 {
-	w2w1 := makeW2W1Discrete(d, p)
+	w2w1 := MakeW2W1Discrete(d, p)
 	pw2w1 := entropy.Emperical2D(w2w1)
 	return pw2w1
 }
@@ -188,7 +188,7 @@ func MakeA1S1Discrete(d Data, p Parameters) [][]int {
 }
 
 func MakePA1S1(d Data, p Parameters) [][]float64 {
-	a1s1 := makeA1S1Discrete(d, p)
+	a1s1 := MakeA1S1Discrete(d, p)
 	pa1s1 := entropy.Emperical2D(a1s1)
 	return pa1s1
 }
@@ -238,7 +238,7 @@ func MakeS2S1A1Discrete(d Data, p Parameters) [][]int {
 }
 
 func MakePS2S1A1(d Data, p Parameters) [][][]float64 {
-	s2s1a1 := makeS2S1A1Discrete(d, p)
+	s2s1a1 := MakeS2S1A1Discrete(d, p)
 	ps2s1a1 := entropy.Emperical3D(s2s1a1)
 	return ps2s1a1
 }
@@ -288,7 +288,7 @@ func MakeW2W1S1Discrete(d Data, p Parameters) [][]int {
 }
 
 func MakePW2W1S1(d Data, p Parameters) [][][]float64 {
-	w2w1s1 := makeW2W1S1Discrete(d, p)
+	w2w1s1 := MakeW2W1S1Discrete(d, p)
 	pw2w1s1 := entropy.Emperical3D(w2w1s1)
 	return pw2w1s1
 }
@@ -337,7 +337,7 @@ func MakeW2A1Discrete(d Data, p Parameters) [][]int {
 }
 
 func MakePW2A1(d Data, p Parameters) [][]float64 {
-	w2a1 := makeW2A1Discrete(d, p)
+	w2a1 := MakeW2A1Discrete(d, p)
 	pw2a1 := entropy.Emperical2D(w2a1)
 	return pw2a1
 }

@@ -173,7 +173,7 @@ func MorphologicalComputationSyNid(pw2w1a1 [][][]float64, iterations int, eta bo
 // Ghazi-Zahedi, Keyan and Langer, Carlotta and Ay, Nihat,
 // Morphological Computation: Synergy of Body and Brain, Entropy, 2017
 func MorphologicalComputationWp(pw2w1a1 [][][]float64, iterations int, eta bool) float64 {
-	return discrete.MorphologicalComputationW(pw2w1a1) - discrete.MorphologicalComputationSY(pw2w1a1, iterations, eta)
+	return MorphologicalComputationW(pw2w1a1) - MorphologicalComputationSY(pw2w1a1, iterations, eta)
 }
 
 // MorphologicalComputationIntrinsicCA [...]

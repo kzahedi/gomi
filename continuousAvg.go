@@ -44,7 +44,7 @@ func miwContinuousAvg(p Parameters, data Data) {
 		fmt.Println("MI_W Continuous Avg")
 	}
 
-	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
 	result := continuous.MorphologicalComputationW(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
 	writeOutputAvg(p, result, "MI_W continuous")
 
@@ -55,7 +55,7 @@ func miaContinuousAvg(p Parameters, data Data) {
 		fmt.Println("MI_A Continuous Avg")
 	}
 
-	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
 	result := continuous.MorphologicalComputationA(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
 	writeOutputAvg(p, result, "MI_A continuous")
 }
@@ -65,7 +65,7 @@ func mimiContinuousAvg(p Parameters, data Data) {
 		fmt.Println("MI_MI Prime Continuous Avg")
 	}
 
-	w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices := makeW2W1S1A1(data, p)
+	w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices := MakeW2W1S1A1(data, p)
 
 	switch p.ContinuousMode {
 	case 1:
@@ -84,7 +84,7 @@ func micaContinuousAvg(p Parameters, data Data) {
 		fmt.Println("MI_CA Continuous Avg")
 	}
 
-	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
 
 	switch p.ContinuousMode {
 	case 1:
@@ -103,7 +103,7 @@ func miwaContinuousAvg(p Parameters, data Data) {
 		fmt.Println("MI_WA Continuous Avg")
 	}
 
-	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
 
 	switch p.ContinuousMode {
 	case 1:
@@ -122,8 +122,7 @@ func miwsContinuousAvg(p Parameters, data Data) {
 		fmt.Println("MI_WS Prime Continuous Avg")
 	}
 
-	w2w1a1, w2Indices, w1Indices, s1Indices := makeW2W1S1(data, p)
-
+	w2w1a1, w2Indices, w1Indices, s1Indices := MakeW2W1S1(data, p)
 	switch p.ContinuousMode {
 	case 1:
 		result := continuous.MorphologicalComputationWS1(w2w1a1, w2Indices, w1Indices, s1Indices, p.K, p.Verbose)

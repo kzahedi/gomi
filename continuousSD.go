@@ -44,7 +44,7 @@ func miwContinuousSD(p Parameters, data Data) {
 		fmt.Println("MI_W Continuous SD")
 	}
 
-	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
 	result := state.MorphologicalComputationW(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
 	writeOutputSD(p, result, "MI_W continuous")
 }
@@ -54,7 +54,7 @@ func miaContinuousSD(p Parameters, data Data) {
 		fmt.Println("MI_A Continuous SD")
 	}
 
-	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
 	result := state.MorphologicalComputationA(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
 	writeOutputSD(p, result, "MI_A continuous")
 }
@@ -64,7 +64,7 @@ func mimiContinuousSD(p Parameters, data Data) {
 		fmt.Println("MI_MI Prime Continuous SD")
 	}
 
-	w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices := makeW2W1S1A1(data, p)
+	w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices := MakeW2W1S1A1(data, p)
 
 	switch p.ContinuousMode {
 	case 1:
@@ -84,7 +84,7 @@ func micaContinuousSD(p Parameters, data Data) {
 		fmt.Println("MI_WA Continuous SD")
 	}
 
-	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
 
 	switch p.ContinuousMode {
 	case 1:
@@ -103,7 +103,7 @@ func miwaContinuousSD(p Parameters, data Data) {
 		fmt.Println("MI_WA Continuous SD")
 	}
 
-	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
 
 	switch p.ContinuousMode {
 	case 1:
@@ -123,7 +123,7 @@ func miwsContinuousSD(p Parameters, data Data) {
 		fmt.Println("MI_WS Continuous SD")
 	}
 
-	w2w1a1, w2Indices, w1Indices, a1Indices := makeW2W1A1(data, p)
+	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
 
 	switch p.ContinuousMode {
 	case 1:

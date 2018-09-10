@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 
 	yaml "gopkg.in/yaml.v1"
 )
@@ -288,4 +289,30 @@ func (p *Parameters) SetConfigFile(file string) {
 	p.SetIterations(t.Iterations)
 
 	p.Verbose = true
+}
+
+func (p *Parameters) CheckParameters() {
+	errorMsg := ""
+	hasError := false
+	if _, err := os.Stat(p.File); os.IsNotExist(err) {
+		hasError = true
+		errorMsg = fmt.Sprintf("File %f not found\n", p.File)
+	}
+	if _, err := os.Stat(p.WFile); os.IsNotExist(err) {
+		hasError = true
+		errorMsg = fmt.Sprintf("%sW File %f not found\n", p.WFile)
+	}
+	if _, err := os.Stat(p.SFile); os.IsNotExist(err) {
+		hasError = true
+		errorMsg = fmt.Sprintf("%sS File %f not found\n", p.SFile)
+	}
+	if _, err := os.Stat(p.AFile); os.IsNotExist(err) {
+		hasError = true
+		errorMsg = fmt.Sprintf("%sA File %f not found\n", p.AFile)
+	}
+
+	if hasError == true {
+		fmt.Println(errorMsg)
+		os.Exit(-1)
+	}
 }
