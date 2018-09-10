@@ -9,6 +9,8 @@ import (
 // W2, W1, A1
 ////////////////////////////////////////////////////////////////////////////////
 
+// MakeW2W1A1Discrete returns a slice with (w',w,s,a).
+// The retuned slice has four columns.
 func MakeW2W1A1Discrete(d Data, p Parameters) [][]int {
 
 	checkW(d)
@@ -50,9 +52,10 @@ func MakeW2W1A1Discrete(d Data, p Parameters) [][]int {
 	return w2w1a1
 }
 
+// MakePW2W1A1 returns the joint distribution p(w',w,a)
 func MakePW2W1A1(d Data, p Parameters) [][][]float64 {
 	w2w1a1 := MakeW2W1A1Discrete(d, p)
-	pw2w1a1 := entropy.Emperical3D(w2w1a1)
+	pw2w1a1 := entropy.Empirical3D(w2w1a1)
 	return pw2w1a1
 }
 
@@ -60,6 +63,8 @@ func MakePW2W1A1(d Data, p Parameters) [][][]float64 {
 // W2, A1, W1
 ////////////////////////////////////////////////////////////////////////////////
 
+// MakeW2A1W1Discrete returns a slice with (w',a,w).
+// The retuned slice has three columns.
 func MakeW2A1W1Discrete(d Data, p Parameters) [][]int {
 	checkW(d)
 	checkA(d)
@@ -100,9 +105,10 @@ func MakeW2A1W1Discrete(d Data, p Parameters) [][]int {
 	return w2a1w1
 }
 
+// MakePW2A1W1 return the joint distribution p(w',a,w)
 func MakePW2A1W1(d Data, p Parameters) [][][]float64 {
 	w2a1w1 := MakeW2A1W1Discrete(d, p)
-	pw2a1w1 := entropy.Emperical3D(w2a1w1)
+	pw2a1w1 := entropy.Empirical3D(w2a1w1)
 	return pw2a1w1
 }
 
@@ -110,6 +116,8 @@ func MakePW2A1W1(d Data, p Parameters) [][][]float64 {
 // W2, W1
 ////////////////////////////////////////////////////////////////////////////////
 
+// MakeW2W1Discrete returns a slice with (w',w).
+// The retuned slice has two columns.
 func MakeW2W1Discrete(d Data, p Parameters) [][]int {
 	checkW(d)
 
@@ -138,9 +146,10 @@ func MakeW2W1Discrete(d Data, p Parameters) [][]int {
 	return w2w1
 }
 
+// MakePW2W1 return the joint distribution p(w',w)
 func MakePW2W1(d Data, p Parameters) [][]float64 {
 	w2w1 := MakeW2W1Discrete(d, p)
-	pw2w1 := entropy.Emperical2D(w2w1)
+	pw2w1 := entropy.Empirical2D(w2w1)
 	return pw2w1
 }
 
@@ -148,6 +157,8 @@ func MakePW2W1(d Data, p Parameters) [][]float64 {
 // A1, S1
 ////////////////////////////////////////////////////////////////////////////////
 
+// MakeA1S1Discrete returns a slice with (a,s)
+// The retuned slice has two columns.
 func MakeA1S1Discrete(d Data, p Parameters) [][]int {
 	checkA(d)
 	checkS(d)
@@ -187,9 +198,10 @@ func MakeA1S1Discrete(d Data, p Parameters) [][]int {
 	return a1s1
 }
 
+// MakePA1S1 return the joint distribution p(a,s)
 func MakePA1S1(d Data, p Parameters) [][]float64 {
 	a1s1 := MakeA1S1Discrete(d, p)
-	pa1s1 := entropy.Emperical2D(a1s1)
+	pa1s1 := entropy.Empirical2D(a1s1)
 	return pa1s1
 }
 
@@ -197,6 +209,8 @@ func MakePA1S1(d Data, p Parameters) [][]float64 {
 // S2, S1, A1
 ////////////////////////////////////////////////////////////////////////////////
 
+// MakeS2S1A1Discrete returns a slice with (s',s,a)
+// The retuned slice has three columns.
 func MakeS2S1A1Discrete(d Data, p Parameters) [][]int {
 	checkS(d)
 	checkA(d)
@@ -237,9 +251,10 @@ func MakeS2S1A1Discrete(d Data, p Parameters) [][]int {
 	return s2s1a1
 }
 
+// MakePS2S1A1 return the joint distribution p(s',s,a)
 func MakePS2S1A1(d Data, p Parameters) [][][]float64 {
 	s2s1a1 := MakeS2S1A1Discrete(d, p)
-	ps2s1a1 := entropy.Emperical3D(s2s1a1)
+	ps2s1a1 := entropy.Empirical3D(s2s1a1)
 	return ps2s1a1
 }
 
@@ -247,6 +262,8 @@ func MakePS2S1A1(d Data, p Parameters) [][][]float64 {
 // W2, W1, S1
 ////////////////////////////////////////////////////////////////////////////////
 
+// MakeW2W1S1Discrete returns a slice with (w',w,s)
+// The retuned slice has three columns.
 func MakeW2W1S1Discrete(d Data, p Parameters) [][]int {
 	checkW(d)
 	checkS(d)
@@ -287,9 +304,10 @@ func MakeW2W1S1Discrete(d Data, p Parameters) [][]int {
 	return w2w1s1
 }
 
+// MakePW2W1S1 return the joint distribution p(w',w,s)
 func MakePW2W1S1(d Data, p Parameters) [][][]float64 {
 	w2w1s1 := MakeW2W1S1Discrete(d, p)
-	pw2w1s1 := entropy.Emperical3D(w2w1s1)
+	pw2w1s1 := entropy.Empirical3D(w2w1s1)
 	return pw2w1s1
 }
 
@@ -297,6 +315,8 @@ func MakePW2W1S1(d Data, p Parameters) [][][]float64 {
 // W2, A1
 ////////////////////////////////////////////////////////////////////////////////
 
+// MakeW2A1Discrete returns a slice with (w',a)
+// The retuned slice has two columns.
 func MakeW2A1Discrete(d Data, p Parameters) [][]int {
 	checkW(d)
 	checkA(d)
@@ -336,8 +356,9 @@ func MakeW2A1Discrete(d Data, p Parameters) [][]int {
 	return w2a1
 }
 
+// MakePW2A1 return the joint distribution p(w',a)
 func MakePW2A1(d Data, p Parameters) [][]float64 {
 	w2a1 := MakeW2A1Discrete(d, p)
-	pw2a1 := entropy.Emperical2D(w2a1)
+	pw2a1 := entropy.Empirical2D(w2a1)
 	return pw2a1
 }

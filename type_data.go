@@ -7,12 +7,14 @@ import (
 	"github.com/kzahedi/utils"
 )
 
+// DataDiscretised is container for the discretised data
 type DataDiscretised struct {
 	W [][]int
 	S [][]int
 	A [][]int
 }
 
+// Data contains the raw data an the discretised data (if discrete measure are used)
 type Data struct {
 	W           [][]float64
 	S           [][]float64
@@ -20,6 +22,7 @@ type Data struct {
 	Discretised DataDiscretised
 }
 
+// String returns the string representation of a Data object
 func (d Data) String() string {
 	s := ""
 	if len(d.W) > 0 {
@@ -94,16 +97,18 @@ func discretiseData(data [][]float64, globalBins int, min, max []float64) [][]in
 	return dh.Discretise(data, bins, min, max)
 }
 
+// Discretise discretises the available data and stores in the in the
+// Discretised portion of the struct
 func (d *Data) Discretise(p Parameters) {
 	if p.GlobalBins > 0 {
 		if len(d.W) > 0 {
-			d.Discretised.W = discretiseData(d.W, p.GlobalBins, p.WMin, p.WMax)
+			d.Discretised.W = discretiseData(d.W, p.GlobalBins, p.WorldMin, p.WorldMax)
 		}
 		if len(d.S) > 0 {
-			d.Discretised.S = discretiseData(d.S, p.GlobalBins, p.SMin, p.SMax)
+			d.Discretised.S = discretiseData(d.S, p.GlobalBins, p.SensorMin, p.SensorMax)
 		}
 		if len(d.A) > 0 {
-			d.Discretised.A = discretiseData(d.A, p.GlobalBins, p.AMin, p.AMax)
+			d.Discretised.A = discretiseData(d.A, p.GlobalBins, p.ActuatorMin, p.ActuatorMax)
 		}
 		return
 	}

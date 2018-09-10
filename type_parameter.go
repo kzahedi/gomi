@@ -30,12 +30,12 @@ type Parameters struct {
 	SFile             string
 	AFile             string
 	DFile             string
-	WMin              []float64
-	SMin              []float64
-	AMin              []float64
-	WMax              []float64
-	SMax              []float64
-	AMax              []float64
+	WorldMin          []float64
+	SensorMin         []float64
+	ActuatorMin       []float64
+	WorldMax          []float64
+	SensorMax         []float64
+	ActuatorMax       []float64
 }
 
 func (p Parameters) GenerateString(prefix string) string {
@@ -59,9 +59,9 @@ func (p Parameters) GenerateString(prefix string) string {
 	s = fmt.Sprintf("%s\n%sW data set:          %s", s, prefix, p.WFile)
 	s = fmt.Sprintf("%s\n%sS data set:          %s", s, prefix, p.SFile)
 	s = fmt.Sprintf("%s\n%sA data set:          %s", s, prefix, p.AFile)
-	s = fmt.Sprintf("%s\n%sW domains:           %v %v", s, prefix, p.WMin, p.WMax)
-	s = fmt.Sprintf("%s\n%sS domains:           %v %v", s, prefix, p.SMin, p.SMax)
-	s = fmt.Sprintf("%s\n%sA domains:           %v %v", s, prefix, p.AMin, p.AMax)
+	s = fmt.Sprintf("%s\n%sW domains:           %v %v", s, prefix, p.WorldMin, p.WorldMax)
+	s = fmt.Sprintf("%s\n%sS domains:           %v %v", s, prefix, p.SensorMin, p.SensorMax)
+	s = fmt.Sprintf("%s\n%sA domains:           %v %v", s, prefix, p.ActuatorMin, p.ActuatorMax)
 	return s
 }
 
@@ -84,12 +84,12 @@ func CreateParametersContainer() Parameters {
 		WIndices:          []int{},
 		SIndices:          []int{},
 		AIndices:          []int{},
-		WMin:              []float64{},
-		WMax:              []float64{},
-		SMin:              []float64{},
-		SMax:              []float64{},
-		AMin:              []float64{},
-		AMax:              []float64{},
+		WorldMin:          []float64{},
+		WorldMax:          []float64{},
+		SensorMin:         []float64{},
+		SensorMax:         []float64{},
+		ActuatorMin:       []float64{},
+		ActuatorMax:       []float64{},
 		Output:            "",
 		ConfigFile:        "",
 		GlobalFile:        "",
@@ -159,12 +159,12 @@ func (p *Parameters) SetIterations(iterations int) {
 }
 
 type T struct {
-	Wmin []float64 `yaml:"W min"`
-	Wmax []float64 `yaml:"W max"`
-	Smin []float64 `yaml:"S min"`
-	Smax []float64 `yaml:"S max"`
-	Amin []float64 `yaml:"A min"`
-	Amax []float64 `yaml:"A max"`
+	WorldMin    []float64 `yaml:"W min"`
+	WorldMax    []float64 `yaml:"W max"`
+	SensorMin   []float64 `yaml:"S min"`
+	SensorMax   []float64 `yaml:"S max"`
+	ActuatorMin []float64 `yaml:"A min"`
+	ActuatorMax []float64 `yaml:"A max"`
 }
 
 func (p *Parameters) SetDFile(file string) {
@@ -185,29 +185,29 @@ func (p *Parameters) SetDFile(file string) {
 		panic(err)
 	}
 
-	p.WMin = t.Wmin
-	p.WMax = t.Wmax
+	p.WorldMin = t.WorldMin
+	p.WorldMax = t.WorldMax
 
-	p.SMin = t.Smin
-	p.SMax = t.Smax
+	p.SensorMin = t.SensorMin
+	p.SensorMax = t.SensorMax
 
-	p.AMin = t.Amin
-	p.AMax = t.Amax
+	p.ActuatorMin = t.ActuatorMin
+	p.ActuatorMax = t.ActuatorMax
 }
 
 func (p *Parameters) SetWMinMax(min []float64, max []float64) {
-	p.WMin = min
-	p.WMax = max
+	p.WorldMin = min
+	p.WorldMax = max
 }
 
 func (p *Parameters) SetSMinMax(min []float64, max []float64) {
-	p.SMin = min
-	p.SMax = max
+	p.SensorMin = min
+	p.SensorMax = max
 }
 
 func (p *Parameters) SetAMinMax(min []float64, max []float64) {
-	p.AMin = min
-	p.AMax = max
+	p.ActuatorMin = min
+	p.ActuatorMax = max
 }
 
 func (p *Parameters) SetK(k int) {
