@@ -38,6 +38,11 @@ func main() {
 	}
 
 	p := CreateParametersContainer()
+
+	if *cfgPtr != "" {
+		p.SetConfigFile(*cfgPtr)
+	}
+
 	p.SetMeasureName(*measurePtr)
 	p.SetUseContinuous(*continuousPtr)
 	p.SetContinuousMode(*continuousModePtr)
@@ -58,10 +63,6 @@ func main() {
 	p.SetAFile(*aFilePtr)
 	p.SetDFile(*dFilePtr)
 	p.SetIterations(*iterationsPtr)
-
-	if *cfgPtr != "" {
-		p.SetConfigFile(*cfgPtr)
-	}
 
 	p.CheckParameters()
 

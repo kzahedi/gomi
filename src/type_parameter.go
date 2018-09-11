@@ -70,14 +70,14 @@ func (p Parameters) String() string {
 }
 
 func CreateParametersContainer() Parameters {
-	return Parameters{MeasureName: "",
-		UseContinuous:     false,
-		UseStateDependent: false,
+	return Parameters{MeasureName: defaultMeasure,
+		UseContinuous:     defaultUseContinuous,
+		UseStateDependent: defaultUseStateDependent,
 		Verbose:           false,
-		K:                 0,
-		GlobalBins:        0,
-		Iterations:        0,
-		ContinuousMode:    0,
+		K:                 defaultK,
+		GlobalBins:        defaultBins,
+		Iterations:        defaultIterations,
+		ContinuousMode:    defaultContinuousMode,
 		WBins:             []int{},
 		SBins:             []int{},
 		ABins:             []int{},
@@ -90,72 +90,103 @@ func CreateParametersContainer() Parameters {
 		SensorMax:         []float64{},
 		ActuatorMin:       []float64{},
 		ActuatorMax:       []float64{},
-		Output:            "",
+		Output:            defaultOutput,
 		ConfigFile:        "",
-		GlobalFile:        "",
-		WFile:             "",
-		SFile:             "",
-		AFile:             ""}
+		GlobalFile:        defaultFile,
+		WFile:             defaultWFile,
+		SFile:             defaultSFile,
+		AFile:             defaultAFile}
 }
 
+// SetMeasureName set the name of the measure to use, if
 func (p *Parameters) SetMeasureName(name string) {
-	p.MeasureName = name
+	if name != defaultMeasure {
+		p.MeasureName = name
+	}
 }
 
 func (p *Parameters) SetUseStateDependent(b bool) {
-	p.UseStateDependent = b
+	if b != defaultUseStateDependent {
+		p.UseStateDependent = b
+	}
 }
 
 func (p *Parameters) SetUseContinuous(b bool) {
-	p.UseContinuous = b
+	if b != defaultUseContinuous {
+		p.UseContinuous = b
+	}
 }
 
 func (p *Parameters) SetWBins(wBins string) {
-	p.WBins = parseIntString(wBins)
+	if wBins != "" {
+		p.WBins = parseIntString(wBins)
+	}
 }
 
-func (p *Parameters) SetSBins(wBins string) {
-	p.SBins = parseIntString(wBins)
+func (p *Parameters) SetSBins(sBins string) {
+	if sBins != "" {
+		p.SBins = parseIntString(sBins)
+	}
 }
 
-func (p *Parameters) SetABins(wBins string) {
-	p.ABins = parseIntString(wBins)
+func (p *Parameters) SetABins(aBins string) {
+	if aBins != "" {
+		p.ABins = parseIntString(aBins)
+	}
 }
 
 func (p *Parameters) SetWIndices(wIndices string) {
-	p.WIndices = parseIntString(wIndices)
+	if wIndices != "" {
+		p.WIndices = parseIntString(wIndices)
+	}
 }
 
 func (p *Parameters) SetSIndices(wIndices string) {
-	p.SIndices = parseIntString(wIndices)
+	if wIndices != "" {
+		p.SIndices = parseIntString(wIndices)
+	}
 }
 
 func (p *Parameters) SetAIndices(wIndices string) {
-	p.AIndices = parseIntString(wIndices)
+	if wIndices != "" {
+		p.AIndices = parseIntString(wIndices)
+	}
 }
 
 func (p *Parameters) SetGlobalBins(bins int) {
-	p.GlobalBins = bins
+	if bins != defaultBins {
+		p.GlobalBins = bins
+	}
 }
 
 func (p *Parameters) SetGlobalFile(file string) {
-	p.GlobalFile = file
+	if file != defaultFile {
+		p.GlobalFile = file
+	}
 }
 
 func (p *Parameters) SetWFile(file string) {
-	p.WFile = file
+	if file != defaultWFile {
+		p.WFile = file
+	}
 }
 
 func (p *Parameters) SetSFile(file string) {
-	p.SFile = file
+	if file != defaultSFile {
+		p.SFile = file
+	}
 }
 
 func (p *Parameters) SetAFile(file string) {
-	p.AFile = file
+	if file != defaultFile {
+		p.AFile = file
+	}
 }
 
 func (p *Parameters) SetIterations(iterations int) {
-	p.Iterations = iterations
+	if iterations != defaultIterations {
+		p.Iterations = iterations
+	}
 }
 
 type T struct {
