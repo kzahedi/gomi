@@ -2,3 +2,4 @@
 *.txt
 *.sh
 *.csv
+.vscode/tasks.json
