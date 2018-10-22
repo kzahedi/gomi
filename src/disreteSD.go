@@ -66,7 +66,7 @@ func miaPrimeDiscreteSD(p Parameters, data Data) {
 		fmt.Println("MI_A Prime Discrete Avg")
 	}
 
-	wbins := calculateWBins(p, data)
+	wbins := CalculateWBins(p, data)
 	z := math.Log2(float64(wbins))
 
 	w2a1w1 := MakeW2A1W1Discrete(data, p)
@@ -139,10 +139,10 @@ func miinDiscreteSD(p Parameters, data Data) {
 	if p.Verbose {
 		fmt.Println("MI_IN Prime Discrete SD")
 	}
-	abins := calculateABins(p, data)
+	aBins := CalculateABins(p, data)
 
 	a1s1 := MakeA1S1Discrete(data, p)
-	result := state.MorphologicalComputationIN(a1s1, abins)
+	result := state.MorphologicalComputationIN(a1s1, aBins)
 	writeOutputSD(p, result, "MI_IN discrete")
 }
 

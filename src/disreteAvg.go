@@ -69,7 +69,7 @@ func miaPrimeDiscreteAvg(p Parameters, data Data) {
 		fmt.Println("MI_A Prime Discrete Avg")
 	}
 
-	wbins := calculateWBins(p, data)
+	wbins := CalculateWBins(p, data)
 
 	pw2a1w1 := MakePW2A1W1(data, p)
 	result := 1.0 - discrete.MorphologicalComputationA(pw2a1w1)/math.Log2(float64(wbins))
@@ -152,9 +152,9 @@ func caDiscreteAvg(p Parameters, data Data) {
 
 	ps2s1a1 := MakePS2S1A1(data, p)
 
-	sbins := calculateSBins(p, data)
+	sBins := CalculateSBins(p, data)
 
-	result := discrete.MorphologicalComputationIntrinsicCA(ps2s1a1, sbins)
+	result := discrete.MorphologicalComputationIntrinsicCA(ps2s1a1, sBins)
 	writeOutputAvg(p, result, "CA discrete")
 }
 
@@ -163,10 +163,10 @@ func miinDiscreteAvg(p Parameters, data Data) {
 		fmt.Println("MI_IN Discrete Avg")
 	}
 
-	abins := calculateABins(p, data)
+	aBins := CalculateABins(p, data)
 
 	pa1s1 := MakePA1S1(data, p)
-	result := discrete.MorphologicalComputationIN(pa1s1, abins)
+	result := discrete.MorphologicalComputationIN(pa1s1, aBins)
 	writeOutputAvg(p, result, "MI_IN discrete")
 }
 

@@ -1,43 +1,49 @@
 package main
 
-func calculateWBins(p Parameters, d Data) int {
-	wbins := 1
+// CalculateWBins returns the number of bins for the world states depending
+// on provided data
+func CalculateWBins(p Parameters, d Data) int {
+	wBins := 1
 	if len(p.WBins) > 0 {
 		for _, v := range p.WBins {
-			wbins *= v
+			wBins *= v
 		}
 	} else {
 		for i := 0; i < len(d.W[0]); i++ {
-			wbins *= p.GlobalBins
+			wBins *= p.GlobalBins
 		}
 	}
-	return wbins
+	return wBins
 }
 
-func calculateABins(p Parameters, d Data) int {
-	abins := 1
+// CalculateABins returns the number of bins for the actuator states depending
+// on provided data
+func CalculateABins(p Parameters, d Data) int {
+	aBins := 1
 	if len(p.ABins) > 0 {
 		for _, v := range p.ABins {
-			abins *= v
+			aBins *= v
 		}
 	} else {
 		for i := 0; i < len(d.W[0]); i++ {
-			abins *= p.GlobalBins
+			aBins *= p.GlobalBins
 		}
 	}
-	return abins
+	return aBins
 }
 
-func calculateSBins(p Parameters, d Data) int {
-	sbins := 1
+// CalculateSBins returns the number of bins for the sensor states depending
+// on provided data
+func CalculateSBins(p Parameters, d Data) int {
+	sBins := 1
 	if len(p.SBins) > 0 {
 		for _, v := range p.SBins {
-			sbins *= v
+			sBins *= v
 		}
 	} else {
 		for i := 0; i < len(d.W[0]); i++ {
-			sbins *= p.GlobalBins
+			sBins *= p.GlobalBins
 		}
 	}
-	return sbins
+	return sBins
 }
