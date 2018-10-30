@@ -1,4 +1,4 @@
-package main
+package gomi
 
 import (
 	"github.com/kzahedi/goent/dh"

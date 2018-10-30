@@ -1,4 +1,4 @@
-package main
+package gomi
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"github.com/kzahedi/gomi/continuous/state"
 )
 
-func continuousSDCalculations(p Parameters, d Data) {
+func ContinuousSDCalculations(p Parameters, d Data) {
 	switch p.MeasureName {
 	case "MI_W":
 		miwContinuousSD(p, d)

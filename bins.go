@@ -1,4 +1,4 @@
-package main
+package gomi
 
 // CalculateWBins returns the number of bins for the world states depending
 // on provided data

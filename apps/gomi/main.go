@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
+
+	"github.com/kzahedi/gomi"
 )
 
 func main() {
@@ -29,7 +31,7 @@ func main() {
 	aFilePtr := flag.String("afile", "", "File that contains A data set.")
 	sFilePtr := flag.String("sfile", "", "File that contains S data set.")
 	dFilePtr := flag.String("dfile", "", "File (yaml) that contains all min, max values for W, S, A (optional)")
-	kPtr := flag.Int("k", 30, "k used for KSG and FP estimators")
+	knnPtr := flag.Int("k", 30, "k used for KSG and FP estimators")
 	flag.Parse()
 
 	if *helpPtr == true {
@@ -37,7 +39,7 @@ func main() {
 		os.Exit(0)
 	}
 
-	p := CreateParametersContainer()
+	p := gomi.CreateParametersContainer()
 
 	if *cfgPtr != "" {
 		p.SetConfigFile(*cfgPtr)
@@ -51,7 +53,7 @@ func main() {
 	p.SetWBins(*wBinsPtr)
 	p.SetSBins(*sBinsPtr)
 	p.SetABins(*aBinsPtr)
-	p.SetK(*kPtr)
+	p.SetK(*knnPtr)
 	p.SetOutput(*outputPtr)
 	p.SetVerbose(*verbosePtr)
 	p.SetGlobalFile(*filePtr)
@@ -70,21 +72,21 @@ func main() {
 		fmt.Println(p)
 	}
 
-	var data Data
+	var data gomi.Data
 
 	data.Read(p)
 
 	if p.UseContinuous {
 		if p.UseStateDependent {
-			continuousSDCalculations(p, data)
+			gomi.ContinuousSDCalculations(p, data)
 		} else {
-			continuousAvgCalculations(p, data)
+			gomi.ContinuousAvgCalculations(p, data)
 		}
 	} else {
 		if p.UseStateDependent {
-			discreteSDCalculations(p, data)
+			gomi.DiscreteSDCalculations(p, data)
 		} else {
-			discreteAvgCalculations(p, data)
+			gomi.DiscreteAvgCalculations(p, data)
 		}
 	}
 }

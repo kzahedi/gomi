@@ -3,3 +3,4 @@
 *.csv
 .vscode/tasks.json
 
+.DS_Store

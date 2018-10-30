@@ -53,12 +53,12 @@ package main
 
 import (
 	"fmt"
- 
+
 	"github.com/kzahedi/goent/dh"
 	goent "github.com/kzahedi/goent/discrete"
 	mc "github.com/kzahedi/gomi/discrete"
 )
- 
+
 func main() {
 	// W and A are just examples for data. These would usually be read from some data file
 	// For this example to work, we provide some dummy data
@@ -67,13 +67,13 @@ func main() {
 		{0.2, 1.2},
 		{0.3, 1.3},
 		{0.4, 1.4}}
- 
+
 	a := [][]float64{{0.0, 1.0, 2.0},
 		{0.1, 1.1, 2.1},
 		{0.2, 1.2, 2.2},
 		{0.3, 1.3, 2.3},
 		{0.4, 1.4, 2.4}}
- 
+
 	// discretising data. Discrestise(data, bins for each column, min values for each column, max values for each column)
 	wDiscretised := dh.Discretise(w, []int{10, 10}, []float64{0.0, 0.0}, []float64{1.0, 2.0})
 	aDiscretised := dh.Discretise(a, []int{10, 10, 10}, []float64{0.0, 0.0, 0.0}, []float64{1.0, 2.0, 3.0})

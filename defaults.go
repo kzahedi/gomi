@@ -1,4 +1,4 @@
-package main
+package gomi
 
 const (
 	defaultMeasure           = "MI_W"

@@ -1,4 +1,4 @@
-package main
+package gomi
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"github.com/kzahedi/gomi/discrete/state"
 )
 
-func discreteSDCalculations(p Parameters, d Data) {
+func DiscreteSDCalculations(p Parameters, d Data) {
 	switch p.MeasureName {
 	case "MI_W":
 		miwDiscreteSD(p, d)

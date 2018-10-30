@@ -1,4 +1,4 @@
-package main
+package gomi
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"github.com/kzahedi/gomi/discrete"
 )
 
-func discreteAvgCalculations(p Parameters, d Data) {
+func DiscreteAvgCalculations(p Parameters, d Data) {
 	switch p.MeasureName {
 	case "MI_W":
 		miwDiscreteAvg(p, d)

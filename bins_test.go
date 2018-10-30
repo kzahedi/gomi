@@ -1,7 +1,6 @@
-package main
+package gomi
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -26,7 +25,6 @@ func createPSBins(aSins []int) Parameters {
 func createPGlobalBins(v int) Parameters {
 	r := CreateParametersContainer()
 	r.GlobalBins = v
-	fmt.Println(len(r.WBins))
 	return r
 }
 
