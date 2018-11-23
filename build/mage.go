@@ -23,25 +23,15 @@ func MacOS() {
 }
 
 // Build shared C library for macOS
-func MacOSSharedLibrary() {
-	fmt.Println("Building shared library for macOS")
+func MacOSCLib() {
+	fmt.Println("Building shard library for macOS")
 	parent, _ := os.Getwd()
-	os.Chdir("apps/libgomi/")
+	// os.Chdir("apps/gomi/")
 	env := make(map[string]string)
 	env["GOOS"] = "darwin"
 	env["GOARCH"] = "amd64"
-	sh.RunWith(env, "go", "build", "-o", "libgomi.so", "-buildmode=c-shared", "main.go")
-	sh.Run("mv", "libgomi.so", "../../bin/macos")
-	os.Chdir(parent)
-}
-
-// Builds a cpp example that uses the shared library
-func MacOSCExample() {
-	fmt.Println("Building C++ example, using the shared library for macOS")
-	parent, _ := os.Getwd()
-	os.Chdir("apps/cpp/")
-	sh.Run("g++", "main.cpp", "-o", "main", "-I../../apps/libgomi", "-L../../apps/libgomi", "-lgomi")
-	// sh.Run("mv", "libgomi.so", "bin/macos")
+	sh.RunWith(env, "go", "build", "-buildmode=c-shared", "*.go")
+	// sh.Run("mv", "gomi", "../../bin/macos")
 	os.Chdir(parent)
 }
 
@@ -71,25 +61,13 @@ func Linux() {
 	os.Chdir(parent)
 }
 
-// Build for shared library for linux
-// func LinuxSharedLibrary() {
-// 	fmt.Println("Building shared library for linux")
-// 	env := make(map[string]string)
-// 	env["GOOS"] = "linux"
-// 	env["GOARCH"] = "amd64"
-// 	sh.RunWith(env, "go", "build", "-o", "libgomi.so", "-buildmode=c-shared", "apps/gomi/main.go")
-// 	sh.Run("mv", "libgomi.so", "bin/linux")
-// }
-
 // Build all targets
 func All() {
 	// mg.Deps(MacOS, Windows, Linux)
 	MacOS() // macOS and linux generate the same file name
-	MacOSSharedLibrary()
-	MacOSCExample()
+	MacOSCLib()
 	Windows()
 	Linux()
-	// LinuxSharedLibrary()
 }
 
 var Default = All
