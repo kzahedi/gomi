@@ -85,8 +85,8 @@ func Linux() {
 func All() {
 	// mg.Deps(MacOS, Windows, Linux)
 	MacOS() // macOS and linux generate the same file name
-	MacOSSharedLibrary()
-	MacOSCExample()
+	// MacOSSharedLibrary()
+	// MacOSCExample()
 	Windows()
 	Linux()
 	// LinuxSharedLibrary()
