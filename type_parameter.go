@@ -36,32 +36,35 @@ type Parameters struct {
 	WorldMax          []float64
 	SensorMax         []float64
 	ActuatorMax       []float64
+	NormalisationMin  []float64
+	NormalisationMax  []float64
 }
 
 func (p Parameters) GenerateString(prefix string) string {
-	s := fmt.Sprintf("%sMeasure:             %s", prefix, p.MeasureName)
-	s = fmt.Sprintf("%s\n%sOutput:              %s", s, prefix, p.Output)
-	s = fmt.Sprintf("%s\n%sConfig file:         %s", s, prefix, p.ConfigFile)
-	s = fmt.Sprintf("%s\n%sUse state-dependent: %t", s, prefix, p.UseStateDependent)
-	s = fmt.Sprintf("%s\n%sUse continuous:      %t", s, prefix, p.UseContinuous)
-	s = fmt.Sprintf("%s\n%sVerbose:             %t", s, prefix, p.Verbose)
-	s = fmt.Sprintf("%s\n%sContinuous Mode:     %d", s, prefix, p.ContinuousMode)
-	s = fmt.Sprintf("%s\n%sk:                   %d", s, prefix, p.K)
-	s = fmt.Sprintf("%s\n%sBins:                %d", s, prefix, p.GlobalBins)
-	s = fmt.Sprintf("%s\n%sIterations:          %d", s, prefix, p.Iterations)
-	s = fmt.Sprintf("%s\n%sW bins:              %v", s, prefix, p.WBins)
-	s = fmt.Sprintf("%s\n%sS bins:              %v", s, prefix, p.SBins)
-	s = fmt.Sprintf("%s\n%sA bins:              %v", s, prefix, p.ABins)
-	s = fmt.Sprintf("%s\n%sFull data set:       %s", s, prefix, p.GlobalFile)
-	s = fmt.Sprintf("%s\n%sW indices:           %v", s, prefix, p.WIndices)
-	s = fmt.Sprintf("%s\n%sS indices:           %v", s, prefix, p.SIndices)
-	s = fmt.Sprintf("%s\n%sA indices:           %v", s, prefix, p.AIndices)
-	s = fmt.Sprintf("%s\n%sW data set:          %s", s, prefix, p.WFile)
-	s = fmt.Sprintf("%s\n%sS data set:          %s", s, prefix, p.SFile)
-	s = fmt.Sprintf("%s\n%sA data set:          %s", s, prefix, p.AFile)
-	s = fmt.Sprintf("%s\n%sW domains:           %v %v", s, prefix, p.WorldMin, p.WorldMax)
-	s = fmt.Sprintf("%s\n%sS domains:           %v %v", s, prefix, p.SensorMin, p.SensorMax)
-	s = fmt.Sprintf("%s\n%sA domains:           %v %v", s, prefix, p.ActuatorMin, p.ActuatorMax)
+	s := fmt.Sprintf("%sMeasure:                   %s", prefix, p.MeasureName)
+	s = fmt.Sprintf("%s\n%sOutput:                %s", s, prefix, p.Output)
+	s = fmt.Sprintf("%s\n%sConfig file:           %s", s, prefix, p.ConfigFile)
+	s = fmt.Sprintf("%s\n%sUse state-dependent:   %t", s, prefix, p.UseStateDependent)
+	s = fmt.Sprintf("%s\n%sUse continuous:        %t", s, prefix, p.UseContinuous)
+	s = fmt.Sprintf("%s\n%sVerbose:               %t", s, prefix, p.Verbose)
+	s = fmt.Sprintf("%s\n%sContinuous Mode:       %d", s, prefix, p.ContinuousMode)
+	s = fmt.Sprintf("%s\n%sk:                     %d", s, prefix, p.K)
+	s = fmt.Sprintf("%s\n%sBins:                  %d", s, prefix, p.GlobalBins)
+	s = fmt.Sprintf("%s\n%sIterations:            %d", s, prefix, p.Iterations)
+	s = fmt.Sprintf("%s\n%sW bins:                %v", s, prefix, p.WBins)
+	s = fmt.Sprintf("%s\n%sS bins:                %v", s, prefix, p.SBins)
+	s = fmt.Sprintf("%s\n%sA bins:                %v", s, prefix, p.ABins)
+	s = fmt.Sprintf("%s\n%sFull data set:         %s", s, prefix, p.GlobalFile)
+	s = fmt.Sprintf("%s\n%sW indices:             %v", s, prefix, p.WIndices)
+	s = fmt.Sprintf("%s\n%sS indices:             %v", s, prefix, p.SIndices)
+	s = fmt.Sprintf("%s\n%sA indices:             %v", s, prefix, p.AIndices)
+	s = fmt.Sprintf("%s\n%sW data set:            %s", s, prefix, p.WFile)
+	s = fmt.Sprintf("%s\n%sS data set:            %s", s, prefix, p.SFile)
+	s = fmt.Sprintf("%s\n%sA data set:            %s", s, prefix, p.AFile)
+	s = fmt.Sprintf("%s\n%sW domains:             %v %v", s, prefix, p.WorldMin, p.WorldMax)
+	s = fmt.Sprintf("%s\n%sS domains:             %v %v", s, prefix, p.SensorMin, p.SensorMax)
+	s = fmt.Sprintf("%s\n%sA domains:             %v %v", s, prefix, p.ActuatorMin, p.ActuatorMax)
+	s = fmt.Sprintf("%s\n%sNormalisation domains: %v %v", s, prefix, p.NormalisationMin, p.NormalisationMax)
 	return s
 }
 

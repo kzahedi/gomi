@@ -46,6 +46,11 @@ func miwDiscreteSD(p Parameters, data Data) {
 	}
 
 	w2w1a1 := MakeW2W1A1Discrete(data, p)
+
+	if p.Verbose == true {
+		fmt.Println(p)
+	}
+
 	result := state.MorphologicalComputationW(w2w1a1)
 	writeOutputSD(p, result, "MI_W discrete")
 
@@ -55,7 +60,13 @@ func miaDiscreteSD(p Parameters, data Data) {
 	if p.Verbose {
 		fmt.Println("MI_A Discrete SD")
 	}
+
 	w2a1w1 := MakeW2A1W1Discrete(data, p)
+
+	if p.Verbose == true {
+		fmt.Println(p)
+	}
+
 	result := state.MorphologicalComputationA(w2a1w1)
 	writeOutputSD(p, result, "MI_A discrete")
 }
@@ -66,10 +77,15 @@ func miaPrimeDiscreteSD(p Parameters, data Data) {
 		fmt.Println("MI_A Prime Discrete Avg")
 	}
 
-	wbins := CalculateWBins(p, data)
-	z := math.Log2(float64(wbins))
+	wBins := CalculateWBins(p, data)
+	z := math.Log2(float64(wBins))
 
 	w2a1w1 := MakeW2A1W1Discrete(data, p)
+
+	if p.Verbose == true {
+		fmt.Println(p)
+	}
+
 	result := state.MorphologicalComputationA(w2a1w1)
 
 	for i, v := range result {
@@ -87,6 +103,10 @@ func mimiDiscreteSD(p Parameters, data Data) {
 	w2w1 := MakeW2W1Discrete(data, p)
 	a1s1 := MakeA1S1Discrete(data, p)
 
+	if p.Verbose == true {
+		fmt.Println(p)
+	}
+
 	result := state.MorphologicalComputationMI(w2w1, a1s1)
 	writeOutputSD(p, result, "MI_MI discrete")
 }
@@ -99,6 +119,10 @@ func micaDiscreteSD(p Parameters, data Data) {
 	w2w1 := MakeW2W1Discrete(data, p)
 	w2a1 := MakeW2A1Discrete(data, p)
 
+	if p.Verbose == true {
+		fmt.Println(p)
+	}
+
 	result := state.MorphologicalComputationCA(w2w1, w2a1)
 	writeOutputSD(p, result, "MI_CA discrete")
 }
@@ -109,6 +133,11 @@ func miwaDiscreteSD(p Parameters, data Data) {
 	}
 
 	w2w1a1 := MakeW2W1A1Discrete(data, p)
+
+	if p.Verbose == true {
+		fmt.Println(p)
+	}
+
 	result := state.MorphologicalComputationWA(w2w1a1)
 	writeOutputSD(p, result, "MI_WA discrete")
 
@@ -120,6 +149,11 @@ func miwsDiscreteSD(p Parameters, data Data) {
 	}
 
 	w2w1s1 := MakeW2W1S1Discrete(data, p)
+
+	if p.Verbose == true {
+		fmt.Println(p)
+	}
+
 	result := state.MorphologicalComputationWS(w2w1s1)
 	writeOutputSD(p, result, "MI_WS discrete")
 }
@@ -128,8 +162,13 @@ func caDiscreteSD(p Parameters, data Data) {
 	if p.Verbose {
 		fmt.Println("CA Prime Discrete SD")
 	}
+
 	w2w1 := MakeW2W1Discrete(data, p)
 	w2a1 := MakeW2A1Discrete(data, p)
+
+	if p.Verbose == true {
+		fmt.Println(p)
+	}
 
 	result := state.MorphologicalComputationCA(w2w1, w2a1)
 	writeOutputSD(p, result, "MI_CA discrete")
@@ -139,9 +178,14 @@ func miinDiscreteSD(p Parameters, data Data) {
 	if p.Verbose {
 		fmt.Println("MI_IN Prime Discrete SD")
 	}
-	aBins := CalculateABins(p, data)
 
+	aBins := CalculateABins(p, data)
 	a1s1 := MakeA1S1Discrete(data, p)
+
+	if p.Verbose == true {
+		fmt.Println(p)
+	}
+
 	result := state.MorphologicalComputationIN(a1s1, aBins)
 	writeOutputSD(p, result, "MI_IN discrete")
 }

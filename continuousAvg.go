@@ -3,7 +3,6 @@ package gomi
 import (
 	"fmt"
 
-	goent_c "github.com/kzahedi/goent/continuous"
 	"github.com/kzahedi/gomi/continuous"
 )
 
@@ -57,10 +56,14 @@ func MiWContinuousAvg(p Parameters, data Data) (result float64) {
 	if p.DFile != "" {
 		w2w1a1 = NormaliseContinuousData(w2w1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
-			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, p.Verbose)
+			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, &p)
 	} else {
-		w2w1a1 = goent_c.Normalise(w2w1a1, p.Verbose)
+		w2w1a1 = NormaliseContinuousDataByColumn(w2w1a1, &p)
 	}
+	if p.Verbose == true {
+		fmt.Println(p)
+	}
+
 	result = continuous.MorphologicalComputationW(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
 	writeOutputAvg(p, result, "MI_W continuous")
 	return
@@ -78,9 +81,12 @@ func MiAContinuousAvg(p Parameters, data Data) (result float64) {
 	if p.DFile != "" {
 		w2w1a1 = NormaliseContinuousData(w2w1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
-			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, p.Verbose)
+			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, &p)
 	} else {
-		w2w1a1 = goent_c.Normalise(w2w1a1, p.Verbose)
+		w2w1a1 = NormaliseContinuousDataByColumn(w2w1a1, &p)
+	}
+	if p.Verbose == true {
+		fmt.Println(p)
 	}
 
 	result = continuous.MorphologicalComputationA(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
@@ -108,9 +114,12 @@ func MiMiContinuousAvg(p Parameters, data Data) (result float64) {
 	if p.DFile != "" {
 		w2w1s1a1 = NormaliseContinuousData(w2w1s1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.SensorMin, p.ActuatorMin},
-			[][]float64{p.WorldMax, p.WorldMax, p.SensorMax, p.ActuatorMax}, p.Verbose)
+			[][]float64{p.WorldMax, p.WorldMax, p.SensorMax, p.ActuatorMax}, &p)
 	} else {
-		w2w1s1a1 = goent_c.Normalise(w2w1s1a1, p.Verbose)
+		w2w1s1a1 = NormaliseContinuousDataByColumn(w2w1s1a1, &p)
+	}
+	if p.Verbose == true {
+		fmt.Println(p)
 	}
 
 	switch p.ContinuousMode {
@@ -138,9 +147,12 @@ func MiCaContinuousAvg(p Parameters, data Data) (result float64) {
 	if p.DFile != "" {
 		w2w1a1 = NormaliseContinuousData(w2w1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
-			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, p.Verbose)
+			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, &p)
 	} else {
-		w2w1a1 = goent_c.Normalise(w2w1a1, p.Verbose)
+		w2w1a1 = NormaliseContinuousDataByColumn(w2w1a1, &p)
+	}
+	if p.Verbose == true {
+		fmt.Println(p)
 	}
 
 	switch p.ContinuousMode {
@@ -168,9 +180,12 @@ func MiWaContinuousAvg(p Parameters, data Data) (result float64) {
 	if p.DFile != "" {
 		w2w1a1 = NormaliseContinuousData(w2w1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
-			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, p.Verbose)
+			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, &p)
 	} else {
-		w2w1a1 = goent_c.Normalise(w2w1a1, p.Verbose)
+		w2w1a1 = NormaliseContinuousDataByColumn(w2w1a1, &p)
+	}
+	if p.Verbose == true {
+		fmt.Println(p)
 	}
 
 	switch p.ContinuousMode {
@@ -198,9 +213,12 @@ func MiWsContinuousAvg(p Parameters, data Data) (result float64) {
 	if p.DFile != "" {
 		w2w1a1 = NormaliseContinuousData(w2w1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
-			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, p.Verbose)
+			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, &p)
 	} else {
-		w2w1a1 = goent_c.Normalise(w2w1a1, p.Verbose)
+		w2w1a1 = NormaliseContinuousDataByColumn(w2w1a1, &p)
+	}
+	if p.Verbose == true {
+		fmt.Println(p)
 	}
 
 	switch p.ContinuousMode {

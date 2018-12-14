@@ -2,6 +2,7 @@ package gomi
 
 import (
 	goent "github.com/kzahedi/goent/continuous"
+	goent_c "github.com/kzahedi/goent/continuous"
 )
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -160,7 +161,7 @@ func MakeW2W1S1(d Data, p Parameters) ([][]float64, []int, []int, []int) {
 	return w2w1s1, w2indices, w1indices, s1indices
 }
 
-func NormaliseContinuousData(data [][]float64, minArray, maxArray [][]float64, verbose bool) [][]float64 {
+func NormaliseContinuousData(data [][]float64, minArray, maxArray [][]float64, p *Parameters) [][]float64 {
 
 	var min []float64
 	var max []float64
@@ -173,5 +174,18 @@ func NormaliseContinuousData(data [][]float64, minArray, maxArray [][]float64, v
 		max = append(max, array...)
 	}
 
-	return goent.NormaliseByDomain(data, min, max, verbose)
+	(*p).NormalisationMin = min
+	(*p).NormalisationMax = max
+
+	return goent.NormaliseByDomain(data, min, max, p.Verbose)
+}
+
+func NormaliseContinuousDataByColumn(data [][]float64, p *Parameters) [][]float64 {
+
+	r, min, max := goent_c.Normalise(data, p.Verbose)
+
+	(*p).NormalisationMin = min
+	(*p).NormalisationMax = max
+
+	return r
 }

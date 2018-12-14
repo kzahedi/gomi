@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"os"
 
 	"github.com/kzahedi/gomi"
@@ -67,10 +66,6 @@ func main() {
 	p.SetIterations(*iterationsPtr)
 
 	p.CheckParameters()
-
-	if p.Verbose == true {
-		fmt.Println(p)
-	}
 
 	var data gomi.Data
 
