@@ -3,9 +3,12 @@ package gomi
 import (
 	"fmt"
 
+	goent_c "github.com/kzahedi/goent/continuous"
 	"github.com/kzahedi/gomi/continuous/state"
 )
 
+// ContinuousSDCalculations returns the value of the selected continuous measure
+// state-dependent (or point-wise)
 func ContinuousSDCalculations(p Parameters, d Data) {
 	switch p.MeasureName {
 	case "MI_W":
@@ -45,6 +48,13 @@ func miwContinuousSD(p Parameters, data Data) {
 	}
 
 	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
+	if p.DFile != "" {
+		w2w1a1 = NormaliseContinuousData(w2w1a1,
+			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
+			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, p.Verbose)
+	} else {
+		w2w1a1 = goent_c.Normalise(w2w1a1, p.Verbose)
+	}
 	result := state.MorphologicalComputationW(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
 	writeOutputSD(p, result, "MI_W continuous")
 }
@@ -55,6 +65,14 @@ func miaContinuousSD(p Parameters, data Data) {
 	}
 
 	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
+	if p.DFile != "" {
+		w2w1a1 = NormaliseContinuousData(w2w1a1,
+			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
+			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, p.Verbose)
+	} else {
+		w2w1a1 = goent_c.Normalise(w2w1a1, p.Verbose)
+	}
+
 	result := state.MorphologicalComputationA(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
 	writeOutputSD(p, result, "MI_A continuous")
 }
@@ -65,6 +83,13 @@ func mimiContinuousSD(p Parameters, data Data) {
 	}
 
 	w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices := MakeW2W1S1A1(data, p)
+	if p.DFile != "" {
+		w2w1s1a1 = NormaliseContinuousData(w2w1s1a1,
+			[][]float64{p.WorldMin, p.WorldMin, p.SensorMin, p.ActuatorMin},
+			[][]float64{p.WorldMax, p.WorldMax, p.SensorMax, p.ActuatorMax}, p.Verbose)
+	} else {
+		w2w1s1a1 = goent_c.Normalise(w2w1s1a1, p.Verbose)
+	}
 
 	switch p.ContinuousMode {
 	case 1:
@@ -85,6 +110,13 @@ func micaContinuousSD(p Parameters, data Data) {
 	}
 
 	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
+	if p.DFile != "" {
+		w2w1a1 = NormaliseContinuousData(w2w1a1,
+			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
+			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, p.Verbose)
+	} else {
+		w2w1a1 = goent_c.Normalise(w2w1a1, p.Verbose)
+	}
 
 	switch p.ContinuousMode {
 	case 1:
@@ -104,6 +136,13 @@ func miwaContinuousSD(p Parameters, data Data) {
 	}
 
 	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
+	if p.DFile != "" {
+		w2w1a1 = NormaliseContinuousData(w2w1a1,
+			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
+			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, p.Verbose)
+	} else {
+		w2w1a1 = goent_c.Normalise(w2w1a1, p.Verbose)
+	}
 
 	switch p.ContinuousMode {
 	case 1:
@@ -124,6 +163,13 @@ func miwsContinuousSD(p Parameters, data Data) {
 	}
 
 	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
+	if p.DFile != "" {
+		w2w1a1 = NormaliseContinuousData(w2w1a1,
+			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
+			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, p.Verbose)
+	} else {
+		w2w1a1 = goent_c.Normalise(w2w1a1, p.Verbose)
+	}
 
 	switch p.ContinuousMode {
 	case 1:

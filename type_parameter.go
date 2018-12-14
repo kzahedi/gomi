@@ -322,6 +322,7 @@ func (p *Parameters) SetConfigFile(file string) {
 	p.Verbose = true
 }
 
+// checkFile returns true, if the file exists and false otherwise
 func checkFile(filename string) bool {
 	if filename == "" {
 		return true
@@ -336,29 +337,29 @@ func checkFile(filename string) bool {
 func (p *Parameters) CheckParameters() {
 	errorMsg := ""
 	hasError := false
-	var err bool
+	var foundFile bool
 
-	err = checkFile(p.GlobalFile)
-	hasError = err || hasError
-	if err == true {
+	foundFile = checkFile(p.GlobalFile)
+	hasError = foundFile && hasError
+	if foundFile == false {
 		errorMsg = fmt.Sprintf("Global file %s not found\n", p.GlobalFile)
 	}
 
-	err = checkFile(p.WFile)
-	hasError = err || hasError
-	if err == true {
+	foundFile = checkFile(p.WFile)
+	hasError = foundFile && hasError
+	if foundFile == true {
 		errorMsg = fmt.Sprintf("%sWorld file %s not found\n", errorMsg, p.WFile)
 	}
 
-	err = checkFile(p.SFile)
-	hasError = err || hasError
-	if err == true {
+	foundFile = checkFile(p.SFile)
+	hasError = foundFile && hasError
+	if foundFile == true {
 		errorMsg = fmt.Sprintf("%sSensor file %s not found\n", errorMsg, p.SFile)
 	}
 
-	err = checkFile(p.AFile)
-	hasError = err || hasError
-	if err == true {
+	foundFile = checkFile(p.AFile)
+	hasError = foundFile && hasError
+	if foundFile == true {
 		errorMsg = fmt.Sprintf("%sActuator file %s not found\n", errorMsg, p.AFile)
 	}
 

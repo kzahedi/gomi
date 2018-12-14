@@ -225,7 +225,7 @@ func TestSparseMatrix_Mul(t *testing.T) {
 				Values:  tt.fields.Values,
 			}
 			s.Mul(tt.args.smi, tt.args.value)
-			HIER HIER 
+			// HIER HIER
 			if s.Equal(tt.want.sm) == false {
 				t.Errorf("SparseMatrix.Add() resulted in %v want %v", s, tt.want.sm)
 			}
