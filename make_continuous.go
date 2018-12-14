@@ -1,5 +1,9 @@
 package gomi
 
+import (
+	goent "github.com/kzahedi/goent/continuous"
+)
+
 ////////////////////////////////////////////////////////////////////////////////
 // W2, W1, S1, A1 continuous
 ////////////////////////////////////////////////////////////////////////////////
@@ -154,4 +158,20 @@ func MakeW2W1S1(d Data, p Parameters) ([][]float64, []int, []int, []int) {
 	}
 
 	return w2w1s1, w2indices, w1indices, s1indices
+}
+
+func NormaliseContinuousData(data [][]float64, minArray, maxArray [][]float64) [][]float64 {
+
+	var min []float64
+	var max []float64
+
+	for _, array := range minArray {
+		min = append(min, array...)
+	}
+
+	for _, array := range maxArray {
+		max = append(max, array...)
+	}
+
+	return goent.NormaliseByDomain(data, min, max)
 }

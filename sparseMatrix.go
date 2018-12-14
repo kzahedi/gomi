@@ -54,7 +54,7 @@ func (s *SparseMatrix) Set(smi SparseMatrixIndex, value float64) {
 }
 
 // Add add the value to the value specified by the index
-func (s SparseMatrix) Add(smi SparseMatrixIndex, value float64) {
+func (s *SparseMatrix) Add(smi SparseMatrixIndex, value float64) {
 	for i, v := range s.Indices {
 		if v.Equal(smi) {
 			s.Values[i] += value
