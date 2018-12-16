@@ -71,6 +71,16 @@ func Linux() {
 	os.Chdir(parent)
 }
 
+// Distribute as zip
+func Distribute() {
+	fmt.Println("Zipping for distribution")
+	parent, _ := os.Getwd()
+	os.Chdir("bin")
+	sh.Run("rm", "-f", ".DS_Store")
+	sh.Run("zip", "-r", "binaries.zip", "linux", "macos", "windows")
+	os.Chdir(parent)
+}
+
 // Build for shared library for linux
 // func LinuxSharedLibrary() {
 // 	fmt.Println("Building shared library for linux")
@@ -85,10 +95,13 @@ func Linux() {
 func All() {
 	// mg.Deps(MacOS, Windows, Linux)
 	MacOS() // macOS and linux generate the same file name
-	// MacOSSharedLibrary()
-	// MacOSCExample()
 	Windows()
 	Linux()
+
+	Distribute()
+
+	// MacOSSharedLibrary()
+	// MacOSCExample()
 	// LinuxSharedLibrary()
 }
 
