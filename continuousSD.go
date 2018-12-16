@@ -50,7 +50,6 @@ func miwContinuousSD(p Parameters, data Data) {
 	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
 
 	if p.LogData {
-		fmt.Println("hier 0")
 		output.SetW2W1A1Raw(w2w1a1)
 	}
 
@@ -81,6 +80,10 @@ func miaContinuousSD(p Parameters, data Data) {
 	}
 
 	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
+	if p.LogData {
+		output.SetW2W1A1Raw(w2w1a1)
+	}
+
 	if p.DFile != "" {
 		w2w1a1 = NormaliseContinuousData(w2w1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
@@ -90,6 +93,9 @@ func miaContinuousSD(p Parameters, data Data) {
 	}
 	if p.Verbose == true {
 		fmt.Println(p)
+	}
+	if p.LogData {
+		output.SetW2W1A1Normalised(w2w1a1)
 	}
 	result := state.MorphologicalComputationA(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
 	writeOutputSD(p, result, "MI_A continuous", output)
@@ -102,12 +108,18 @@ func mimiContinuousSD(p Parameters, data Data) {
 	}
 
 	w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices := MakeW2W1S1A1(data, p)
+	if p.LogData {
+		output.SetW2W1S1A1Raw(w2w1s1a1)
+	}
 	if p.DFile != "" {
 		w2w1s1a1 = NormaliseContinuousData(w2w1s1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.SensorMin, p.ActuatorMin},
 			[][]float64{p.WorldMax, p.WorldMax, p.SensorMax, p.ActuatorMax}, &p)
 	} else {
 		w2w1s1a1 = NormaliseContinuousDataByColumn(w2w1s1a1, &p)
+	}
+	if p.LogData {
+		output.SetW2W1S1A1Normalised(w2w1s1a1)
 	}
 	if p.Verbose == true {
 		fmt.Println(p)
@@ -132,12 +144,18 @@ func micaContinuousSD(p Parameters, data Data) {
 	}
 
 	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
+	if p.LogData {
+		output.SetW2W1A1Raw(w2w1a1)
+	}
 	if p.DFile != "" {
 		w2w1a1 = NormaliseContinuousData(w2w1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
 			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, &p)
 	} else {
 		w2w1a1 = NormaliseContinuousDataByColumn(w2w1a1, &p)
+	}
+	if p.LogData {
+		output.SetW2W1A1Normalised(w2w1a1)
 	}
 	if p.Verbose == true {
 		fmt.Println(p)
@@ -162,12 +180,18 @@ func miwaContinuousSD(p Parameters, data Data) {
 	}
 
 	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
+	if p.LogData {
+		output.SetW2W1A1Raw(w2w1a1)
+	}
 	if p.DFile != "" {
 		w2w1a1 = NormaliseContinuousData(w2w1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
 			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, &p)
 	} else {
 		w2w1a1 = NormaliseContinuousDataByColumn(w2w1a1, &p)
+	}
+	if p.LogData {
+		output.SetW2W1A1Normalised(w2w1a1)
 	}
 	if p.Verbose == true {
 		fmt.Println(p)
@@ -193,12 +217,18 @@ func miwsContinuousSD(p Parameters, data Data) {
 	}
 
 	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
+	if p.LogData {
+		output.SetW2W1A1Raw(w2w1a1)
+	}
 	if p.DFile != "" {
 		w2w1a1 = NormaliseContinuousData(w2w1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
 			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, &p)
 	} else {
 		w2w1a1 = NormaliseContinuousDataByColumn(w2w1a1, &p)
+	}
+	if p.LogData {
+		output.SetW2W1A1Normalised(w2w1a1)
 	}
 	if p.Verbose == true {
 		fmt.Println(p)

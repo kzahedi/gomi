@@ -100,22 +100,22 @@ func (o *Output) SetW2W1A1Normalised(data [][]float64) {
 	o.W2W1A1.Normalised = &data
 }
 
-// func (o *Output) CreateW2W1S1A1() {
-// 	if o.W2W1S1A1 == nil {
-// 		var r OutputDataRawNormalised
-// 		o.W2W1S1A1 = &r
-// 	}
-// }
+func (o *Output) CreateW2W1S1A1() {
+	if o.W2W1S1A1 == nil {
+		var r OutputDataRawNormalised
+		o.W2W1S1A1 = &r
+	}
+}
 
-// func (o *Output) SetW2W1S1A1Raw(data [][]float64) {
-// 	o.CreateW2W1S1A1()
-// 	o.W2W1S1A1.Raw = &data
-// }
+func (o *Output) SetW2W1S1A1Raw(data [][]float64) {
+	o.CreateW2W1S1A1()
+	o.W2W1S1A1.Raw = &data
+}
 
-// func (o *Output) SetW2W1S1A1Normalised(data [][]float64) {
-// 	o.CreateW2W1S1A1()
-// 	o.W2W1S1A1.Normalised = &data
-// }
+func (o *Output) SetW2W1S1A1Normalised(data [][]float64) {
+	o.CreateW2W1S1A1()
+	o.W2W1S1A1.Normalised = &data
+}
 
 // ExportJSON exports to JSON
 func (o Output) ExportJSON(filename string) {

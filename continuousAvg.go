@@ -48,11 +48,15 @@ func ContinuousAvgCalculations(p Parameters, d Data) float64 {
 // also writes the result to a file as specified in the parameters p
 //    MI_W = I(W';W|A)
 func MiWContinuousAvg(p Parameters, data Data) (result float64) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_W Continuous Avg")
 	}
 
 	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
+	if p.LogData {
+		output.SetW2W1A1Raw(w2w1a1)
+	}
 	if p.DFile != "" {
 		w2w1a1 = NormaliseContinuousData(w2w1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
@@ -60,12 +64,15 @@ func MiWContinuousAvg(p Parameters, data Data) (result float64) {
 	} else {
 		w2w1a1 = NormaliseContinuousDataByColumn(w2w1a1, &p)
 	}
+	if p.LogData {
+		output.SetW2W1A1Normalised(w2w1a1)
+	}
 	if p.Verbose == true {
 		fmt.Println(p)
 	}
 
 	result = continuous.MorphologicalComputationW(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
-	writeOutputAvg(p, result, "MI_W continuous")
+	writeOutputAvg(p, result, "MI_W continuous", output)
 	return
 }
 
@@ -73,11 +80,15 @@ func MiWContinuousAvg(p Parameters, data Data) (result float64) {
 // also writes the result to a file as specified in the parameters p
 //    MI_A = I(W';A|W)
 func MiAContinuousAvg(p Parameters, data Data) (result float64) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_A Continuous Avg")
 	}
 
 	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
+	if p.LogData {
+		output.SetW2W1A1Raw(w2w1a1)
+	}
 	if p.DFile != "" {
 		w2w1a1 = NormaliseContinuousData(w2w1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
@@ -85,12 +96,15 @@ func MiAContinuousAvg(p Parameters, data Data) (result float64) {
 	} else {
 		w2w1a1 = NormaliseContinuousDataByColumn(w2w1a1, &p)
 	}
+	if p.LogData {
+		output.SetW2W1A1Normalised(w2w1a1)
+	}
 	if p.Verbose == true {
 		fmt.Println(p)
 	}
 
 	result = continuous.MorphologicalComputationA(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
-	writeOutputAvg(p, result, "MI_A continuous")
+	writeOutputAvg(p, result, "MI_A continuous", output)
 	return
 }
 
@@ -106,17 +120,24 @@ func MiAPrimeContinuousAvg(p Parameters, data Data) float64 {
 // also writes the result to a file as specified in the parameters p
 //    MI_MI = I(W';W) - I(A;S)
 func MiMiContinuousAvg(p Parameters, data Data) (result float64) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_MI Prime Continuous Avg")
 	}
 
 	w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices := MakeW2W1S1A1(data, p)
+	if p.LogData {
+		output.SetW2W1S1A1Raw(w2w1s1a1)
+	}
 	if p.DFile != "" {
 		w2w1s1a1 = NormaliseContinuousData(w2w1s1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.SensorMin, p.ActuatorMin},
 			[][]float64{p.WorldMax, p.WorldMax, p.SensorMax, p.ActuatorMax}, &p)
 	} else {
 		w2w1s1a1 = NormaliseContinuousDataByColumn(w2w1s1a1, &p)
+	}
+	if p.LogData {
+		output.SetW2W1S1A1Raw(w2w1s1a1)
 	}
 	if p.Verbose == true {
 		fmt.Println(p)
@@ -125,10 +146,10 @@ func MiMiContinuousAvg(p Parameters, data Data) (result float64) {
 	switch p.ContinuousMode {
 	case 1:
 		result = continuous.MorphologicalComputationMI1(w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices, p.K, p.Verbose)
-		writeOutputAvg(p, result, "MI_MI continuous (KSG 1 Estimator)")
+		writeOutputAvg(p, result, "MI_MI continuous (KSG 1 Estimator)", output)
 	case 2:
 		result = continuous.MorphologicalComputationMI2(w2w1s1a1, w2Indices, w1Indices, s1Indices, a1Indices, p.K, p.Verbose)
-		writeOutputAvg(p, result, "MI_MI continuous (KSG 2 Estimator)")
+		writeOutputAvg(p, result, "MI_MI continuous (KSG 2 Estimator)", output)
 	default:
 		fmt.Println(fmt.Sprintf("Unknown Continuous Mode %d", p.ContinuousMode))
 	}
@@ -139,17 +160,24 @@ func MiMiContinuousAvg(p Parameters, data Data) (result float64) {
 // also writes the result to a file as specified in the parameters p
 //    MI_CA = I(W';W) - I(W';A)
 func MiCaContinuousAvg(p Parameters, data Data) (result float64) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_CA Continuous Avg")
 	}
 
 	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
+	if p.LogData {
+		output.SetW2W1A1Raw(w2w1a1)
+	}
 	if p.DFile != "" {
 		w2w1a1 = NormaliseContinuousData(w2w1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
 			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, &p)
 	} else {
 		w2w1a1 = NormaliseContinuousDataByColumn(w2w1a1, &p)
+	}
+	if p.LogData {
+		output.SetW2W1A1Normalised(w2w1a1)
 	}
 	if p.Verbose == true {
 		fmt.Println(p)
@@ -158,10 +186,10 @@ func MiCaContinuousAvg(p Parameters, data Data) (result float64) {
 	switch p.ContinuousMode {
 	case 1:
 		result = continuous.MorphologicalComputationCA1(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
-		writeOutputAvg(p, result, "MI_CA continuous (KSG 1 Estimator)")
+		writeOutputAvg(p, result, "MI_CA continuous (KSG 1 Estimator)", output)
 	case 2:
 		result = continuous.MorphologicalComputationCA2(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
-		writeOutputAvg(p, result, "MI_CA continuous (KSG 2 Estimator)")
+		writeOutputAvg(p, result, "MI_CA continuous (KSG 2 Estimator)", output)
 	default:
 		fmt.Println(fmt.Sprintf("Unknown Continuous Mode %d", p.ContinuousMode))
 	}
@@ -172,17 +200,24 @@ func MiCaContinuousAvg(p Parameters, data Data) (result float64) {
 // also writes the result to a file as specified in the parameters p
 //    MI_WA = I(W;{W,A}) - I(W';A)
 func MiWaContinuousAvg(p Parameters, data Data) (result float64) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_WA Continuous Avg")
 	}
 
 	w2w1a1, w2Indices, w1Indices, a1Indices := MakeW2W1A1(data, p)
+	if p.LogData {
+		output.SetW2W1A1Raw(w2w1a1)
+	}
 	if p.DFile != "" {
 		w2w1a1 = NormaliseContinuousData(w2w1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
 			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, &p)
 	} else {
 		w2w1a1 = NormaliseContinuousDataByColumn(w2w1a1, &p)
+	}
+	if p.LogData {
+		output.SetW2W1A1Normalised(w2w1a1)
 	}
 	if p.Verbose == true {
 		fmt.Println(p)
@@ -191,10 +226,10 @@ func MiWaContinuousAvg(p Parameters, data Data) (result float64) {
 	switch p.ContinuousMode {
 	case 1:
 		result = continuous.MorphologicalComputationWA1(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
-		writeOutputAvg(p, result, "MI_WA continuous (KSG 1 Estimator)")
+		writeOutputAvg(p, result, "MI_WA continuous (KSG 1 Estimator)", output)
 	case 2:
 		result = continuous.MorphologicalComputationWA2(w2w1a1, w2Indices, w1Indices, a1Indices, p.K, p.Verbose)
-		writeOutputAvg(p, result, "MI_WA continuous (KSG 2 Estimator)")
+		writeOutputAvg(p, result, "MI_WA continuous (KSG 2 Estimator)", output)
 	default:
 		fmt.Println(fmt.Sprintf("Unknown Continuous Mode %d", p.ContinuousMode))
 	}
@@ -205,17 +240,24 @@ func MiWaContinuousAvg(p Parameters, data Data) (result float64) {
 // also writes the result to a file as specified in the parameters p
 //    MI_WS = I(W;{W,S}) - I(W';S)
 func MiWsContinuousAvg(p Parameters, data Data) (result float64) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_WS Prime Continuous Avg")
 	}
 
 	w2w1a1, w2Indices, w1Indices, s1Indices := MakeW2W1S1(data, p)
+	if p.LogData {
+		output.SetW2W1A1Raw(w2w1a1)
+	}
 	if p.DFile != "" {
 		w2w1a1 = NormaliseContinuousData(w2w1a1,
 			[][]float64{p.WorldMin, p.WorldMin, p.ActuatorMin},
 			[][]float64{p.WorldMax, p.WorldMax, p.ActuatorMax}, &p)
 	} else {
 		w2w1a1 = NormaliseContinuousDataByColumn(w2w1a1, &p)
+	}
+	if p.LogData {
+		output.SetW2W1A1Normalised(w2w1a1)
 	}
 	if p.Verbose == true {
 		fmt.Println(p)
@@ -224,10 +266,10 @@ func MiWsContinuousAvg(p Parameters, data Data) (result float64) {
 	switch p.ContinuousMode {
 	case 1:
 		result = continuous.MorphologicalComputationWS1(w2w1a1, w2Indices, w1Indices, s1Indices, p.K, p.Verbose)
-		writeOutputAvg(p, result, "MI_WS continuous (KSG 1 Estimator)")
+		writeOutputAvg(p, result, "MI_WS continuous (KSG 1 Estimator)", output)
 	case 2:
 		result = continuous.MorphologicalComputationWS2(w2w1a1, w2Indices, w1Indices, s1Indices, p.K, p.Verbose)
-		writeOutputAvg(p, result, "MI_WS continuous (KSG 2 Estimator)")
+		writeOutputAvg(p, result, "MI_WS continuous (KSG 2 Estimator)", output)
 	default:
 		fmt.Println(fmt.Sprintf("Unknown Continuous Mode %d", p.ContinuousMode))
 	}

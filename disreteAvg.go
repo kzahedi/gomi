@@ -43,6 +43,7 @@ func DiscreteAvgCalculations(p Parameters, d Data) {
 }
 
 func miwDiscreteAvg(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_W Discrete Avg")
 	}
@@ -55,10 +56,11 @@ func miwDiscreteAvg(p Parameters, data Data) {
 
 	result := discrete.MorphologicalComputationW(pw2w1a1)
 
-	writeOutputAvg(p, result, "MI_W discrete")
+	writeOutputAvg(p, result, "MI_W discrete", output)
 }
 
 func miaDiscreteAvg(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_A Discrete Avg")
 	}
@@ -71,10 +73,11 @@ func miaDiscreteAvg(p Parameters, data Data) {
 
 	result := discrete.MorphologicalComputationA(pw2a1w1)
 
-	writeOutputAvg(p, result, "MI_A discrete")
+	writeOutputAvg(p, result, "MI_A discrete", output)
 }
 
 func miaPrimeDiscreteAvg(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_A Prime Discrete Avg")
 	}
@@ -89,10 +92,11 @@ func miaPrimeDiscreteAvg(p Parameters, data Data) {
 
 	result := 1.0 - discrete.MorphologicalComputationA(pw2a1w1)/math.Log2(float64(wBins))
 
-	writeOutputAvg(p, result, "MI_A_Prime discrete")
+	writeOutputAvg(p, result, "MI_A_Prime discrete", output)
 }
 
 func mimiDiscreteAvg(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_MI Discrete Avg")
 	}
@@ -105,11 +109,12 @@ func mimiDiscreteAvg(p Parameters, data Data) {
 	}
 
 	result := discrete.MorphologicalComputationMI(pw2w1, pa1s1)
-	writeOutputAvg(p, result, "MI_MI discrete")
+	writeOutputAvg(p, result, "MI_MI discrete", output)
 	// TODO: results look wrong
 }
 
 func misyDiscreteAvg(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_SY Discrete Avg")
 	}
@@ -122,10 +127,11 @@ func misyDiscreteAvg(p Parameters, data Data) {
 
 	result := discrete.MorphologicalComputationSY(pw2a1w1, p.Iterations, p.Verbose)
 
-	writeOutputAvg(p, result, "MI_SY discrete")
+	writeOutputAvg(p, result, "MI_SY discrete", output)
 }
 
 func misynidDiscreteAvg(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_SY_NID Discrete Avg")
 	}
@@ -138,10 +144,11 @@ func misynidDiscreteAvg(p Parameters, data Data) {
 
 	result := discrete.MorphologicalComputationSyNid(pw2a1w1, p.Iterations, p.Verbose)
 
-	writeOutputAvg(p, result, "MI_SY_NID discrete")
+	writeOutputAvg(p, result, "MI_SY_NID discrete", output)
 }
 
 func miwaDiscreteAvg(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_WA Discrete Avg")
 	}
@@ -154,10 +161,11 @@ func miwaDiscreteAvg(p Parameters, data Data) {
 
 	result := discrete.MorphologicalComputationWA(pw2w1a1)
 
-	writeOutputAvg(p, result, "MI_WA discrete")
+	writeOutputAvg(p, result, "MI_WA discrete", output)
 }
 
 func miwsDiscreteAvg(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_WS Discrete Avg")
 	}
@@ -170,10 +178,11 @@ func miwsDiscreteAvg(p Parameters, data Data) {
 
 	result := discrete.MorphologicalComputationWS(pw2w1s1)
 
-	writeOutputAvg(p, result, "MI_WS discrete")
+	writeOutputAvg(p, result, "MI_WS discrete", output)
 }
 
 func miwpDiscreteAvg(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_Wp Discrete Avg")
 	}
@@ -186,10 +195,11 @@ func miwpDiscreteAvg(p Parameters, data Data) {
 
 	result := discrete.MorphologicalComputationWp(pw2a1w1, p.Iterations, p.Verbose)
 
-	writeOutputAvg(p, result, "MI_Wp discrete")
+	writeOutputAvg(p, result, "MI_Wp discrete", output)
 }
 
 func caDiscreteAvg(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("CA Discrete Avg")
 	}
@@ -203,10 +213,11 @@ func caDiscreteAvg(p Parameters, data Data) {
 	}
 
 	result := discrete.MorphologicalComputationIntrinsicCA(ps2s1a1, sBins)
-	writeOutputAvg(p, result, "CA discrete")
+	writeOutputAvg(p, result, "CA discrete", output)
 }
 
 func miinDiscreteAvg(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_IN Discrete Avg")
 	}
@@ -220,10 +231,11 @@ func miinDiscreteAvg(p Parameters, data Data) {
 	}
 
 	result := discrete.MorphologicalComputationIN(pa1s1, aBins)
-	writeOutputAvg(p, result, "MI_IN discrete")
+	writeOutputAvg(p, result, "MI_IN discrete", output)
 }
 
 func micaDiscreteAvg(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_CA Discrete Avg")
 	}
@@ -236,7 +248,7 @@ func micaDiscreteAvg(p Parameters, data Data) {
 	}
 
 	result := discrete.MorphologicalComputationCA(pw2w1, pw2a1)
-	writeOutputAvg(p, result, "MI_CA discrete")
+	writeOutputAvg(p, result, "MI_CA discrete", output)
 }
 
 func uiDiscreteAvg(p Parameters, data Data) {

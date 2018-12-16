@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func writeOutputAvg(p Parameters, result float64, label string) {
+func writeOutputAvg(p Parameters, result float64, label string, output Output) {
 	str := fmt.Sprintf("%s\n%f", p.GenerateString("# "), result)
 
 	if p.Verbose {
@@ -24,6 +24,14 @@ func writeOutputAvg(p Parameters, result float64, label string) {
 	w := bufio.NewWriter(file)
 	defer w.Flush()
 	w.WriteString(str)
+
+	if p.LogData {
+		name := strings.TrimSuffix(p.Output, filepath.Ext(p.Output))
+		name = fmt.Sprintf("%s.json", name)
+		output.SetAvgResult(result)
+		output.SetParameters(p)
+		output.ExportJSON(name)
+	}
 }
 
 func writeOutputSD(p Parameters, result []float64, label string, output Output) {
