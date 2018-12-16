@@ -41,6 +41,7 @@ func DiscreteSDCalculations(p Parameters, d Data) {
 }
 
 func miwDiscreteSD(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_W Discrete SD")
 	}
@@ -52,11 +53,12 @@ func miwDiscreteSD(p Parameters, data Data) {
 	}
 
 	result := state.MorphologicalComputationW(w2w1a1)
-	writeOutputSD(p, result, "MI_W discrete")
+	writeOutputSD(p, result, "MI_W discrete", output)
 
 }
 
 func miaDiscreteSD(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_A Discrete SD")
 	}
@@ -68,11 +70,11 @@ func miaDiscreteSD(p Parameters, data Data) {
 	}
 
 	result := state.MorphologicalComputationA(w2a1w1)
-	writeOutputSD(p, result, "MI_A discrete")
+	writeOutputSD(p, result, "MI_A discrete", output)
 }
 
 func miaPrimeDiscreteSD(p Parameters, data Data) {
-
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_A Prime Discrete Avg")
 	}
@@ -92,10 +94,11 @@ func miaPrimeDiscreteSD(p Parameters, data Data) {
 		result[i] = 1.0 - v/z
 	}
 
-	writeOutputSD(p, result, "MI_A_Prime discrete")
+	writeOutputSD(p, result, "MI_A_Prime discrete", output)
 }
 
 func mimiDiscreteSD(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_MI Prime Discrete SD")
 	}
@@ -108,10 +111,11 @@ func mimiDiscreteSD(p Parameters, data Data) {
 	}
 
 	result := state.MorphologicalComputationMI(w2w1, a1s1)
-	writeOutputSD(p, result, "MI_MI discrete")
+	writeOutputSD(p, result, "MI_MI discrete", output)
 }
 
 func micaDiscreteSD(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_CA Discrete SD")
 	}
@@ -124,10 +128,11 @@ func micaDiscreteSD(p Parameters, data Data) {
 	}
 
 	result := state.MorphologicalComputationCA(w2w1, w2a1)
-	writeOutputSD(p, result, "MI_CA discrete")
+	writeOutputSD(p, result, "MI_CA discrete", output)
 }
 
 func miwaDiscreteSD(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_WA Discrete SD")
 	}
@@ -139,11 +144,12 @@ func miwaDiscreteSD(p Parameters, data Data) {
 	}
 
 	result := state.MorphologicalComputationWA(w2w1a1)
-	writeOutputSD(p, result, "MI_WA discrete")
+	writeOutputSD(p, result, "MI_WA discrete", output)
 
 }
 
 func miwsDiscreteSD(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_WS Discrete SD")
 	}
@@ -155,10 +161,11 @@ func miwsDiscreteSD(p Parameters, data Data) {
 	}
 
 	result := state.MorphologicalComputationWS(w2w1s1)
-	writeOutputSD(p, result, "MI_WS discrete")
+	writeOutputSD(p, result, "MI_WS discrete", output)
 }
 
 func caDiscreteSD(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("CA Prime Discrete SD")
 	}
@@ -171,10 +178,11 @@ func caDiscreteSD(p Parameters, data Data) {
 	}
 
 	result := state.MorphologicalComputationCA(w2w1, w2a1)
-	writeOutputSD(p, result, "MI_CA discrete")
+	writeOutputSD(p, result, "MI_CA discrete", output)
 }
 
 func miinDiscreteSD(p Parameters, data Data) {
+	var output Output
 	if p.Verbose {
 		fmt.Println("MI_IN Prime Discrete SD")
 	}
@@ -187,7 +195,7 @@ func miinDiscreteSD(p Parameters, data Data) {
 	}
 
 	result := state.MorphologicalComputationIN(a1s1, aBins)
-	writeOutputSD(p, result, "MI_IN discrete")
+	writeOutputSD(p, result, "MI_IN discrete", output)
 }
 
 func uiDiscreteSD(p Parameters, data Data) {

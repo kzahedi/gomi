@@ -15,6 +15,7 @@ type Parameters struct {
 	UseContinuous     bool
 	UseStateDependent bool
 	Verbose           bool
+	LogData           bool
 	ContinuousMode    int
 	K                 int
 	GlobalBins        int
@@ -47,6 +48,7 @@ func (p Parameters) GenerateString(prefix string) string {
 	s = fmt.Sprintf("%s\n%sUse state-dependent:       %t", s, prefix, p.UseStateDependent)
 	s = fmt.Sprintf("%s\n%sUse continuous:            %t", s, prefix, p.UseContinuous)
 	s = fmt.Sprintf("%s\n%sVerbose:                   %t", s, prefix, p.Verbose)
+	s = fmt.Sprintf("%s\n%sLog converted data:        %t", s, prefix, p.LogData)
 	s = fmt.Sprintf("%s\n%sContinuous Mode:           %d", s, prefix, p.ContinuousMode)
 	s = fmt.Sprintf("%s\n%sk:                         %d", s, prefix, p.K)
 	s = fmt.Sprintf("%s\n%sBins:                      %d", s, prefix, p.GlobalBins)
@@ -81,6 +83,7 @@ func CreateParametersContainer() Parameters {
 		UseContinuous:     defaultUseContinuous,
 		UseStateDependent: defaultUseStateDependent,
 		Verbose:           false,
+		LogData:           false,
 		K:                 defaultK,
 		GlobalBins:        defaultBins,
 		Iterations:        defaultIterations,
@@ -190,13 +193,17 @@ func (p *Parameters) SetAFile(file string) {
 	}
 }
 
+func (p *Parameters) SetLogData(log bool) {
+	p.LogData = log
+}
+
 func (p *Parameters) SetIterations(iterations int) {
 	if iterations != defaultIterations {
 		p.Iterations = iterations
 	}
 }
 
-type T struct {
+type domainCfg struct {
 	WorldMin    []float64 `yaml:"W min"`
 	WorldMax    []float64 `yaml:"W max"`
 	SensorMin   []float64 `yaml:"S min"`
@@ -211,7 +218,7 @@ func (p *Parameters) SetDFile(file string) {
 		return
 	}
 
-	t := T{}
+	t := domainCfg{}
 
 	data, err := ioutil.ReadFile(p.DFile)
 	if err != nil {

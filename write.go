@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
+	"strings"
 )
 
 func writeOutputAvg(p Parameters, result float64, label string) {
@@ -24,7 +26,7 @@ func writeOutputAvg(p Parameters, result float64, label string) {
 	w.WriteString(str)
 }
 
-func writeOutputSD(p Parameters, result []float64, label string) {
+func writeOutputSD(p Parameters, result []float64, label string, output Output) {
 	avg := 0.0
 	for _, v := range result {
 		avg += v
@@ -54,5 +56,14 @@ func writeOutputSD(p Parameters, result []float64, label string) {
 	w.WriteString(fmt.Sprintf("# Averaged value: %f\n", avg))
 	for _, v := range result {
 		w.WriteString(fmt.Sprintf("%f\n", v))
+	}
+
+	if p.LogData {
+		name := strings.TrimSuffix(p.Output, filepath.Ext(p.Output))
+		name = fmt.Sprintf("%s.json", name)
+		output.SetAvgResult(avg)
+		output.SetPointWiseResult(result)
+		output.SetParameters(p)
+		output.ExportJSON(name)
 	}
 }
