@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"time"
 )
 
 type OutputMinMax struct {
@@ -32,7 +33,7 @@ type OutputMeasureDiscrete struct {
 type OutputMeasure struct {
 	Name              *string                  `json:"name,omitempty"`
 	UseContinuous     *bool                    `json:"useContinuous,omitempty"`
-	UseStateDependent *bool                    `json:"pointWise,omitempty"`
+	UseStateDependent *bool                    `json:"stateDependent,omitempty"`
 	Continuous        *OutputMeasureContinuous `json:"continuous,omitempty"`
 	Discrete          *OutputMeasureDiscrete   `json:"discrete,omitempty"`
 }
@@ -75,6 +76,7 @@ type OutputDataRawNormalised struct {
 
 // Output is the JSON struct that will be exported as result of gomi
 type Output struct {
+	Date    *string        `json:"date,omitempty"`
 	Measure *OutputMeasure `json:"measure,omitempty"`
 	Result  *OutputResult  `json:"result,omitempty"`
 	Data    *OutputData    `json:"data,omitempty"`
@@ -158,6 +160,18 @@ func (o *Output) CreateMeasure() {
 func (o *Output) SetName(name string) {
 	o.CreateMeasure()
 	o.Measure.Name = &name
+}
+
+// SetUseContinuous sets the name
+func (o *Output) SetUseContinuous(b bool) {
+	o.CreateMeasure()
+	o.Measure.UseContinuous = &b
+}
+
+// SetUseStateDependent sets the name
+func (o *Output) SetUseStateDependent(b bool) {
+	o.CreateMeasure()
+	o.Measure.UseStateDependent = &b
 }
 
 func (o *Output) CreateBins() {
@@ -424,6 +438,12 @@ func (o *Output) SetDomainName(name string) {
 	o.Data.File.Domain.Name = &name
 }
 
+func (o *Output) SetDate() {
+	o.CreateMeasure()
+	s := time.Now().Format("2006-01-02 15:04:05")
+	o.Date = &s
+}
+
 // SetParameters copies from Parameters
 func (o *Output) SetParameters(p Parameters) {
 
@@ -439,9 +459,8 @@ func (o *Output) SetParameters(p Parameters) {
 		o.SetContinuousMode(p.ContinuousMode)
 	}
 
-	o.Measure.UseContinuous = &p.UseContinuous
-	o.Measure.UseStateDependent = &p.UseStateDependent
-
+	o.SetUseContinuous(p.UseContinuous)
+	o.SetUseStateDependent(p.UseStateDependent)
 	o.SetGlobalFile(p.GlobalFile)
 	o.SetWFile(p.WFile)
 	o.SetAFile(p.AFile)

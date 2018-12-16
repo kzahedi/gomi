@@ -30,6 +30,7 @@ func writeOutputAvg(p Parameters, result float64, label string, output Output) {
 		name = fmt.Sprintf("%s.json", name)
 		output.SetAvgResult(result)
 		output.SetParameters(p)
+		output.SetDate()
 		output.ExportJSON(name)
 	}
 }
@@ -72,6 +73,7 @@ func writeOutputSD(p Parameters, result []float64, label string, output Output) 
 		output.SetAvgResult(avg)
 		output.SetPointWiseResult(result)
 		output.SetParameters(p)
+		output.SetDate()
 		output.ExportJSON(name)
 	}
 }

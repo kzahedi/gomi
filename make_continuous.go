@@ -2,7 +2,6 @@ package gomi
 
 import (
 	goent "github.com/kzahedi/goent/continuous"
-	goent_c "github.com/kzahedi/goent/continuous"
 )
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -182,7 +181,7 @@ func NormaliseContinuousData(data [][]float64, minArray, maxArray [][]float64, p
 
 func NormaliseContinuousDataByColumn(data [][]float64, p *Parameters) [][]float64 {
 
-	r, min, max := goent_c.Normalise(data, p.Verbose)
+	r, min, max := goent.Normalise(data, p.Verbose)
 
 	(*p).NormalisationMin = min
 	(*p).NormalisationMax = max
