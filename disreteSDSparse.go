@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/kzahedi/goent/discrete/state/sparse"
+	"github.com/kzahedi/gomi/discrete/state/sparse"
 )
 
 // DiscreteSDCalculationsSparse ...
@@ -83,7 +83,7 @@ func miaPrimeDiscreteSDSparse(p Parameters, data Data) {
 	wBins := CalculateWBins(p, data)
 	z := math.Log2(float64(wBins))
 
-	w2a1w1 := MakeW2A1W1DiscreteSprase(data, p)
+	w2a1w1 := MakeW2A1W1Discrete(data, p)
 
 	if p.Verbose == true {
 		fmt.Println(p)

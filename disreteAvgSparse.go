@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/kzahedi/goent/discrete/sparse"
+	"github.com/kzahedi/gomi/discrete/sparse"
 )
 
 // DiscreteAvgCalculationsSparse ...
