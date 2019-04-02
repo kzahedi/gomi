@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/kzahedi/gomi/discrete"
+	"github.com/kzahedi/goent/discrete/sparse"
 )
 
 // DiscreteAvgCalculationsSparse ...
@@ -55,7 +55,7 @@ func miwDiscreteAvgSparse(p Parameters, data Data) {
 		fmt.Println(p)
 	}
 
-	result := discrete.MorphologicalComputationWSparse(pw2w1a1)
+	result := sparse.MorphologicalComputationW(pw2w1a1)
 
 	writeOutputAvg(p, result, "MI_W discrete (sparse matrix)", output)
 }
@@ -72,7 +72,7 @@ func miaDiscreteAvgSparse(p Parameters, data Data) {
 		fmt.Println(p)
 	}
 
-	result := discrete.MorphologicalComputationASparse(pw2a1w1)
+	result := sparse.MorphologicalComputationA(pw2a1w1)
 
 	writeOutputAvg(p, result, "MI_A discrete (sparse matrix)", output)
 }
@@ -91,7 +91,7 @@ func miaPrimeDiscreteAvgSparse(p Parameters, data Data) {
 		fmt.Println(p)
 	}
 
-	result := 1.0 - discrete.MorphologicalComputationASparse(pw2a1w1)/math.Log2(float64(wBins))
+	result := 1.0 - sparse.MorphologicalComputationA(pw2a1w1)/math.Log2(float64(wBins))
 
 	writeOutputAvg(p, result, "MI_A_Prime discrete (sparse matrix)", output)
 }
@@ -109,7 +109,7 @@ func mimiDiscreteAvgSparse(p Parameters, data Data) {
 		fmt.Println(p)
 	}
 
-	result := discrete.MorphologicalComputationMISparse(pw2w1, pa1s1)
+	result := sparse.MorphologicalComputationMI(pw2w1, pa1s1)
 	writeOutputAvg(p, result, "MI_MI discrete (sparse matrix)", output)
 	// TODO: results look wrong
 }

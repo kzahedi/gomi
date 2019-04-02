@@ -1,9 +1,9 @@
-package state
+package sparse
 
 import (
 	"math"
 
-	"github.com/kzahedi/goent/discrete/state"
+	"github.com/kzahedi/goent/discrete/state/sparse"
 )
 
 // MorphologicalComputationW quantifies morphological computation as the information that is contained in
@@ -17,7 +17,7 @@ import (
 // http://journal.frontiersin.org/article/10.3389/frobt.2016.00042/full (open access)
 //   MC_W = I(W';W|A)
 func MorphologicalComputationW(w2w1a1 [][]int) []float64 {
-	return state.ConditionalMutualInformationBase2(w2w1a1)
+	return sparse.ConditionalMutualInformationBase2(w2w1a1)
 }
 
 // MorphologicalComputationA quantifies morphological computation as the information that is contained in
@@ -26,7 +26,7 @@ func MorphologicalComputationW(w2w1a1 [][]int) []float64 {
 // http://www.mdpi.com/1099-4300/15/5/1887 (open access)
 //   MC_W = I(W';A|W)
 func MorphologicalComputationA(w2a1w1 [][]int) []float64 {
-	return state.ConditionalMutualInformationBase2(w2a1w1)
+	return sparse.ConditionalMutualInformationBase2(w2a1w1)
 }
 
 // MorphologicalComputationCW quantifies morphological computation as the causal information flow from
@@ -43,8 +43,8 @@ func MorphologicalComputationCW(w2w1a1 [][]int) []float64 {
 		w2a1[i][0] = w2w1a1[i][0]
 		w2a1[i][1] = w2w1a1[i][2]
 	}
-	r1 := state.MutualInformationBase2(w2w1)
-	r2 := state.MutualInformationBase2(w2a1)
+	r1 := sparse.MutualInformationBase2(w2w1)
+	r2 := sparse.MutualInformationBase2(w2a1)
 	r := make([]float64, len(r1), len(r1))
 	for i := 0; i < len(r1); i++ {
 		r[i] = r1[i] - r2[i]
@@ -61,8 +61,8 @@ func MorphologicalComputationWA(w2w1a1 [][]int) []float64 {
 		w2a1[i][1] = w2w1a1[i][2]
 	}
 
-	r1 := state.ConditionalMutualInformationBase2(w2w1a1)
-	r2 := state.MutualInformationBase2(w2a1)
+	r1 := sparse.ConditionalMutualInformationBase2(w2w1a1)
+	r2 := sparse.MutualInformationBase2(w2a1)
 	r := make([]float64, len(w2w1a1), len(w2w1a1))
 
 	for i := 0; i < len(r1); i++ {
@@ -81,8 +81,8 @@ func MorphologicalComputationWS(w2w1s1 [][]int) []float64 {
 		w2s1[i][1] = w2w1s1[i][2]
 	}
 
-	r1 := state.ConditionalMutualInformationBase2(w2w1s1)
-	r2 := state.MutualInformationBase2(w2s1)
+	r1 := sparse.ConditionalMutualInformationBase2(w2w1s1)
+	r2 := sparse.MutualInformationBase2(w2s1)
 	r := make([]float64, len(w2w1s1), len(w2w1s1))
 
 	for i := 0; i < len(r1); i++ {
@@ -100,8 +100,8 @@ func MorphologicalComputationWS(w2w1s1 [][]int) []float64 {
 // http://journal.frontiersin.org/article/10.3389/frobt.2016.00042/full (open access)
 //   MC_MI = I(W';W) - I(A;S)
 func MorphologicalComputationMI(w2w1 [][]int, a1s1 [][]int) []float64 {
-	r1 := state.MutualInformationBase2(w2w1)
-	r2 := state.MutualInformationBase2(a1s1)
+	r1 := sparse.MutualInformationBase2(w2w1)
+	r2 := sparse.MutualInformationBase2(a1s1)
 	// fmt.Println(r1)
 	// fmt.Println(r2)
 	r := make([]float64, len(r1), len(r1))
@@ -115,8 +115,8 @@ func MorphologicalComputationMI(w2w1 [][]int, a1s1 [][]int) []float64 {
 // W to W' that does pass through A
 // MorphologicalComputationCW = CIF(W -> W') - CIF(A -> W') = I(W';W) - I(W'|A)
 func MorphologicalComputationCA(w2w1, w2a1 [][]int) []float64 {
-	r1 := state.MutualInformationBase2(w2w1)
-	r2 := state.MutualInformationBase2(w2a1)
+	r1 := sparse.MutualInformationBase2(w2w1)
+	r2 := sparse.MutualInformationBase2(w2a1)
 	n := len(r1)
 	r := make([]float64, n, n)
 	for i := 0; i < n; i++ {
@@ -128,7 +128,7 @@ func MorphologicalComputationCA(w2w1, w2a1 [][]int) []float64 {
 // MorphologicalComputationIN quantifies morphological computation as the in-sourcable
 // complexity of the world process.
 func MorphologicalComputationIN(a1s1 [][]int, abins int) []float64 {
-	r := state.MutualInformationBase2(a1s1)
+	r := sparse.MutualInformationBase2(a1s1)
 	l := math.Log2(float64(abins))
 	for i, v := range r {
 		r[i] = l - v

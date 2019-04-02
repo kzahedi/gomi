@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/kzahedi/gomi/discrete/state"
+	"github.com/kzahedi/goent/discrete/state/sparse"
 )
 
 // DiscreteSDCalculationsSparse ...
@@ -53,7 +53,7 @@ func miwDiscreteSDSparse(p Parameters, data Data) {
 		fmt.Println(p)
 	}
 
-	result := state.MorphologicalComputationWSparse(w2w1a1)
+	result := sparse.MorphologicalComputationW(w2w1a1)
 	writeOutputSD(p, result, "MI_W discrete (sparse matrix)", output)
 
 }
@@ -70,7 +70,7 @@ func miaDiscreteSDSparse(p Parameters, data Data) {
 		fmt.Println(p)
 	}
 
-	result := state.MorphologicalComputationASprase(w2a1w1)
+	result := sparse.MorphologicalComputationA(w2a1w1)
 	writeOutputSD(p, result, "MI_A discrete (sparse matrix)", output)
 }
 
@@ -89,7 +89,7 @@ func miaPrimeDiscreteSDSparse(p Parameters, data Data) {
 		fmt.Println(p)
 	}
 
-	result := state.MorphologicalComputationASparse(w2a1w1)
+	result := sparse.MorphologicalComputationA(w2a1w1)
 
 	for i, v := range result {
 		result[i] = 1.0 - v/z
@@ -111,7 +111,7 @@ func mimiDiscreteSDSparse(p Parameters, data Data) {
 		fmt.Println(p)
 	}
 
-	result := state.MorphologicalComputationMISparse(w2w1, a1s1)
+	result := sparse.MorphologicalComputationMI(w2w1, a1s1)
 	writeOutputSD(p, result, "MI_MI discrete (sparse matrix)", output)
 }
 
@@ -128,7 +128,7 @@ func micaDiscreteSDSparse(p Parameters, data Data) {
 		fmt.Println(p)
 	}
 
-	result := state.MorphologicalComputationCASparse(w2w1, w2a1)
+	result := sparse.MorphologicalComputationCA(w2w1, w2a1)
 	writeOutputSD(p, result, "MI_CA discrete (sparse matrix)", output)
 }
 
@@ -144,7 +144,7 @@ func miwaDiscreteSDSparse(p Parameters, data Data) {
 		fmt.Println(p)
 	}
 
-	result := state.MorphologicalComputationWASparse(w2w1a1)
+	result := sparse.MorphologicalComputationWA(w2w1a1)
 	writeOutputSD(p, result, "MI_WA discrete (sparse matrix)", output)
 
 }
@@ -161,7 +161,7 @@ func miwsDiscreteSDSparse(p Parameters, data Data) {
 		fmt.Println(p)
 	}
 
-	result := state.MorphologicalComputationWSSparse(w2w1s1)
+	result := sparse.MorphologicalComputationWS(w2w1s1)
 	writeOutputSD(p, result, "MI_WS discrete (sparse matrix)", output)
 }
 
@@ -178,7 +178,7 @@ func caDiscreteSDSparse(p Parameters, data Data) {
 		fmt.Println(p)
 	}
 
-	result := state.MorphologicalComputationCASparse(w2w1, w2a1)
+	result := sparse.MorphologicalComputationCA(w2w1, w2a1)
 	writeOutputSD(p, result, "MI_CA discrete (sparse matrix)", output)
 }
 
@@ -195,7 +195,7 @@ func miinDiscreteSDSparse(p Parameters, data Data) {
 		fmt.Println(p)
 	}
 
-	result := state.MorphologicalComputationINSparse(a1s1, aBins)
+	result := sparse.MorphologicalComputationIN(a1s1, aBins)
 	writeOutputSD(p, result, "MI_IN discrete (sparse matrix)", output)
 }
 
