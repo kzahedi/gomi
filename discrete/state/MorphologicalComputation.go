@@ -111,6 +111,25 @@ func MorphologicalComputationMI(w2w1 [][]int, a1s1 [][]int) []float64 {
 	return r
 }
 
+// MorphologicalComputationMISparse quantifies morphological computation as the information that is contained in
+// W about W' that is not contained in A. For more details, please read
+// K. Ghazi-Zahedi, D. F. Haeufle, G. F. Montufar, S. Schmitt, and N. Ay. Evaluating
+// morphological computation in muscle and dc-motor driven models of hopping movements.
+// Frontiers in Robotics and AI, 3(42), 2016.
+// http://journal.frontiersin.org/article/10.3389/frobt.2016.00042/full (open access)
+//   MC_MI = I(W';W) - I(A;S)
+func MorphologicalComputationMISparse(w2w1 [][]int, a1s1 [][]int) []float64 {
+	r1 := state.MutualInformationBase2Sparse(w2w1)
+	r2 := state.MutualInformationBase2Sparse(a1s1)
+	// fmt.Println(r1)
+	// fmt.Println(r2)
+	r := make([]float64, len(r1), len(r1))
+	for i := 0; i < len(r1); i++ {
+		r[i] = r1[i] - r2[i]
+	}
+	return r
+}
+
 // MorphologicalComputationCA quantifies morphological computation as the causal information flow from
 // W to W' that does pass through A
 // MorphologicalComputationCW = CIF(W -> W') - CIF(A -> W') = I(W';W) - I(W'|A)

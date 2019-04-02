@@ -3,6 +3,7 @@ package gomi
 import (
 	"github.com/kzahedi/goent/dh"
 	entropy "github.com/kzahedi/goent/discrete"
+	"github.com/kzahedi/goent/sm"
 )
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -59,6 +60,13 @@ func MakePW2W1A1(d Data, p Parameters) [][][]float64 {
 	return pw2w1a1
 }
 
+// MakePW2W1A1Sparse returns the joint distribution p(w',w,a) as SparseMatrix
+func MakePW2W1A1Sparse(d Data, p Parameters) sm.SparseMatrix {
+	w2w1a1 := MakeW2W1A1Discrete(d, p)
+	pw2w1a1 := entropy.Empirical3DSparse(w2w1a1)
+	return pw2w1a1
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // W2, A1, W1
 ////////////////////////////////////////////////////////////////////////////////
@@ -112,6 +120,13 @@ func MakePW2A1W1(d Data, p Parameters) [][][]float64 {
 	return pw2a1w1
 }
 
+// MakePW2A1W1Sparse return the joint distribution p(w',a,w)
+func MakePW2A1W1Sparse(d Data, p Parameters) sm.SparseMatrix {
+	w2a1w1 := MakeW2A1W1Discrete(d, p)
+	pw2a1w1 := entropy.Empirical3DSparse(w2a1w1)
+	return pw2a1w1
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // W2, W1
 ////////////////////////////////////////////////////////////////////////////////
@@ -150,6 +165,13 @@ func MakeW2W1Discrete(d Data, p Parameters) [][]int {
 func MakePW2W1(d Data, p Parameters) [][]float64 {
 	w2w1 := MakeW2W1Discrete(d, p)
 	pw2w1 := entropy.Empirical2D(w2w1)
+	return pw2w1
+}
+
+// MakePW2W1Sparse return the joint distribution p(w',w)
+func MakePW2W1Sparse(d Data, p Parameters) sm.SparseMatrix {
+	w2w1 := MakeW2W1Discrete(d, p)
+	pw2w1 := entropy.Empirical2DSparse(w2w1)
 	return pw2w1
 }
 
@@ -202,6 +224,13 @@ func MakeA1S1Discrete(d Data, p Parameters) [][]int {
 func MakePA1S1(d Data, p Parameters) [][]float64 {
 	a1s1 := MakeA1S1Discrete(d, p)
 	pa1s1 := entropy.Empirical2D(a1s1)
+	return pa1s1
+}
+
+// MakePA1S1Sparse return the joint distribution p(a,s)
+func MakePA1S1Sparse(d Data, p Parameters) sm.SparseMatrix {
+	a1s1 := MakeA1S1Discrete(d, p)
+	pa1s1 := entropy.Empirical2DSparse(a1s1)
 	return pa1s1
 }
 

@@ -83,9 +83,17 @@ func main() {
 		}
 	} else {
 		if p.UseStateDependent {
-			gomi.DiscreteSDCalculations(p, data)
+			if p.UseSparseMatrix {
+				gomi.DiscreteSDCalculationsSparse(p, data)
+			} else {
+				gomi.DiscreteSDCalculations(p, data)
+			}
 		} else {
-			gomi.DiscreteAvgCalculations(p, data)
+			if p.UseSparseMatrix {
+				gomi.DiscreteAvgCalculationsSparse(p, data)
+			} else {
+				gomi.DiscreteAvgCalculations(p, data)
+			}
 		}
 	}
 }
