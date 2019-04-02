@@ -7,17 +7,20 @@ import (
 	"time"
 )
 
+// OutputMinMax ...
 type OutputMinMax struct {
 	Min *[]float64 `json:"min,omitempty"`
 	Max *[]float64 `json:"max,omitempty"`
 }
 
+// OutputMeasureContinuous ...
 type OutputMeasureContinuous struct {
 	Mode          *int          `json:"mode,omitempty"`
 	K             *int          `json:"k,omitempty"`
 	Normalisation *OutputMinMax `json:"normalisation,omitempty"`
 }
 
+// OutputBins ...
 type OutputBins struct {
 	W      *[]int `json:"w,omitempty"`
 	S      *[]int `json:"s,omitempty"`
@@ -25,11 +28,13 @@ type OutputBins struct {
 	Global *int   `json:"global,omitempty"`
 }
 
+// OutputMeasureDiscrete ...
 type OutputMeasureDiscrete struct {
 	Iterations *int        `json:"iterations,omitempty"`
 	Bins       *OutputBins `json:"bins,omitempty"`
 }
 
+// OutputMeasure ...
 type OutputMeasure struct {
 	Name              *string                  `json:"name,omitempty"`
 	UseContinuous     *bool                    `json:"useContinuous,omitempty"`
@@ -38,11 +43,13 @@ type OutputMeasure struct {
 	Discrete          *OutputMeasureDiscrete   `json:"discrete,omitempty"`
 }
 
+// OutputResult ...
 type OutputResult struct {
 	Average   *float64   `json:"averaged,omitempty"`
 	PointWise *[]float64 `json:"point-wise,omitempty"`
 }
 
+// OutputDomainFile ...
 type OutputDomainFile struct {
 	Name     *string       `json:"name,omitempty"`
 	World    *OutputMinMax `json:"world,omitempty"`
@@ -50,6 +57,7 @@ type OutputDomainFile struct {
 	Actuator *OutputMinMax `json:"actuators,omitempty"`
 }
 
+// OutputDataFile ...
 type OutputDataFile struct {
 	Global *string           `json:"global,omitempty"`
 	W      *string           `json:"world,omitempty"`
@@ -58,17 +66,20 @@ type OutputDataFile struct {
 	Domain *OutputDomainFile `json:"domain,omitempty"`
 }
 
+// OutputDataIndices ...
 type OutputDataIndices struct {
 	W *[]int `json:"world,omitempty"`
 	S *[]int `json:"sensors,omitempty"`
 	A *[]int `json:"actuators,omitempty"`
 }
 
+// OutputData ...
 type OutputData struct {
 	File    *OutputDataFile    `json:"file,omitempty"`
 	Indices *OutputDataIndices `json:"indices,omitempty"`
 }
 
+// OutputDataRawNormalised ...
 type OutputDataRawNormalised struct {
 	Raw        *[][]float64 `json:"raw,omitempty"`
 	Normalised *[][]float64 `json:"normalised,omitempty"`
@@ -85,6 +96,7 @@ type Output struct {
 	W2W1S1A1 *OutputDataRawNormalised `json:"w2w1s1a1,omitempty"`
 }
 
+// CreateW2W1A1 ...
 func (o *Output) CreateW2W1A1() {
 	if o.W2W1A1 == nil {
 		var r OutputDataRawNormalised
@@ -92,16 +104,19 @@ func (o *Output) CreateW2W1A1() {
 	}
 }
 
+// SetW2W1A1Raw ...
 func (o *Output) SetW2W1A1Raw(data [][]float64) {
 	o.CreateW2W1A1()
 	o.W2W1A1.Raw = &data
 }
 
+// SetW2W1A1Normalised ...
 func (o *Output) SetW2W1A1Normalised(data [][]float64) {
 	o.CreateW2W1A1()
 	o.W2W1A1.Normalised = &data
 }
 
+// CreateW2W1S1A1 ...
 func (o *Output) CreateW2W1S1A1() {
 	if o.W2W1S1A1 == nil {
 		var r OutputDataRawNormalised
@@ -109,11 +124,13 @@ func (o *Output) CreateW2W1S1A1() {
 	}
 }
 
+// SetW2W1S1A1Raw ...
 func (o *Output) SetW2W1S1A1Raw(data [][]float64) {
 	o.CreateW2W1S1A1()
 	o.W2W1S1A1.Raw = &data
 }
 
+// SetW2W1S1A1Normalised ...
 func (o *Output) SetW2W1S1A1Normalised(data [][]float64) {
 	o.CreateW2W1S1A1()
 	o.W2W1S1A1.Normalised = &data
@@ -130,6 +147,7 @@ func (o Output) ExportJSON(filename string) {
 	f.Write(bytes)
 }
 
+// CreateResults ...
 func (o *Output) CreateResults() {
 	if o.Result == nil {
 		var r OutputResult
@@ -137,18 +155,19 @@ func (o *Output) CreateResults() {
 	}
 }
 
-// SetName sets the name
+// SetAvgResult sets the name
 func (o *Output) SetAvgResult(r float64) {
 	o.CreateResults()
 	o.Result.Average = &r
 }
 
-// SetPointWise sets the name
+// SetPointWiseResult sets the name
 func (o *Output) SetPointWiseResult(r []float64) {
 	o.CreateResults()
 	o.Result.PointWise = &r
 }
 
+// CreateMeasure ...
 func (o *Output) CreateMeasure() {
 	if o.Measure == nil {
 		var m OutputMeasure
@@ -174,6 +193,7 @@ func (o *Output) SetUseStateDependent(b bool) {
 	o.Measure.UseStateDependent = &b
 }
 
+// CreateBins ...
 func (o *Output) CreateBins() {
 	if o.Measure == nil {
 		var m OutputMeasure
@@ -189,6 +209,7 @@ func (o *Output) CreateBins() {
 	}
 }
 
+// SetABins ...
 func (o *Output) SetABins(bins []int) {
 	if len(bins) == 0 {
 		return
@@ -197,6 +218,7 @@ func (o *Output) SetABins(bins []int) {
 	o.Measure.Discrete.Bins.A = &bins
 }
 
+// SetWBins ...
 func (o *Output) SetWBins(bins []int) {
 	if len(bins) == 0 {
 		return
@@ -205,6 +227,7 @@ func (o *Output) SetWBins(bins []int) {
 	o.Measure.Discrete.Bins.W = &bins
 }
 
+// SetSBins ...
 func (o *Output) SetSBins(bins []int) {
 	if len(bins) == 0 {
 		return
@@ -213,6 +236,7 @@ func (o *Output) SetSBins(bins []int) {
 	o.Measure.Discrete.Bins.S = &bins
 }
 
+// SetGlobalBins ...
 func (o *Output) SetGlobalBins(bins int) {
 	if bins == 0 {
 		return
@@ -221,6 +245,7 @@ func (o *Output) SetGlobalBins(bins int) {
 	o.Measure.Discrete.Bins.Global = &bins
 }
 
+// CreateMeasureDiscrete ...
 func (o *Output) CreateMeasureDiscrete() {
 	o.CreateMeasure()
 	if o.Measure.Discrete == nil {
@@ -229,6 +254,7 @@ func (o *Output) CreateMeasureDiscrete() {
 	}
 }
 
+// SetIterations ...
 func (o *Output) SetIterations(iterations int) {
 	if iterations == 0 {
 		return
@@ -237,6 +263,7 @@ func (o *Output) SetIterations(iterations int) {
 	o.Measure.Discrete.Iterations = &iterations
 }
 
+// SetNormalisation ...
 func (o *Output) SetNormalisation(min, max []float64) {
 	if len(min) == 0 && len(max) == 0 {
 		fmt.Println("end end")
@@ -251,6 +278,7 @@ func (o *Output) SetNormalisation(min, max []float64) {
 	}
 }
 
+// CreateMinMax ...
 func (o *Output) CreateMinMax() {
 	o.CreateContinuous()
 	if o.Measure.Continuous.Normalisation == nil {
@@ -259,6 +287,7 @@ func (o *Output) CreateMinMax() {
 	}
 }
 
+// CreateContinuous ...
 func (o *Output) CreateContinuous() {
 	o.CreateMeasure()
 	if o.Measure.Continuous == nil {
@@ -267,6 +296,7 @@ func (o *Output) CreateContinuous() {
 	}
 }
 
+// SetK ...
 func (o *Output) SetK(k int) {
 	if k == 0 {
 		return
@@ -275,11 +305,13 @@ func (o *Output) SetK(k int) {
 	o.Measure.Continuous.K = &k
 }
 
+// SetContinuousMode ...
 func (o *Output) SetContinuousMode(mode int) {
 	o.CreateContinuous()
 	o.Measure.Continuous.Mode = &mode
 }
 
+// SetGlobalFile ...
 func (o *Output) SetGlobalFile(name string) {
 	if name == "" {
 		return
@@ -288,6 +320,7 @@ func (o *Output) SetGlobalFile(name string) {
 	o.Data.File.Global = &name
 }
 
+// SetWFile ...
 func (o *Output) SetWFile(name string) {
 	if name == "" {
 		return
@@ -296,6 +329,7 @@ func (o *Output) SetWFile(name string) {
 	o.Data.File.W = &name
 }
 
+// SetAFile ...
 func (o *Output) SetAFile(name string) {
 	if name == "" {
 		return
@@ -304,6 +338,7 @@ func (o *Output) SetAFile(name string) {
 	o.Data.File.A = &name
 }
 
+// SetSFile ...
 func (o *Output) SetSFile(name string) {
 	if name == "" {
 		return
@@ -312,6 +347,7 @@ func (o *Output) SetSFile(name string) {
 	o.Data.File.S = &name
 }
 
+// CreateData ...
 func (o *Output) CreateData() {
 	if o.Data == nil {
 		d := OutputData{}
@@ -319,6 +355,7 @@ func (o *Output) CreateData() {
 	}
 }
 
+// CreateDataFile ...
 func (o *Output) CreateDataFile() {
 	o.CreateData()
 	if o.Data.File == nil {
@@ -327,6 +364,7 @@ func (o *Output) CreateDataFile() {
 	}
 }
 
+// CreateDomainFile ...
 func (o *Output) CreateDomainFile() {
 	o.CreateDataFile()
 	if o.Data.File.Domain == nil {
@@ -335,6 +373,7 @@ func (o *Output) CreateDomainFile() {
 	}
 }
 
+// CreateDomainWFile ...
 func (o *Output) CreateDomainWFile() {
 	o.CreateDomainFile()
 	if o.Data.File.Domain.World == nil {
@@ -343,6 +382,7 @@ func (o *Output) CreateDomainWFile() {
 	}
 }
 
+// CreateDomainSFile ...
 func (o *Output) CreateDomainSFile() {
 	o.CreateDomainFile()
 	if o.Data.File.Domain.Sensor == nil {
@@ -351,6 +391,7 @@ func (o *Output) CreateDomainSFile() {
 	}
 }
 
+// CreateDomainAFile ...
 func (o *Output) CreateDomainAFile() {
 	o.CreateDomainFile()
 	if o.Data.File.Domain.Actuator == nil {
@@ -359,6 +400,7 @@ func (o *Output) CreateDomainAFile() {
 	}
 }
 
+// CreateDataIndices ...
 func (o *Output) CreateDataIndices() {
 	o.CreateData()
 	if o.Data.Indices == nil {
@@ -367,6 +409,7 @@ func (o *Output) CreateDataIndices() {
 	}
 }
 
+// SetWIndices ...
 func (o *Output) SetWIndices(indices []int) {
 	if len(indices) == 0 {
 		return
@@ -375,6 +418,7 @@ func (o *Output) SetWIndices(indices []int) {
 	o.Data.Indices.W = &indices
 }
 
+// SetAIndices ...
 func (o *Output) SetAIndices(indices []int) {
 	if len(indices) == 0 {
 		return
@@ -383,6 +427,7 @@ func (o *Output) SetAIndices(indices []int) {
 	o.Data.Indices.A = &indices
 }
 
+// SetSIndices ...
 func (o *Output) SetSIndices(indices []int) {
 	if len(indices) == 0 {
 		return
@@ -391,6 +436,7 @@ func (o *Output) SetSIndices(indices []int) {
 	o.Data.Indices.S = &indices
 }
 
+// SetDomainAMinMax ...
 func (o *Output) SetDomainAMinMax(min, max []float64) {
 	if len(min) == 0 && len(max) == 0 {
 		return
@@ -404,6 +450,7 @@ func (o *Output) SetDomainAMinMax(min, max []float64) {
 	}
 }
 
+// SetDomainWMinMax ...
 func (o *Output) SetDomainWMinMax(min, max []float64) {
 	if len(min) == 0 && len(max) == 0 {
 		return
@@ -417,6 +464,7 @@ func (o *Output) SetDomainWMinMax(min, max []float64) {
 	}
 }
 
+// SetDomainSMinMax ...
 func (o *Output) SetDomainSMinMax(min, max []float64) {
 	if len(min) == 0 && len(max) == 0 {
 		return
@@ -430,6 +478,7 @@ func (o *Output) SetDomainSMinMax(min, max []float64) {
 	}
 }
 
+// SetDomainName ...
 func (o *Output) SetDomainName(name string) {
 	if name == "" {
 		return
@@ -438,6 +487,7 @@ func (o *Output) SetDomainName(name string) {
 	o.Data.File.Domain.Name = &name
 }
 
+// SetDate ...
 func (o *Output) SetDate() {
 	o.CreateMeasure()
 	s := time.Now().Format("2006-01-02 15:04:05")

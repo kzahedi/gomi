@@ -7,6 +7,7 @@ import (
 	"github.com/kzahedi/gomi/discrete/state"
 )
 
+// DiscreteSDCalculations ...
 func DiscreteSDCalculations(p Parameters, d Data) {
 	switch p.MeasureName {
 	case "MI_W":

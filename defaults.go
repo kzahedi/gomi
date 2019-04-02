@@ -3,6 +3,7 @@ package gomi
 const (
 	defaultMeasure           = "MI_W"
 	defaultUseContinuous     = false
+	defaultUseSparse         = false
 	defaultContinuousMode    = 1
 	defaultUseStateDependent = false
 	defaultBins              = 0

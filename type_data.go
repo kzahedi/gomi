@@ -52,37 +52,37 @@ func (d Data) String() string {
 func (d *Data) Read(p Parameters) {
 	if p.GlobalFile != "" {
 		data, _ := utils.ReadFloatCsv(p.GlobalFile)
-		var wdata [][]float64
-		var sdata [][]float64
-		var adata [][]float64
+		var wData [][]float64
+		var sData [][]float64
+		var aData [][]float64
 		if len(p.WIndices) > 0 {
-			wdata = utils.GetFloatColumns(data, p.WIndices)
+			wData = utils.GetFloatColumns(data, p.WIndices)
 		}
 		if len(p.SIndices) > 0 {
-			sdata = utils.GetFloatColumns(data, p.SIndices)
+			sData = utils.GetFloatColumns(data, p.SIndices)
 		}
 		if len(p.AIndices) > 0 {
-			adata = utils.GetFloatColumns(data, p.AIndices)
+			aData = utils.GetFloatColumns(data, p.AIndices)
 		}
-		d.W = wdata
-		d.S = sdata
-		d.A = adata
+		d.W = wData
+		d.S = sData
+		d.A = aData
 		return
 	}
 
 	if p.WFile != "" {
-		wdata, _ := utils.ReadFloatCsv(p.WFile)
-		d.W = wdata
+		wData, _ := utils.ReadFloatCsv(p.WFile)
+		d.W = wData
 	}
 
 	if p.AFile != "" {
-		adata, _ := utils.ReadFloatCsv(p.AFile)
-		d.A = adata
+		aData, _ := utils.ReadFloatCsv(p.AFile)
+		d.A = aData
 	}
 
 	if p.SFile != "" {
-		sdata, _ := utils.ReadFloatCsv(p.SFile)
-		d.S = sdata
+		sData, _ := utils.ReadFloatCsv(p.SFile)
+		d.S = sData
 	}
 }
 
@@ -114,6 +114,7 @@ func (d *Data) Discretise(p Parameters) {
 	}
 }
 
+// ClearContinuousData ...
 func (d *Data) ClearContinuousData() {
 	d.W = make([][]float64, 0, 0)
 	d.S = make([][]float64, 0, 0)

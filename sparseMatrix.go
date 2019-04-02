@@ -84,7 +84,7 @@ func (s SparseMatrix) Scale(value float64) {
 	}
 }
 
-// Equal returns true if equal, false if not eual
+// Equal returns true if equal, false if not equal
 func (s SparseMatrix) Equal(other SparseMatrix) bool {
 	if len(s.Indices) != len(other.Indices) {
 		return false

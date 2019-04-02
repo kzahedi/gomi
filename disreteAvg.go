@@ -7,6 +7,7 @@ import (
 	"github.com/kzahedi/gomi/discrete"
 )
 
+// DiscreteAvgCalculations ...
 func DiscreteAvgCalculations(p Parameters, d Data) {
 	switch p.MeasureName {
 	case "MI_W":

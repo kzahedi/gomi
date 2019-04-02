@@ -31,6 +31,7 @@ func main() {
 	aFilePtr := flag.String("afile", "", "File that contains A data set.")
 	sFilePtr := flag.String("sfile", "", "File that contains S data set.")
 	dFilePtr := flag.String("dfile", "", "File (yaml) that contains all min, max values for W, S, A (optional)")
+	sparsePtr := flag.Bool("sparse", false, "Use Sparse Matrix Implementation")
 	knnPtr := flag.Int("k", 30, "k used for KSG and FP estimators")
 	flag.Parse()
 
@@ -66,6 +67,7 @@ func main() {
 	p.SetDFile(*dFilePtr)
 	p.SetIterations(*iterationsPtr)
 	p.SetLogData(*logPtr)
+	p.SetUseSparseMatrix(*sparsePtr)
 
 	p.CheckParameters()
 

@@ -160,6 +160,7 @@ func MakeW2W1S1(d Data, p Parameters) ([][]float64, []int, []int, []int) {
 	return w2w1s1, w2indices, w1indices, s1indices
 }
 
+// NormaliseContinuousData ...
 func NormaliseContinuousData(data [][]float64, minArray, maxArray [][]float64, p *Parameters) [][]float64 {
 
 	var min []float64
@@ -179,6 +180,7 @@ func NormaliseContinuousData(data [][]float64, minArray, maxArray [][]float64, p
 	return goent.NormaliseByDomain(data, min, max, p.Verbose)
 }
 
+// NormaliseContinuousDataByColumn ...
 func NormaliseContinuousDataByColumn(data [][]float64, p *Parameters) [][]float64 {
 
 	r, min, max := goent.Normalise(data, p.Verbose)

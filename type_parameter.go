@@ -8,6 +8,7 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
+// Parameters ...
 type Parameters struct {
 	MeasureName       string
 	Output            string
@@ -16,6 +17,7 @@ type Parameters struct {
 	UseStateDependent bool
 	Verbose           bool
 	LogData           bool
+	UseSparseMatrix   bool
 	ContinuousMode    int
 	K                 int
 	GlobalBins        int
@@ -41,12 +43,14 @@ type Parameters struct {
 	NormalisationMax  []float64
 }
 
+// GenerateString ...
 func (p Parameters) GenerateString(prefix string) string {
 	s := fmt.Sprintf("%sMeasure: %s", prefix, p.MeasureName)
 	s = fmt.Sprintf("%s\n%sOutput:                    %s", s, prefix, p.Output)
 	s = fmt.Sprintf("%s\n%sConfig file:               %s", s, prefix, p.ConfigFile)
 	s = fmt.Sprintf("%s\n%sUse state-dependent:       %t", s, prefix, p.UseStateDependent)
 	s = fmt.Sprintf("%s\n%sUse continuous:            %t", s, prefix, p.UseContinuous)
+	s = fmt.Sprintf("%s\n%sUse sparse matrix:         %t", s, prefix, p.UseSparseMatrix)
 	s = fmt.Sprintf("%s\n%sVerbose:                   %t", s, prefix, p.Verbose)
 	s = fmt.Sprintf("%s\n%sLog converted data:        %t", s, prefix, p.LogData)
 	s = fmt.Sprintf("%s\n%sContinuous Mode:           %d", s, prefix, p.ContinuousMode)
@@ -74,14 +78,17 @@ func (p Parameters) GenerateString(prefix string) string {
 	return s
 }
 
+// String ...
 func (p Parameters) String() string {
 	return p.GenerateString("")
 }
 
+// CreateParametersContainer ...
 func CreateParametersContainer() Parameters {
 	return Parameters{MeasureName: defaultMeasure,
 		UseContinuous:     defaultUseContinuous,
 		UseStateDependent: defaultUseStateDependent,
+		UseSparseMatrix:   false,
 		Verbose:           false,
 		LogData:           false,
 		K:                 defaultK,
@@ -115,88 +122,110 @@ func (p *Parameters) SetMeasureName(name string) {
 	}
 }
 
+// SetUseStateDependent ...
 func (p *Parameters) SetUseStateDependent(b bool) {
 	if b != defaultUseStateDependent {
 		p.UseStateDependent = b
 	}
 }
 
+// SetUseContinuous ...
 func (p *Parameters) SetUseContinuous(b bool) {
 	if b != defaultUseContinuous {
 		p.UseContinuous = b
 	}
 }
 
+// SetUseSparseMatrix ...
+func (p *Parameters) SetUseSparseMatrix(b bool) {
+	if b != defaultUseSparse {
+		p.UseStateDependent = b
+	}
+}
+
+// SetWBins ...
 func (p *Parameters) SetWBins(wBins string) {
 	if wBins != "" {
 		p.WBins = parseIntString(wBins)
 	}
 }
 
+// SetSBins ...
 func (p *Parameters) SetSBins(sBins string) {
 	if sBins != "" {
 		p.SBins = parseIntString(sBins)
 	}
 }
 
+// SetABins ...
 func (p *Parameters) SetABins(aBins string) {
 	if aBins != "" {
 		p.ABins = parseIntString(aBins)
 	}
 }
 
+// SetWIndices ...
 func (p *Parameters) SetWIndices(wIndices string) {
 	if wIndices != "" {
 		p.WIndices = parseIntString(wIndices)
 	}
 }
 
+// SetSIndices ...
 func (p *Parameters) SetSIndices(wIndices string) {
 	if wIndices != "" {
 		p.SIndices = parseIntString(wIndices)
 	}
 }
 
+// SetAIndices ...
 func (p *Parameters) SetAIndices(wIndices string) {
 	if wIndices != "" {
 		p.AIndices = parseIntString(wIndices)
 	}
 }
 
+// SetGlobalBins ...
 func (p *Parameters) SetGlobalBins(bins int) {
 	if bins != defaultBins {
 		p.GlobalBins = bins
 	}
 }
 
+// SetGlobalFile ...
 func (p *Parameters) SetGlobalFile(file string) {
 	if file != defaultFile {
 		p.GlobalFile = file
 	}
 }
 
+// SetWFile ...
 func (p *Parameters) SetWFile(file string) {
 	if file != defaultWFile {
 		p.WFile = file
 	}
 }
 
+// SetSFile ...
 func (p *Parameters) SetSFile(file string) {
 	if file != defaultSFile {
 		p.SFile = file
 	}
 }
 
+// SetAFile ...
 func (p *Parameters) SetAFile(file string) {
 	if file != defaultFile {
 		p.AFile = file
 	}
 }
 
+// SetLogData ...
 func (p *Parameters) SetLogData(log bool) {
 	p.LogData = log
 }
 
+// SetIterations ...
 func (p *Parameters) SetIterations(iterations int) {
 	if iterations != defaultIterations {
 		p.Iterations = iterations
@@ -212,6 +241,7 @@ type domainCfg struct {
 	ActuatorMax []float64 `yaml:"A max"`
 }
 
+// SetDFile ...
 func (p *Parameters) SetDFile(file string) {
 	p.DFile = file
 	if p.DFile == "" {
@@ -240,37 +270,45 @@ func (p *Parameters) SetDFile(file string) {
 	p.ActuatorMax = t.ActuatorMax
 }
 
+// SetWMinMax ...
 func (p *Parameters) SetWMinMax(min []float64, max []float64) {
 	p.WorldMin = min
 	p.WorldMax = max
 }
 
+// SetSMinMax ...
 func (p *Parameters) SetSMinMax(min []float64, max []float64) {
 	p.SensorMin = min
 	p.SensorMax = max
 }
 
+// SetAMinMax ...
 func (p *Parameters) SetAMinMax(min []float64, max []float64) {
 	p.ActuatorMin = min
 	p.ActuatorMax = max
 }
 
+// SetK ...
 func (p *Parameters) SetK(k int) {
 	p.K = k
 }
 
+// SetOutput ...
 func (p *Parameters) SetOutput(output string) {
 	p.Output = output
 }
 
+// SetVerbose ...
 func (p *Parameters) SetVerbose(verbose bool) {
 	p.Verbose = verbose
 }
 
+// SetContinuousMode ...
 func (p *Parameters) SetContinuousMode(cm int) {
 	p.ContinuousMode = cm
 }
 
+// CfgT ...
 type CfgT struct {
 	Measure        string `yaml:"Measure"`
 	Continuous     bool   `yaml:"Continuous"`
@@ -294,6 +332,7 @@ type CfgT struct {
 	DFile          string `yaml:"Domain file"`
 }
 
+// SetConfigFile ..
 func (p *Parameters) SetConfigFile(file string) {
 	p.ConfigFile = file
 	if p.ConfigFile == "" {
