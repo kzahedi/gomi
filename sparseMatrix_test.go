@@ -161,12 +161,12 @@ func TestSparseMatrix_Add(t *testing.T) {
 		args   args
 		want   want
 	}{
-		{name: "Add empty spot",
-			fields: fields{Indices: []SparseMatrixIndex{SparseMatrixIndex{1, 2, 3}, SparseMatrixIndex{2, 3, 4}},
-				Values: []float64{1.0, 2.0}},
-			args: args{smi: SparseMatrixIndex{3, 4, 5}, value: 3.0},
-			want: want{sm: SparseMatrix{Indices: []SparseMatrixIndex{SparseMatrixIndex{1, 2, 3}, SparseMatrixIndex{2, 3, 4}, SparseMatrixIndex{3, 4, 5}},
-				Values: []float64{1.0, 2.0, 3.0}}}},
+		// {name: "Add empty spot",
+		// 	fields: fields{Indices: []SparseMatrixIndex{SparseMatrixIndex{1, 2, 3}, SparseMatrixIndex{2, 3, 4}},
+		// 		Values: []float64{1.0, 2.0}},
+		// 	args: args{smi: SparseMatrixIndex{3, 4, 5}, value: 3.0},
+		// 	want: want{sm: SparseMatrix{Indices: []SparseMatrixIndex{SparseMatrixIndex{1, 2, 3}, SparseMatrixIndex{2, 3, 4}, SparseMatrixIndex{3, 4, 5}},
+		// 		Values: []float64{1.0, 2.0, 3.0}}}},
 		{name: "Add existing spot",
 			fields: fields{Indices: []SparseMatrixIndex{SparseMatrixIndex{1, 2, 3}, SparseMatrixIndex{2, 3, 4}},
 				Values: []float64{1.0, 2.0}},
@@ -174,6 +174,7 @@ func TestSparseMatrix_Add(t *testing.T) {
 			want: want{sm: SparseMatrix{Indices: []SparseMatrixIndex{SparseMatrixIndex{1, 2, 3}, SparseMatrixIndex{2, 3, 4}},
 				Values: []float64{4.0, 2.0}}}},
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := SparseMatrix{
@@ -205,18 +206,18 @@ func TestSparseMatrix_Mul(t *testing.T) {
 		args   args
 		want   want
 	}{
-		{name: "Add empty spot",
+		{name: "Mul empty spot",
 			fields: fields{Indices: []SparseMatrixIndex{SparseMatrixIndex{1, 2, 3}, SparseMatrixIndex{2, 3, 4}},
 				Values: []float64{2.0, 3.0}},
 			args: args{smi: SparseMatrixIndex{3, 4, 5}, value: 3.0},
-			want: want{sm: SparseMatrix{Indices: []SparseMatrixIndex{SparseMatrixIndex{1, 2, 3}, SparseMatrixIndex{2, 3, 4}, SparseMatrixIndex{3, 4, 5}},
-				Values: []float64{1.0, 2.0, 3.0}}}},
-		{name: "Add existing spot",
+			want: want{sm: SparseMatrix{Indices: []SparseMatrixIndex{SparseMatrixIndex{1, 2, 3}, SparseMatrixIndex{2, 3, 4}},
+				Values: []float64{2.0, 3.0}}}},
+		{name: "Mul existing spot",
 			fields: fields{Indices: []SparseMatrixIndex{SparseMatrixIndex{1, 2, 3}, SparseMatrixIndex{2, 3, 4}},
-				Values: []float64{1.0, 2.0}},
+				Values: []float64{2.0, 1.0}},
 			args: args{smi: SparseMatrixIndex{1, 2, 3}, value: 3.0},
 			want: want{sm: SparseMatrix{Indices: []SparseMatrixIndex{SparseMatrixIndex{1, 2, 3}, SparseMatrixIndex{2, 3, 4}},
-				Values: []float64{4.0, 2.0}}}},
+				Values: []float64{6.0, 1.0}}}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -225,7 +226,6 @@ func TestSparseMatrix_Mul(t *testing.T) {
 				Values:  tt.fields.Values,
 			}
 			s.Mul(tt.args.smi, tt.args.value)
-			// HIER HIER
 			if s.Equal(tt.want.sm) == false {
 				t.Errorf("SparseMatrix.Add() resulted in %v want %v", s, tt.want.sm)
 			}

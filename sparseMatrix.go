@@ -61,6 +61,7 @@ func (s *SparseMatrix) Add(smi SparseMatrixIndex, value float64) {
 			return
 		}
 	}
+	// will only be called if the value was not previously present
 	s.Indices = append(s.Indices, smi)
 	s.Values = append(s.Values, value)
 }
@@ -73,6 +74,7 @@ func (s SparseMatrix) Mul(smi SparseMatrixIndex, value float64) {
 			return
 		}
 	}
+	// else 0 * value = 0, nothing will change
 }
 
 // Scale multiplies the value to all cells
