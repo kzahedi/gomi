@@ -139,7 +139,7 @@ func (p *Parameters) SetUseContinuous(b bool) {
 // SetUseSparseMatrix ...
 func (p *Parameters) SetUseSparseMatrix(b bool) {
 	if b != defaultUseSparse {
-		p.UseStateDependent = b
+		p.UseSparseMatrix = b
 	}
 }
 

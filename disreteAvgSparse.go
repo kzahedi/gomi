@@ -46,7 +46,7 @@ func DiscreteAvgCalculationsSparse(p Parameters, d Data) {
 func miwDiscreteAvgSparse(p Parameters, data Data) {
 	var output Output
 	if p.Verbose {
-		fmt.Println("MI_W Discrete Avg")
+		fmt.Println("MI_W Discrete Avg - Sparse Matrix")
 	}
 
 	pw2w1a1 := MakePW2W1A1Sparse(data, p)

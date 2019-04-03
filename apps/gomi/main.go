@@ -75,25 +75,24 @@ func main() {
 
 	data.Read(p)
 
-	if p.UseContinuous {
-		if p.UseStateDependent {
-			gomi.ContinuousSDCalculations(p, data)
-		} else {
-			gomi.ContinuousAvgCalculations(p, data)
-		}
-	} else {
-		if p.UseStateDependent {
-			if p.UseSparseMatrix {
-				gomi.DiscreteSDCalculationsSparse(p, data)
-			} else {
-				gomi.DiscreteSDCalculations(p, data)
-			}
-		} else {
-			if p.UseSparseMatrix {
-				gomi.DiscreteAvgCalculationsSparse(p, data)
-			} else {
-				gomi.DiscreteAvgCalculations(p, data)
-			}
-		}
+	if p.UseContinuous == true && p.UseStateDependent == true {
+		gomi.ContinuousSDCalculations(p, data)
+	}
+	if p.UseContinuous == true && p.UseStateDependent == false {
+		gomi.ContinuousAvgCalculations(p, data)
+	}
+
+	if p.UseContinuous == false && p.UseSparseMatrix == true && p.UseStateDependent == false {
+		gomi.DiscreteAvgCalculationsSparse(p, data)
+	}
+	if p.UseContinuous == false && p.UseSparseMatrix == true && p.UseStateDependent == true {
+		gomi.DiscreteSDCalculationsSparse(p, data)
+	}
+
+	if p.UseContinuous == false && p.UseSparseMatrix == false && p.UseStateDependent == false {
+		gomi.DiscreteAvgCalculations(p, data)
+	}
+	if p.UseContinuous == false && p.UseSparseMatrix == false && p.UseStateDependent == true {
+		gomi.DiscreteSDCalculations(p, data)
 	}
 }
